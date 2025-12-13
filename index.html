@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YVAPE - Youth Vaping Alternative Program Education. Free educational intervention for California students found with nicotine or marijuana at school.">
+    <title>YVAPE - Youth Vaping Alternative Program Education</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+    </button>
+
+    <!-- Popup Link -->
+    <a href="https://ingramjam.github.io/quit-journey/demo-pixel.html" class="popup-link" target="_blank">View Pixel Demo</a>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo">
+                    <img src="images/yvape_logo.png" alt="YVAPE Logo" class="logo-img">
+                </a>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#benefits">Benefits</a></li>
+                    <li><a href="videos.html">Videos</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="es/index.html" class="lang-toggle">ES</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <video class="hero-background-video" autoplay loop muted playsinline>
+            <source src="https://yvape.org/static/media/video/YVAPE%20Promo%20-%20Final%202024.mp4" type="video/mp4">
+        </video>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Youth Vaping Alternative Program Education</h1>
+                <p class="hero-subtitle">YVAPE is a <strong>FREE</strong> educational intervention program that serves as an alternative to suspension, providing phone and video coaching support to students who have been found with nicotine or marijuana at school.</p>
+                <div class="hero-cta">
+                    <a href="#enrollment-form" class="btn btn-primary btn-lg">Start Enrollment</a>
+                    <a href="#how-it-works" class="btn btn-secondary btn-lg">Learn More</a>
+                </div>
+                <p class="hero-note">Available to California public schools with students 12 years and older</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enrollment Form Section -->
+    <section id="enrollment-form" class="enrollment-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Start Here</h2>
+                <p class="subtitle">Select your role to begin the enrollment process</p>
+            </div>
+
+            <!-- User Type Selection -->
+            <div class="user-type-selector" id="userTypeSelector">
+                <div class="user-type-grid">
+                    <button class="user-type-card" data-type="school-personnel">
+                        <div class="icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3>School Personnel</h3>
+                        <p>Enroll students or request more information</p>
+                    </button>
+                    <button class="user-type-card" data-type="parent">
+                        <div class="icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <h3>Parent/Guardian</h3>
+                        <p>Provide consent for your child</p>
+                    </button>
+                    <button class="user-type-card" data-type="student">
+                        <div class="icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <h3>Student</h3>
+                        <p>Complete your YVAPE program</p>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Multi-Step Form -->
+            <div class="form-container" id="formContainer" style="display: none;">
+                <div class="form-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-steps" id="progressSteps"></div>
+                </div>
+
+                <form id="enrollmentForm" class="enrollment-form">
+                    <!-- Form steps will be dynamically inserted here -->
+                </form>
+
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">Previous</button>
+                    <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">Submit</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>How YVAPE Works</h2>
+                <p class="subtitle">A simple, supportive process designed to help students</p>
+            </div>
+
+            <div class="how-it-works-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="school">School Personnel</button>
+                    <button class="tab-btn" data-tab="parent">Parent/Guardian</button>
+                    <button class="tab-btn" data-tab="student">Student</button>
+                </div>
+
+                <div class="tab-content">
+                    <div class="tab-panel active" id="school-tab">
+                        <h3>For a Student to be Eligible:</h3>
+                        <ul class="checklist">
+                            <li>Student must attend a California public school</li>
+                            <li>Student must be 12 years or older</li>
+                            <li>Student was found with nicotine or marijuana at school</li>
+                            <li>School personnel submits enrollment information</li>
+                            <li>Parent/guardian provides verbal consent (if under 18)</li>
+                            <li>Student provides verbal consent to participate</li>
+                        </ul>
+                        <a href="#enrollment-form" class="btn btn-primary">Enroll a Student</a>
+                    </div>
+
+                    <div class="tab-panel" id="parent-tab">
+                        <h3>Provide Verbal Consent if Your Child is Younger Than 18:</h3>
+                        <ul class="checklist">
+                            <li>A YVAPE coach will call you to explain the program</li>
+                            <li>You'll have the opportunity to ask questions</li>
+                            <li>Provide verbal consent for your child to participate</li>
+                            <li>Your child will then be contacted to begin the program</li>
+                            <li>All conversations are confidential and supportive</li>
+                        </ul>
+                        <a href="#enrollment-form" class="btn btn-primary">Start Process</a>
+                    </div>
+
+                    <div class="tab-panel" id="student-tab">
+                        <h3>Provide Verbal Consent to Participate:</h3>
+                        <ul class="checklist">
+                            <li>A YVAPE coach will reach out to you</li>
+                            <li>Learn about the program and what to expect</li>
+                            <li>Provide your consent to participate</li>
+                            <li>Watch educational videos at your own pace</li>
+                            <li>Schedule coaching sessions that work for you</li>
+                            <li>Complete the program and receive a certificate</li>
+                        </ul>
+                        <p class="note">*While YVAPE is not a cessation program, students who want help quitting tobacco can be enrolled in <a href="https://kickitca.org/quit-vaping" target="_blank">Kick It California's tobacco cessation services</a>.</p>
+                        <a href="#enrollment-form" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>What Students Are Saying</h2>
+                <p class="subtitle">Real feedback from students who completed YVAPE</p>
+            </div>
+
+            <div class="testimonial-slider">
+                <button class="slider-btn prev" id="prevTestimonial" aria-label="Previous testimonial">‹</button>
+                <div class="testimonial-track" id="testimonialTrack">
+                    <div class="testimonial-card">
+                        <div class="quote-icon">❝</div>
+                        <p>"Most students who completed YVAPE said that talking to the coaches was helpful and they learned something from the videos."</p>
+                        <div class="student-info">
+                            <p class="student-name">— YVAPE Student</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="quote-icon">❝</div>
+                        <p>"Our students have given us positive feedback re: your program. In some cases, students who have not been caught vaping have actually asked us if they could participate in the program because they have heard good things about it, and they are very aware that they need some help!"</p>
+                        <div class="student-info">
+                            <p class="student-name">— School Administrator</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="slider-btn next" id="nextTestimonial" aria-label="Next testimonial">›</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="benefits-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Benefits of YVAPE</h2>
+                <p class="subtitle">Comprehensive support at no cost to schools</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                        </svg>
+                    </div>
+                    <h3>Education</h3>
+                    <p>Students learn about nicotine, marijuana, health, stress, motivation and responsibility through engaging videos and coaching.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Flexible Scheduling</h3>
+                    <p>Students can schedule their voice or video appointments for a time that works for them, making it easy to fit into their schedule.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                    </div>
+                    <h3>Reports</h3>
+                    <p>Confidential aggregate reports are provided to schools each semester, helping track program effectiveness.</p>
+                </div>
+
+                <div class="benefit-card featured">
+                    <div class="benefit-icon">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <h3>100% Free</h3>
+                    <p>YVAPE is a free service for California public schools with students 12 years and older. No cost to schools or families.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Preview Section -->
+    <section class="videos-preview-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Watch the Videos</h2>
+                <p class="subtitle">Educational content created specifically for YVAPE based on research and student input</p>
+            </div>
+
+            <div class="videos-grid">
+                <a href="videos.html#top-tips" class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <h4>Top 6 Tips to Quit Nicotine Vapes</h4>
+                </a>
+                <a href="videos.html#vaping-marijuana" class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <h4>Vaping Marijuana</h4>
+                </a>
+                <a href="videos.html#personal-responsibility" class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <h4>Personal Responsibility</h4>
+                </a>
+                <a href="videos.html#dealing-stress" class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <h4>Dealing with Stress</h4>
+                </a>
+            </div>
+
+            <div class="text-center">
+                <a href="videos.html" class="btn btn-primary btn-lg">View All Videos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <img src="images/yvape_logo.png" alt="YVAPE Logo" class="footer-logo">
+                    <p>Youth Vaping Alternative Program Education</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="files/yvape-opt-out-en.pdf" target="_blank">Opt Out Form</a></li>
+                        <li><a href="https://kickitca.org/privacy" target="_blank">Legal</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>YVAPE Major Funding Provided By</h4>
+                    <ul>
+                        <li><a href="https://www.cdph.ca.gov/Programs/CCDPHP/sapb/Pages/default.aspx" target="_blank">California Department of Public Health – SAPB</a></li>
+                        <li><a href="https://tupeca.org/" target="_blank">Orange County Department of Education</a></li>
+                        <li><a href="https://www.cde.ca.gov/" target="_blank">California Department of Education</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Kick It California Funding</h4>
+                    <ul>
+                        <li><a href="https://www.cdph.ca.gov/" target="_blank">California Department of Public Health</a></li>
+                        <li><a href="http://www.ccfc.ca.gov/" target="_blank">First 5 California</a></li>
+                        <li><a href="https://www.cdc.gov/" target="_blank">Centers for Disease Control</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 YVAPE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/schools-data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

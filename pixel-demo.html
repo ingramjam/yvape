@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Demo - YVAPE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #00A6CE 0%, #8DC63F 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .demo-container {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            max-width: 800px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        
+        h1 {
+            color: #00A6CE;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .pixel-code {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            font-family: 'Courier New', monospace;
+            text-align: left;
+            overflow-x: auto;
+        }
+        
+        .pixel-code pre {
+            margin: 0;
+            color: #333;
+        }
+        
+        .demo-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .info-box {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #E91E63;
+        }
+        
+        .info-box h3 {
+            color: #E91E63;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-box p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 12px 32px;
+            background: linear-gradient(135deg, #E91E63, #00A6CE);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>🎨 Pixel Tracking Demo</h1>
+        <p class="subtitle">Example tracking pixel implementation for YVAPE analytics</p>
+        
+        <div class="pixel-code">
+            <pre><code>&lt;!-- YVAPE Tracking Pixel --&gt;
+&lt;script&gt;
+  (function() {
+    var pixel = document.createElement('img');
+    pixel.src = 'https://analytics.yvape.org/track.gif?id=YVAPE123&event=page_view';
+    pixel.style.display = 'none';
+    document.body.appendChild(pixel);
+  })();
+&lt;/script&gt;</code></pre>
+        </div>
+        
+        <div class="demo-info">
+            <div class="info-box">
+                <h3>📊 Analytics</h3>
+                <p>Track page views, form submissions, and user engagement</p>
+            </div>
+            
+            <div class="info-box">
+                <h3>🔒 Privacy</h3>
+                <p>GDPR compliant tracking with user consent management</p>
+            </div>
+            
+            <div class="info-box">
+                <h3>⚡ Performance</h3>
+                <p>Lightweight 1x1 pixel loads asynchronously without blocking</p>
+            </div>
+        </div>
+        
+        <a href="index.html" class="back-btn">← Back to YVAPE</a>
+        
+        <!-- Demo tracking pixel (non-functional) -->
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="display:none" alt="">
+    </div>
+</body>
+</html>
