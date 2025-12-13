@@ -9,6 +9,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Alternar modo oscuro">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+    </button>
+
+    <!-- Popup Link -->
+    <a href="https://ingramjam.github.io/quit-journey/demo-pixel.html" class="popup-link" target="_blank">Ver Demo Pixel</a>
+
     <nav class="navbar" id="navbar">
         <div class="container">
             <div class="nav-wrapper">
@@ -34,6 +44,9 @@
     </nav>
 
     <section class="hero">
+        <video class="hero-background-video" autoplay loop muted playsinline>
+            <source src="https://yvape.org/static/media/video/YVAPE%20Promo%20-%20Final%202024.mp4" type="video/mp4">
+        </video>
         <div class="container">
             <div class="hero-content">
                 <h1 class="hero-title">Programa Educativo Alternativo sobre el Vapeo Juvenil</h1>
@@ -204,6 +217,7 @@
         </div>
     </footer>
 
+    <script src="../js/schools-data.js"></script>
     <script src="../js/main.js"></script>
 </body>
 </html>
