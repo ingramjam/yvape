@@ -61,73 +61,6 @@
         </div>
     </section>
 
-    <!-- Enrollment Form Section -->
-    <section id="enrollment-form" class="enrollment-section">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2><span style="color: var(--pink-color);">Start here.</span> This form is for:</h2>
-                <p class="subtitle" style="margin-top: var(--spacing-sm);">Schools ready to enroll students.<br>Schools interested in receiving more information.</p>
-            </div>
-
-            <!-- User Type Selection -->
-            <div class="user-type-selector" id="userTypeSelector">
-                <div class="user-type-grid">
-                    <button class="user-type-card" data-type="school-personnel">
-                        <div class="icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                            </svg>
-                        </div>
-                        <h3>School Personnel</h3>
-                        <p>Enroll students or request more information</p>
-                    </button>
-                    <button class="user-type-card" data-type="parent">
-                        <div class="icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                            </svg>
-                        </div>
-                        <h3>Parent/Guardian</h3>
-                        <p>Provide consent for your child</p>
-                    </button>
-                    <button class="user-type-card" data-type="student">
-                        <div class="icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
-                        </div>
-                        <h3>Student</h3>
-                        <p>Complete your YVAPE program</p>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Multi-Step Form -->
-            <div class="form-container" id="formContainer" style="display: none;">
-                <div class="form-progress">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
-                    <div class="progress-steps" id="progressSteps"></div>
-                </div>
-
-                <form id="enrollmentForm" class="enrollment-form" autocomplete="on">
-                    <!-- Form steps will be dynamically inserted here -->
-                </form>
-
-                <div class="form-navigation">
-                    <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">Previous</button>
-                    <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
-                    <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">Submit</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- How It Works Section -->
     <section id="how-it-works" class="how-it-works-section">
         <div class="container">
@@ -154,7 +87,7 @@
                             <li>Parent/guardian provides verbal consent (if under 18)</li>
                             <li>Student provides verbal consent to participate</li>
                         </ul>
-                        <a href="#enrollment-form" class="btn btn-primary">Enroll a Student</a>
+                        <a href="school-enrollment.html" class="btn btn-primary">Enroll a Student</a>
                     </div>
 
                     <div class="tab-panel" id="parent-tab">
@@ -166,7 +99,7 @@
                             <li>Your child will then be contacted to begin the program</li>
                             <li>All conversations are confidential and supportive</li>
                         </ul>
-                        <a href="#enrollment-form" class="btn btn-primary">Start Process</a>
+                        <a href="school-enrollment.html" class="btn btn-primary">Start Process</a>
                     </div>
 
                     <div class="tab-panel" id="student-tab">
@@ -180,7 +113,7 @@
                             <li>Complete the program and receive a certificate</li>
                         </ul>
                         <p class="note">*While YVAPE is not a cessation program, students who want help quitting tobacco can be enrolled in <a href="https://kickitca.org/quit-vaping" target="_blank">Kick It California's tobacco cessation services</a>.</p>
-                        <a href="#enrollment-form" class="btn btn-primary">Get Started</a>
+                        <a href="videos.html" class="btn btn-primary">View Videos</a>
                     </div>
                 </div>
             </div>
@@ -287,24 +220,28 @@
             <div class="videos-grid">
                 <a href="videos.html#top-tips" class="video-card">
                     <div class="video-thumbnail">
+                        <img src="https://embed-ssl.wistia.com/deliveries/d820f3beef37fc07588404b48a9a09df.jpg?image_crop_resized=960x540" alt="Top 6 Tips to Quit Nicotine Vapes" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md);">
                         <div class="play-icon">▶</div>
                     </div>
                     <h4>Top 6 Tips to Quit Nicotine Vapes</h4>
                 </a>
                 <a href="videos.html#vaping-marijuana" class="video-card">
                     <div class="video-thumbnail">
+                        <img src="https://embed-ssl.wistia.com/deliveries/478f3057e46e0085e4f6a758045a1cd23747a1fe.jpg?image_crop_resized=960x540" alt="Vaping Marijuana" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md);">
                         <div class="play-icon">▶</div>
                     </div>
                     <h4>Vaping Marijuana</h4>
                 </a>
                 <a href="videos.html#personal-responsibility" class="video-card">
                     <div class="video-thumbnail">
+                        <img src="https://embed-ssl.wistia.com/deliveries/72ea12f2a72ef61fa996d301eb882630ed0bb2d2.jpg?image_crop_resized=960x540" alt="Personal Responsibility" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md);">
                         <div class="play-icon">▶</div>
                     </div>
                     <h4>Personal Responsibility</h4>
                 </a>
                 <a href="videos.html#dealing-stress" class="video-card">
                     <div class="video-thumbnail">
+                        <img src="https://embed-ssl.wistia.com/deliveries/fd7f68f6128a6f6d9192138517a12c6a9b271602.jpg?image_crop_resized=960x540" alt="Dealing with Stress" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md);">
                         <div class="play-icon">▶</div>
                     </div>
                     <h4>Dealing with Stress</h4>
