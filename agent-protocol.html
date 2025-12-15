@@ -1,0 +1,1985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YVAPE Phone Agent Protocol - Interactive call script tool for counselors">
+    <title>YVAPE Phone Agent Tool</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .protocol-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-xl);
+        }
+
+        .protocol-header {
+            background: linear-gradient(135deg, #00A6CE 0%, #8DC63F 100%);
+            padding: var(--spacing-xxl) var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .protocol-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .protocol-header h1,
+        .protocol-header p {
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timer-widget {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .timer-display {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            margin-bottom: var(--spacing-xs);
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer-label {
+            font-size: 0.85rem;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: var(--spacing-xs);
+            margin-top: var(--spacing-sm);
+        }
+
+        .timer-btn {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .timer-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .call-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            background: white;
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .call-info-field {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .call-info-field label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .call-info-field input {
+            padding: var(--spacing-sm);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .call-info-field input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .section-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+            border-left: 5px solid var(--primary-color);
+            transition: all 0.5s ease;
+            transform-origin: top;
+        }
+
+        .section-card.collapsed {
+            max-height: 100px;
+            overflow: hidden;
+            opacity: 0.6;
+        }
+
+        .section-card.completed {
+            border-left-color: var(--success-color);
+            background: linear-gradient(135deg, #f0fff4, #ffffff);
+        }
+
+        .section-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--bg-light);
+            cursor: pointer;
+        }
+
+        .section-header:hover .section-number {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            flex: 1;
+        }
+
+        .section-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--pink-color), #C2185B);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            color: var(--text-dark);
+            font-size: 1.5rem;
+        }
+
+        .collapse-indicator {
+            margin-left: auto;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .section-card.collapsed .collapse-indicator {
+            transform: rotate(180deg);
+        }
+
+        .section-content {
+            transition: all 0.3s ease;
+        }
+
+        .section-footer {
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-lg);
+            border-top: 2px solid var(--bg-light);
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--spacing-md);
+        }
+
+        .complete-btn {
+            padding: var(--spacing-md) var(--spacing-xxl);
+            background: linear-gradient(135deg, var(--success-color), #218838);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-md);
+        }
+
+        .complete-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .complete-btn.completed {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
+        }
+
+        .collapse-btn {
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .collapse-btn:hover {
+            background: #0088b3;
+        }
+
+        .goals-box {
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-lg);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .goals-box h3 {
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.1rem;
+        }
+
+        .goals-box ul {
+            margin: 0;
+            padding-left: var(--spacing-lg);
+        }
+
+        .goals-box li {
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .script-text {
+            background: #FFF9E6;
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--secondary-color);
+            margin-bottom: var(--spacing-lg);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+
+        .script-text.important {
+            background: #FFE8F0;
+            border-left-color: var(--pink-color);
+        }
+
+        .code-only {
+            background: #F3E5F5;
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin: var(--spacing-md) 0;
+            border-left: 4px solid #9C27B0;
+        }
+
+        .code-only-label {
+            font-weight: 700;
+            color: #9C27B0;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+        }
+
+        .radio-option, .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .radio-option:hover, .checkbox-option:hover {
+            border-color: var(--primary-color);
+            background: #E3F2FD;
+        }
+
+        .radio-option input, .checkbox-option input {
+            cursor: pointer;
+        }
+
+        .notes-field {
+            width: 100%;
+            min-height: 100px;
+            padding: var(--spacing-md);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: var(--spacing-md) 0;
+            resize: vertical;
+        }
+
+        .notes-field:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .question-prompt {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: var(--spacing-lg) 0 var(--spacing-sm) 0;
+            font-size: 1.05rem;
+        }
+
+        .resource-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: var(--spacing-xs);
+        }
+
+        .resource-link:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .resource-link.pink {
+            background: var(--pink-color);
+        }
+
+        .resource-link.pink:hover {
+            background: #C2185B;
+        }
+
+        .optional-directions {
+            background: #E8F5E9;
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin: var(--spacing-md) 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .optional-label {
+            font-weight: 700;
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .progress-bar {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: var(--spacing-md);
+            box-shadow: var(--shadow-md);
+            z-index: 100;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .progress-bar-fill {
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: var(--spacing-sm);
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .trigger-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--spacing-sm);
+            margin: var(--spacing-md) 0;
+        }
+
+        .trigger-item {
+            padding: var(--spacing-sm);
+            background: #FFF3E0;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        /* Help Button Styles */
+        .help-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-xs) var(--spacing-md);
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: var(--spacing-sm);
+        }
+
+        .help-btn:hover {
+            background: #0088b3;
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        .help-btn.pink {
+            background: var(--pink-color);
+        }
+
+        .help-btn.pink:hover {
+            background: #C2185B;
+        }
+
+        .help-btn.green {
+            background: var(--accent-color);
+        }
+
+        .help-btn.green:hover {
+            background: #6fa32e;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: var(--spacing-xxl);
+            border-radius: var(--radius-lg);
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: var(--text-dark);
+            font-size: 1.8rem;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: var(--spacing-lg);
+            right: var(--spacing-lg);
+            width: 40px;
+            height: 40px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: #d32f2f;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .modal-body h3 {
+            color: var(--primary-color);
+            margin-top: var(--spacing-lg);
+        }
+
+        .modal-body ul {
+            margin: var(--spacing-md) 0;
+            padding-left: var(--spacing-xl);
+        }
+
+        .modal-body li {
+            margin: var(--spacing-sm) 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Interactive Elements */
+        .interactive-note {
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--primary-color);
+            margin: var(--spacing-md) 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .interactive-note:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .protocol-container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .protocol-header {
+                background: white !important;
+                color: black !important;
+                border: 2px solid black;
+                page-break-after: avoid;
+            }
+
+            .protocol-header::before {
+                display: none;
+            }
+
+            .protocol-header h1,
+            .protocol-header p {
+                color: black !important;
+                text-shadow: none !important;
+            }
+
+            .timer-widget,
+            .progress-bar,
+            .help-btn,
+            .complete-btn,
+            .collapse-btn,
+            .section-footer,
+            .resource-link,
+            button,
+            .modal,
+            .collapse-indicator {
+                display: none !important;
+            }
+
+            .section-card.collapsed {
+                max-height: none !important;
+                opacity: 1 !important;
+            }
+
+            .section-card {
+                page-break-inside: avoid;
+                border: 1px solid #ccc;
+                box-shadow: none;
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .section-number {
+                background: white !important;
+                color: black !important;
+                border: 2px solid black;
+            }
+
+            .script-text,
+            .code-only,
+            .optional-directions,
+            .goals-box {
+                border: 1px solid #666;
+                background: white !important;
+                color: black !important;
+            }
+
+            .script-text {
+                font-weight: normal;
+            }
+
+            input,
+            textarea,
+            select {
+                border: 1px solid black;
+                background: white;
+            }
+
+            .call-info-grid {
+                border: 2px solid black;
+                box-shadow: none;
+            }
+
+            .radio-option,
+            .checkbox-option {
+                border: 1px solid black;
+            }
+
+            input[type="checkbox"],
+            input[type="radio"] {
+                -webkit-appearance: checkbox;
+                -moz-appearance: checkbox;
+                appearance: checkbox;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="protocol-container">
+        <!-- Header -->
+        <div class="protocol-header">
+            <div class="header-content">
+                <div>
+                    <h1 style="margin: 0 0 var(--spacing-sm) 0; font-size: 2.5rem;">YVAPE Phone Agent Tool</h1>
+                    <p style="margin: 0; font-size: 1.1rem; opacity: 0.95;">Interactive Protocol Guide - Draft 3</p>
+                </div>
+                <div class="timer-widget">
+                    <div class="timer-display" id="timerDisplay">00:00:00</div>
+                    <div class="timer-label">Call Duration</div>
+                    <div class="timer-controls">
+                        <button class="timer-btn" onclick="startTimer()">▶ Start</button>
+                        <button class="timer-btn" onclick="pauseTimer()">⏸ Pause</button>
+                        <button class="timer-btn" onclick="resetTimer()">↻ Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-bar-fill" id="progressBar" style="width: 0%"></div>
+            <div class="progress-text" id="progressText">0 of 7 sections completed (0%)</div>
+        </div>
+
+        <!-- Call Information -->
+        <div class="call-info-grid">
+            <div class="call-info-field">
+                <label>Client Name</label>
+                <input type="text" id="clientName" name="client_name" data-hubspot="client_name" placeholder="Enter client name">
+            </div>
+            <div class="call-info-field">
+                <label>NID</label>
+                <input type="text" id="nid" name="nid" data-hubspot="nid" placeholder="ID number">
+            </div>
+            <div class="call-info-field">
+                <label>Date</label>
+                <input type="date" id="callDate" name="call_date" data-hubspot="call_date">
+            </div>
+            <div class="call-info-field">
+                <label>Time</label>
+                <input type="time" id="callTime" name="call_time" data-hubspot="call_time">
+            </div>
+            <div class="call-info-field">
+                <label>Counselor</label>
+                <input type="text" id="counselor" name="counselor_name" data-hubspot="counselor_name" placeholder="Your name">
+            </div>
+            <div class="call-info-field">
+                <label>Call Length</label>
+                <input type="text" id="callLength" name="call_duration" data-hubspot="call_duration" placeholder="00:00" readonly>
+            </div>
+        </div>
+
+        <!-- Important Notes -->
+        <div class="section-card" style="border-left-color: var(--pink-color);">
+            <div style="background: linear-gradient(135deg, var(--pink-color), #C2185B); color: white; padding: var(--spacing-md); border-radius: var(--radius-md); margin-bottom: var(--spacing-md);">
+                <h3 style="margin: 0 0 var(--spacing-sm) 0; color: white;">📋 Important Notes</h3>
+                <ul style="margin: 0; padding-left: var(--spacing-lg); color: white;">
+                    <li>This is the student's only required call to receive certificate of completion</li>
+                    <li>Students receive YVAPE videos and discussion questions before this call</li>
+                    <li>Students receive a pre-survey link covering required data questions</li>
+                    <li>For students without pre-survey completion, ask data questions at the end</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- S1: Introduction & Assent -->
+        <div class="section-card" data-section="1">
+            <div class="section-header" onclick="toggleCollapse(1)">
+                <div class="section-number">1</div>
+                <div class="section-title">
+                    <h2>Introduction & Assent</h2>
+                </div>
+                <span class="collapse-indicator">▼</span>
+            </div>
+
+            <div class="section-content">
+
+            <div class="script-text">
+                "I have a few questions, just so I can get to know you a bit and see if there's any way I can be helpful. However, what we discuss will be kept confidential. That means that anything we talk about stays private. An exception would be if there were a clear danger to you or someone else. Also, calls are recorded and may be monitored for quality assurance or used for training. <strong>Is that okay with you?</strong>"
+            </div>
+
+            <div class="code-only">
+                <div class="code-only-label">Code Only</div>
+                <p class="question-prompt">Did client assent?</p>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="assent1" data-hubspot="s1_assent_confidentiality" value="yes"> Yes
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="assent1" data-hubspot="s1_assent_confidentiality" value="no"> No → End call
+                    </label>
+                </div>
+            </div>
+
+            <div class="script-text">
+                "Also, if your parent(s)/guardian want to know what we talked about in our call, I'll encourage them to just ask you about it. <strong>Is that ok?</strong>"
+            </div>
+
+            <div class="code-only">
+                <div class="code-only-label">Code Only</div>
+                <p class="question-prompt">Did client assent?</p>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="assent2" data-hubspot="s1_assent_parent_discussion" value="yes"> Yes
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="assent2" data-hubspot="s1_assent_parent_discussion" value="no"> No → End call
+                    </label>
+                </div>
+            </div>
+
+            <div class="goals-box">
+                <h3>🎯 Goals</h3>
+                <ul>
+                    <li>Establish rapport & affirm</li>
+                    <li>Support autonomy</li>
+                    <li>Provide information about the call</li>
+                </ul>
+            </div>
+
+            <p class="question-prompt">1. "What do you know about how this program works, or what to expect?"</p>
+            <textarea class="notes-field" name="s1_program_knowledge" data-hubspot="s1_program_knowledge" placeholder="Note: Affirm and reflect..."></textarea>
+
+            <div class="script-text important">
+                <strong>That's right! You already know that...</strong> (affirm and reflect anything the student knows)
+            </div>
+
+            <div class="script-text">
+                <strong>Review as needed:</strong><br>
+                "We will talk on the phone for a bit today. I'll get to learn about your experience and answer any questions you have about nicotine or marijuana. That's it!<br><br>
+                I'm not here to lecture you or make you do anything. Whatever you decide to do after this call is totally up to you. I'm just here to listen and support you.<br><br>
+                Any questions before we get started?"
+            </div>
+
+            </div><!-- end section-content -->
+
+            <div class="section-footer">
+                <button class="collapse-btn" onclick="toggleCollapse(1)">Collapse Section</button>
+                <button class="complete-btn" onclick="toggleSection(1)">✓ Mark Complete</button>
+            </div>
+        </div>
+
+        <!-- S2: Background -->
+        <div class="section-card" data-section="2">
+            <div class="section-header" onclick="toggleCollapse(2)">
+                <div class="section-number">2</div>
+                <div class="section-title">
+                    <h2>Background</h2>
+                </div>
+                <span class="collapse-indicator">▼</span>
+            </div>
+
+            <div class="section-content">
+
+            <div class="goals-box">
+                <h3>🎯 Goals</h3>
+                <ul>
+                    <li>Build rapport - allow student to tell their story</li>
+                    <li>Explore pros & cons of vaping from the student's perspective</li>
+                    <li>Raise motivation to avoid vaping in the future</li>
+                </ul>
+            </div>
+
+            <p class="question-prompt">1. "How did you end up having to talk with us (what happened when you got caught)?"</p>
+            <textarea class="notes-field" name="s2_how_caught" data-hubspot="s2_how_caught" placeholder="Note: Ask open questions to clarify. Reflect and summarize what the student said..."></textarea>
+
+            <div class="optional-directions">
+                <div class="optional-label">Optional Directions</div>
+                <ul style="margin: var(--spacing-xs) 0 0 0; padding-left: var(--spacing-lg);">
+                    <li>What was that like for you?</li>
+                    <li>What kind of trouble has that caused for you?</li>
+                </ul>
+            </div>
+
+            <p class="question-prompt">2. "Was that nicotine, marijuana, or both?"</p>
+            <div class="radio-group">
+                <label class="radio-option">
+                    <input type="radio" name="substance" data-hubspot="s2_substance_type" value="nicotine"> Nicotine only
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="substance" data-hubspot="s2_substance_type" value="both"> Nicotine + Marijuana
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="substance" data-hubspot="s2_substance_type" value="marijuana"> Marijuana only
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="substance" data-hubspot="s2_substance_type" value="neither-nic"> Neither (trouble for nicotine)
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="substance" data-hubspot="s2_substance_type" value="neither-mj"> Neither (trouble for marijuana)
+                </label>
+            </div>
+
+            <p class="question-prompt">3. "Tell me about your nicotine/marijuana use."</p>
+            <textarea class="notes-field" name="s2_use_history" data-hubspot="s2_use_history" placeholder="Product type, frequency, last use, what got them started..."></textarea>
+
+            <div class="optional-directions">
+                <div class="optional-label">Optional Directions</div>
+                <ul style="margin: var(--spacing-xs) 0 0 0; padding-left: var(--spacing-lg);">
+                    <li>Product type</li>
+                    <li>How often (regular vs irregular use vs experimental user)</li>
+                    <li>When's the last time you used nicotine/marijuana?</li>
+                    <li>What got you started in the first place?</li>
+                    <li>Anything you miss/don't miss about it?</li>
+                </ul>
+            </div>
+
+            <p class="question-prompt">4. "What is something you like about nicotine/marijuana (or reasons you might use)?"<br>
+            <small style="font-weight: 400; color: var(--text-light);">If non-user: "Why do you think other people use nicotine/marijuana?"</small></p>
+            <textarea class="notes-field" name="s2_pros" data-hubspot="s2_pros" placeholder="List reasons... Affirm their responses..."></textarea>
+
+            <div style="margin: var(--spacing-md) 0;">
+                <button class="help-btn green" onclick="showHelp('stress')">� Stress Management Tips</button>
+            </div>
+
+            <p class="question-prompt">8. "What would you say are some of the downsides (or not so good things)? ...What else?"</p>
+            <textarea class="notes-field" name="s2_cons" data-hubspot="s2_cons" placeholder="List downsides... Reflect and summarize. Spend time on this. Can remind students of troubles it caused them..."></textarea>
+
+            <p class="question-prompt">10. "What do you know/ what have you heard about nicotine/marijuana dependence (addiction)?"</p>
+            <textarea class="notes-field" name="s2_addiction_knowledge" data-hubspot="s2_addiction_knowledge" placeholder="Example: Someone feeling like they need it, or feeling like they aren't able to stop..."></textarea>
+
+            <p class="question-prompt">11. "Would it be okay if I shared more information about nicotine/marijuana dependence?"</p>
+            <div style="margin: var(--spacing-md) 0;">
+                <button class="help-btn" onclick="showHelp('addiction')">� Addiction & Dependence Info</button>
+            </div>
+            <p style="font-style: italic; color: var(--text-light);">Educate on symptoms of addiction and withdrawal not previously addressed.</p>
+
+            <p class="question-prompt">12. "Which of these, if any, have you noticed in yourself or others?"</p>
+            <textarea class="notes-field" name="s2_addiction_signs" data-hubspot="s2_addiction_signs" placeholder="Document responses..."></textarea>
+
+            </div><!-- end section-content -->
+
+            <div class="section-footer">
+                <button class="collapse-btn" onclick="toggleCollapse(2)">Collapse Section</button>
+                <button class="complete-btn" onclick="toggleSection(2)">✓ Mark Complete</button>
+            </div>
+        </div>
+
+        <!-- S3: Videos & Discussion -->
+        <div class="section-card" data-section="3">
+            <div class="section-header" onclick="toggleCollapse(3)">
+                <div class="section-number">3</div>
+                <div class="section-title">
+                    <h2>Videos & Discussion</h2>
+                </div>
+                <span class="collapse-indicator">▼</span>
+            </div>
+
+            <div class="section-content">
+
+            <div class="goals-box">
+                <h3>🎯 Goals</h3>
+                <ul>
+                    <li>Discuss videos/concepts</li>
+                    <li>Provide substance use education</li>
+                </ul>
+            </div>
+
+            <div class="script-text">
+                <strong>Optional transition:</strong><br>
+                "It seems like you already know a lot about nicotine/marijuana, which is great! Before this call, we also sent some videos with even more information."
+            </div>
+
+            <p class="question-prompt">1. "Did you get a chance to watch any of the videos?"</p>
+            <div class="radio-group">
+                <label class="radio-option">
+                    <input type="radio" name="watchedVideos" data-hubspot="s3_watched_videos" value="yes"> Yes
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="watchedVideos" data-hubspot="s3_watched_videos" value="no"> No
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="watchedVideos" data-hubspot="s3_watched_videos" value="not-asked"> Not asked
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="watchedVideos" data-hubspot="s3_watched_videos" value="refused"> Refused
+                </label>
+            </div>
+
+            <div style="background: #FFF3E0; padding: var(--spacing-md); border-radius: var(--radius-md); margin: var(--spacing-md) 0;">
+                <p style="margin: 0; color: var(--text-dark);"><strong>Note:</strong> If student did not watch videos, review video topics. Consider 1 video instead of 3. Minimum of 1 and up to 3. Pitch videos after discussion.</p>
+            </div>
+
+            <a href="videos.html" class="resource-link pink" target="_blank">🎬 View All YVAPE Videos</a>
+
+            <p class="question-prompt">2. "Which videos did you watch?"</p>
+            <div class="checkbox-group">
+                <label class="checkbox-option">
+                    <input type="checkbox" name="video" value="marketing"> Marketing Manipulation
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="video" value="health"> Health Effects of Vaping
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="video" value="vaping-mj"> Vaping Marijuana
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="video" value="stress"> Dealing with Stress
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="video" value="brain-lungs"> Vaping Marijuana: Your Brain & Lungs
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="video" value="motivation"> Understanding Motivation
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="video" value="responsibility"> Personal Responsibility
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="video" value="help"> Asking for Help Quitting
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="video" value="nicotine-mental"> Nicotine and Mental Health
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="video" value="mj-mental"> Marijuana and Mental Health
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="video" value="tips"> Top 6 Tips to Quit Nicotine Vapes
+                </label>
+            </div>
+
+            <p class="question-prompt">4. "What's something that you learned (or thought was interesting)?"</p>
+            <textarea class="notes-field" placeholder="Reflect and summarize..."></textarea>
+
+            <div style="margin: var(--spacing-lg) 0;">
+                <a href="videos.html#discussionQuestions" class="resource-link" target="_blank">💬 View Discussion Questions</a>
+            </div>
+
+            <p class="question-prompt">5. Review at least 2 of the Student/Parent Discussion Questions with client.</p>
+            <textarea class="notes-field" placeholder="Document discussion..."></textarea>
+
+            <p class="question-prompt">6. "Now that we've talked about the videos, what else would you like to know about nicotine/marijuana?"</p>
+            <textarea class="notes-field" placeholder="Answer questions. Link to fact sheets if needed..."></textarea>
+
+            <div class="optional-directions">
+                <div class="optional-label">Optional Directions (for student with no questions)</div>
+                <p style="margin: var(--spacing-sm) 0 0 0;">"For instance, some people are interested in knowing whether marijuana is any less harmful than nicotine. Other people are curious about how long marijuana stays in the bloodstream, or whether it can affect athletic performance."</p>
+            </div>
+
+            <div style="margin: var(--spacing-md) 0;">
+                <button class="help-btn" onclick="showHelp('facts')">📚 Key Facts</button>
+                <button class="help-btn" onclick="showHelp('faqs')">❓ Common Questions</button>
+            </div>
+
+            </div><!-- end section-content -->
+
+            <div class="section-footer">
+                <button class="collapse-btn" onclick="toggleCollapse(3)">Collapse Section</button>
+                <button class="complete-btn" onclick="toggleSection(3)">✓ Mark Complete</button>
+            </div>
+        </div>
+
+        <!-- S4: Importance/Confidence -->
+        <div class="section-card" data-section="4">
+            <div class="section-header" onclick="toggleCollapse(4)">
+                <div class="section-number">4</div>
+                <div class="section-title">
+                    <h2>Importance / Confidence</h2>
+                </div>
+                <span class="collapse-indicator">▼</span>
+            </div>
+
+            <div class="section-content">
+
+            <div class="goals-box">
+                <h3>🎯 Goals</h3>
+                <ul>
+                    <li>Assess level of importance and confidence</li>
+                    <li>Raise motivation</li>
+                    <li>Boost self-efficacy</li>
+                </ul>
+            </div>
+
+            <div class="script-text">
+                <strong>Optional transition:</strong><br>
+                "Okay, we've gone over a lot already. Let me see if I got this right (Summarize what student said so far). Is there anything I missed so far?"
+            </div>
+
+            <p class="question-prompt">1. "When it comes to nicotine/marijuana, how do you see it fitting in your life now?"</p>
+            <textarea class="notes-field" placeholder="Document response..."></textarea>
+
+            <div class="code-only">
+                <div class="code-only-label">Code Only</div>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="fitting" value="avoid"> Avoid completely
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="fitting" value="cut-down"> Cut down
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="fitting" value="continue"> Continue using
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="fitting" value="not-asked"> Not asked
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="fitting" value="refused"> Refused
+                    </label>
+                </div>
+            </div>
+
+            <p class="question-prompt">2. "On a scale of 0-10, how important is it for you to (avoid/cut down) nicotine/marijuana in the future?"</p>
+            <input type="number" min="0" max="10" style="width: 100px; padding: var(--spacing-sm); font-size: 1.2rem; text-align: center; border: 2px solid var(--border-color); border-radius: var(--radius-md);">
+            <textarea class="notes-field" placeholder="Affirm and reflect change talk..."></textarea>
+
+            <div class="optional-directions">
+                <div class="optional-label">Optional Directions</div>
+                <ul style="margin: var(--spacing-xs) 0 0 0; padding-left: var(--spacing-lg);">
+                    <li>Tell me why you say that?</li>
+                    <li>Ask student why it's a X and not a lower number</li>
+                    <li>Probe for more responses. Most students will be able to give 3 reasons</li>
+                    <li>Can remind students of troubles it caused them/downsides</li>
+                </ul>
+            </div>
+
+            <p class="question-prompt">3. "On a scale of 0-10 how confident are you that you could avoid nicotine/marijuana if you decided to?"</p>
+            <input type="number" min="0" max="10" style="width: 100px; padding: var(--spacing-sm); font-size: 1.2rem; text-align: center; border: 2px solid var(--border-color); border-radius: var(--radius-md);">
+            <textarea class="notes-field" placeholder="Affirm and reflect change talk..."></textarea>
+
+            <div class="optional-directions">
+                <div class="optional-label">Optional Directions</div>
+                <ul style="margin: var(--spacing-xs) 0 0 0; padding-left: var(--spacing-lg);">
+                    <li>Ask student why it's a X and not a lower number</li>
+                    <li>What would it take to raise your confidence level by 1 number?</li>
+                    <li>Offer resources as needed</li>
+                </ul>
+            </div>
+
+            <div style="margin: var(--spacing-md) 0;">
+                <button class="help-btn" onclick="showHelp('resources')">🔗 Support Resources</button>
+            </div>
+
+            </div><!-- end section-content -->
+
+            <div class="section-footer">
+                <button class="collapse-btn" onclick="toggleCollapse(4)">Collapse Section</button>
+                <button class="complete-btn" onclick="toggleSection(4)">✓ Mark Complete</button>
+            </div>
+        </div>
+
+        <!-- S5: Goal Setting -->
+        <div class="section-card" data-section="5">
+            <div class="section-header" onclick="toggleCollapse(5)">
+                <div class="section-number">5</div>
+                <div class="section-title">
+                    <h2>Goal Setting</h2>
+                </div>
+                <span class="collapse-indicator">▼</span>
+            </div>
+
+            <div class="section-content">
+
+            <div class="goals-box">
+                <h3>🎯 Goals</h3>
+                <ul>
+                    <li>Increase self-efficacy</li>
+                    <li>Set an actionable plan</li>
+                </ul>
+            </div>
+
+            <div class="script-text">
+                <strong>Optional transition:</strong><br>
+                "Let's plan out how you can/could make those changes. What's your plan? What are you thinking you'd like to do about this? Where does this leave you in terms of your plan?"
+            </div>
+
+            <div style="background: #FFF3E0; padding: var(--spacing-md); border-radius: var(--radius-md); margin: var(--spacing-md) 0;">
+                <p style="margin: 0; color: var(--text-dark);"><strong>Remember:</strong> Make sure you do what's best for you. It's up to you.</p>
+            </div>
+
+            <div style="margin: var(--spacing-lg) 0;">
+                <button class="help-btn green" onclick="showHelp('stress')">� Stress Management Tips</button>
+                <button class="help-btn pink" onclick="showHelp('refusal')">🚫 How to Say NO</button>
+            </div>
+
+            <h3 style="margin: var(--spacing-lg) 0 var(--spacing-md) 0;">Triggers & Strategies</h3>
+            
+            <div style="background: white; border: 2px solid var(--border-color); border-radius: var(--radius-lg); padding: var(--spacing-lg); margin-bottom: var(--spacing-md);">
+                <p class="question-prompt">Trigger / Goal:</p>
+                <input type="text" class="notes-field" style="min-height: auto;" placeholder="What triggers use?">
+                <p class="question-prompt">Strategies:</p>
+                <textarea class="notes-field" placeholder="How will they handle this trigger?"></textarea>
+            </div>
+
+            <div style="background: white; border: 2px solid var(--border-color); border-radius: var(--radius-lg); padding: var(--spacing-lg); margin-bottom: var(--spacing-md);">
+                <p class="question-prompt">Trigger / Goal:</p>
+                <input type="text" class="notes-field" style="min-height: auto;" placeholder="What triggers use?">
+                <p class="question-prompt">Strategies:</p>
+                <textarea class="notes-field" placeholder="How will they handle this trigger?"></textarea>
+            </div>
+
+            <div style="background: white; border: 2px solid var(--border-color); border-radius: var(--radius-lg); padding: var(--spacing-lg); margin-bottom: var(--spacing-md);">
+                <p class="question-prompt">Trigger / Goal:</p>
+                <input type="text" class="notes-field" style="min-height: auto;" placeholder="What triggers use?">
+                <p class="question-prompt">Strategies:</p>
+                <textarea class="notes-field" placeholder="How will they handle this trigger?"></textarea>
+            </div>
+
+            <h3 style="margin: var(--spacing-xl) 0 var(--spacing-md) 0;">Common Triggers Reference</h3>
+            <div class="trigger-table">
+                <div class="trigger-item">Previous relapse situation</div>
+                <div class="trigger-item">Stress/wanting to relax</div>
+                <div class="trigger-item">Around others using</div>
+                <div class="trigger-item">Alcohol/Parties</div>
+                <div class="trigger-item">Tobacco/MJ users</div>
+                <div class="trigger-item">Concern about weight</div>
+                <div class="trigger-item">After eating</div>
+                <div class="trigger-item">Driving</div>
+                <div class="trigger-item">Other drugs</div>
+                <div class="trigger-item">Withdrawal/General craving</div>
+                <div class="trigger-item">Boredom</div>
+                <div class="trigger-item">First AM cigarette</div>
+            </div>
+
+            <div class="script-text important" style="margin-top: var(--spacing-xl);">
+                <strong>Grand Summary #2</strong> (remind them of the previous section summary)<br><br>
+                "There's a couple things you talked about today (summarize). It got me to thinking...We have additional sessions that go over ________ (connect to topics that student talked about). And we can also check in about the plan we talked about today. Would you be interested in talking about that more? (Mention additional diploma)."
+            </div>
+
+            <p class="question-prompt">Interest in follow-up session?</p>
+            <div class="radio-group">
+                <label class="radio-option">
+                    <input type="radio" name="followup" data-hubspot="s5_followup_interest" value="yes"> Yes → Schedule FU
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="followup" data-hubspot="s5_followup_interest" value="no"> No
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="followup" data-hubspot="s5_followup_interest" value="refused"> Refused
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="followup" data-hubspot="s5_followup_interest" value="not-asked"> Not asked
+                </label>
+            </div>
+
+            </div><!-- end section-content -->
+
+            <div class="section-footer">
+                <button class="collapse-btn" onclick="toggleCollapse(5)">Collapse Section</button>
+                <button class="complete-btn" onclick="toggleSection(5)">✓ Mark Complete</button>
+            </div>
+        </div>
+
+        <!-- S6: Substance Use Questions -->
+        <div class="section-card" data-section="6">
+            <div class="section-header" onclick="toggleCollapse(6)">
+                <div class="section-number">6</div>
+                <div class="section-title">
+                    <h2>Substance Use Questions</h2>
+                </div>
+                <span class="collapse-indicator">▼</span>
+            </div>
+
+            <div class="section-content">
+
+            <div class="script-text">
+                "Before we end for today, with your permission, I have a few extra questions."
+            </div>
+
+            <div style="background: #E3F2FD; padding: var(--spacing-lg); border-radius: var(--radius-md); border-left: 4px solid var(--primary-color);">
+                <p style="margin: 0; color: var(--text-dark);"><strong>Note:</strong> Substance use questions will be added here. Will be used for students who have not completed the pre-survey.</p>
+            </div>
+
+            </div><!-- end section-content -->
+
+            <div class="section-footer">
+                <button class="collapse-btn" onclick="toggleCollapse(6)">Collapse Section</button>
+                <button class="complete-btn" onclick="toggleSection(6)">✓ Mark Complete</button>
+            </div>
+        </div>
+
+        <!-- S7: Demographics & Final Thoughts -->
+        <div class="section-card" data-section="7">
+            <div class="section-header" onclick="toggleCollapse(7)">
+                <div class="section-number">7</div>
+                <div class="section-title">
+                    <h2>Demographics & Final Thoughts</h2>
+                </div>
+                <span class="collapse-indicator">▼</span>
+            </div>
+
+            <div class="section-content">
+
+            <div class="script-text">
+                "We also have a few voluntary demographic questions. Would it be okay to go through those too?"
+            </div>
+
+            <div class="radio-group">
+                <label class="radio-option">
+                    <input type="radio" name="demo-consent" value="yes"> Yes
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="demo-consent" value="no"> No
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="demo-consent" value="refused"> Refused
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="demo-consent" value="not-asked"> Not asked
+                </label>
+            </div>
+
+            <p class="question-prompt">2. "Do you identify yourself as male, female, or in another way?"</p>
+            <div class="radio-group">
+                <label class="radio-option">
+                    <input type="radio" name="gender" value="male"> Male
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="gender" value="female"> Female
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="gender" value="other"> In another way
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="gender" value="refused"> Refused
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="gender" value="not-asked"> Not asked
+                </label>
+            </div>
+
+            <p class="question-prompt">3. "What is your ethnic background?" (Check all that apply)</p>
+            <div class="checkbox-group">
+                <label class="checkbox-option">
+                    <input type="checkbox" name="ethnicity" value="multiple"> Multiple races
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="ethnicity" value="white"> White
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="ethnicity" value="black"> Black or African American
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="ethnicity" value="hispanic"> Hispanic/Latino
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="ethnicity" value="asian"> Asian/Pacific Islander
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="ethnicity" value="native"> American Indian or Alaska Native
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="ethnicity" value="other"> Other
+                </label>
+            </div>
+
+            <p class="question-prompt">7. "We sometimes contact people just to see how they are doing or as part of a program evaluation. Would it be okay to contact you?"</p>
+            <div class="radio-group">
+                <label class="radio-option">
+                    <input type="radio" name="contact-ok" value="yes"> Yes
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="contact-ok" value="no"> No
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="contact-ok" value="refused"> Refused
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="contact-ok" value="not-asked"> Not asked
+                </label>
+            </div>
+
+            <p class="question-prompt">8. "Which way can we contact you?" (Check all that apply)</p>
+            <div class="checkbox-group">
+                <label class="checkbox-option">
+                    <input type="checkbox" name="contact-method" value="phone"> Phone
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="contact-method" value="text"> Text
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="contact-method" value="email"> Email
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="contact-method" value="refused"> Refused
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="contact-method" value="not-asked"> Not asked
+                </label>
+            </div>
+
+            <p class="question-prompt">10. "How could YVAPE be improved?" (Check all that apply)</p>
+            <div class="checkbox-group">
+                <label class="checkbox-option">
+                    <input type="checkbox" name="improve" value="nothing"> Nothing to improve
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="improve" value="dk"> Don't know
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="improve" value="more-videos"> More videos
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="improve" value="less-videos"> Less videos
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="improve" value="better-videos"> Better videos
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="improve" value="longer-videos"> Longer videos
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="improve" value="more-sessions"> More coaching sessions
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="improve" value="more-discussion"> More discussion during coaching
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="improve" value="more-info"> More information
+                </label>
+            </div>
+            <input type="text" class="notes-field" style="min-height: auto;" placeholder="Other (specify)...">
+
+            <p class="question-prompt">11. "Is there anything else you'd like to add about your experience in YVAPE?"</p>
+            <textarea class="notes-field" placeholder="Additional feedback..."></textarea>
+
+            <p class="question-prompt">12. Did the client complete the initial call?</p>
+            <div class="radio-group">
+                <label class="radio-option">
+                    <input type="radio" name="completed" value="yes"> Yes
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="completed" value="no"> No
+                </label>
+            </div>
+
+            <div class="script-text important" style="margin-top: var(--spacing-xl);">
+                <strong>🎉 Congratulations!</strong><br><br>
+                "Congratulations! You completed the YVAPE program."<br><br>
+                <strong>Grand summary #3:</strong> review what the client said throughout the call<br>
+                "Is there anything that I missed?"
+            </div>
+
+            <p class="question-prompt">5. "Do you have any (other) questions?"</p>
+            <textarea class="notes-field" placeholder="Answer questions..."></textarea>
+
+            <div class="script-text">
+                "Feel free to call back if you have any (more) questions. <strong>1-888-525-0122</strong>"
+            </div>
+
+            <h3 style="margin: var(--spacing-xxl) 0 var(--spacing-md) 0; color: var(--primary-color);">Setting Call Back for YVAPE+</h3>
+
+            <p class="question-prompt">"Are you planning to call back for further counseling?"</p>
+            <div class="radio-group">
+                <label class="radio-option">
+                    <input type="radio" name="callback" value="yes"> Yes → Set appointment
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="callback" value="no"> No
+                </label>
+            </div>
+
+            <div style="background: white; border: 2px solid var(--success-color); border-radius: var(--radius-lg); padding: var(--spacing-lg); margin-top: var(--spacing-lg);">
+                <h3 style="color: var(--success-color); margin-bottom: var(--spacing-md);">📅 Set Appointment</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                    <div>
+                        <label style="font-weight: 600; display: block; margin-bottom: var(--spacing-xs);">Date</label>
+                        <input type="date" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--border-color); border-radius: var(--radius-md);">
+                    </div>
+                    <div>
+                        <label style="font-weight: 600; display: block; margin-bottom: var(--spacing-xs);">Time</label>
+                        <input type="time" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--border-color); border-radius: var(--radius-md);">
+                    </div>
+                </div>
+            </div>
+
+            </div><!-- end section-content -->
+
+            <div class="section-footer">
+                <button class="collapse-btn" onclick="toggleCollapse(7)">Collapse Section</button>
+                <button class="complete-btn" onclick="toggleSection(7)">✓ Mark Complete</button>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; gap: var(--spacing-md); justify-content: center; margin: var(--spacing-xxl) 0; padding: var(--spacing-xl); background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
+            <button onclick="window.print()" style="padding: var(--spacing-md) var(--spacing-xl); background: var(--primary-color); color: white; border: none; border-radius: var(--radius-md); font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                🖨️ Print Protocol
+            </button>
+            <button onclick="resetForm()" style="padding: var(--spacing-md) var(--spacing-xl); background: var(--pink-color); color: white; border: none; border-radius: var(--radius-md); font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                🔄 Reset Form
+            </button>
+            <a href="index.html" style="padding: var(--spacing-md) var(--spacing-xl); background: var(--accent-color); color: white; border: none; border-radius: var(--radius-md); font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block;">
+                🏠 Back to Home
+            </a>
+        </div>
+    </div>
+
+    <!-- Help Modals -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeHelp()">×</button>
+            <div class="modal-header">
+                <span id="modalIcon" style="font-size: 2rem;"></span>
+                <h2 id="modalTitle"></h2>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Track completed sections
+        let completedSections = new Set();
+
+        // Help content database
+        const helpContent = {
+            stress: {
+                icon: '💡',
+                title: 'Stress Management Tips',
+                content: `
+                    <h3>Healthy Ways to Manage Stress</h3>
+                    <ul>
+                        <li><strong>Deep Breathing:</strong> Take slow, deep breaths. Breathe in through your nose for 4 counts, hold for 4, exhale through your mouth for 4.</li>
+                        <li><strong>Physical Activity:</strong> Exercise, walk, dance, or do any movement you enjoy. Even 10 minutes helps.</li>
+                        <li><strong>Talk to Someone:</strong> Reach out to friends, family, or a counselor. Don't keep it bottled up.</li>
+                        <li><strong>Listen to Music:</strong> Put on calming music or your favorite upbeat songs.</li>
+                        <li><strong>Creative Outlets:</strong> Draw, write, play an instrument, or engage in any creative activity.</li>
+                        <li><strong>Mindfulness:</strong> Focus on the present moment. Try meditation apps or guided imagery.</li>
+                        <li><strong>Get Outside:</strong> Spend time in nature, even if it's just sitting outside for a few minutes.</li>
+                        <li><strong>Limit Caffeine:</strong> Too much caffeine can increase anxiety and stress.</li>
+                        <li><strong>Sleep:</strong> Prioritize getting 7-9 hours of quality sleep each night.</li>
+                        <li><strong>Set Boundaries:</strong> It's okay to say no to things that add unnecessary stress.</li>
+                    </ul>
+                    <h3>Quick Stress Relief</h3>
+                    <p>When you need immediate relief: splash cold water on your face, do 10 jumping jacks, squeeze a stress ball, or practice progressive muscle relaxation (tense and release each muscle group).</p>
+                `
+            },
+            refusal: {
+                icon: '🚫',
+                title: 'How to Say NO / Refusal Skills',
+                content: `
+                    <h3>Effective Ways to Refuse</h3>
+                    <ul>
+                        <li><strong>Just Say No:</strong> Be direct and confident. "No thanks, I'm good."</li>
+                        <li><strong>Give a Reason:</strong> "I can't, I have practice/work/family stuff."</li>
+                        <li><strong>Suggest an Alternative:</strong> "Nah, let's do something else instead."</li>
+                        <li><strong>Use Humor:</strong> Make a joke to deflect: "I'm trying to stay out of trouble today!"</li>
+                        <li><strong>Walk Away:</strong> Simply remove yourself from the situation.</li>
+                        <li><strong>Broken Record:</strong> Keep repeating your no calmly: "I said no thanks."</li>
+                        <li><strong>Blame Someone Else:</strong> "My parents would kill me" or "I'm being tested."</li>
+                        <li><strong>Show Strength:</strong> "I don't need that stuff to have fun."</li>
+                    </ul>
+                    <h3>Tips for Success</h3>
+                    <ul>
+                        <li>Make eye contact and use confident body language</li>
+                        <li>Don't apologize for saying no</li>
+                        <li>Have your response ready before situations arise</li>
+                        <li>Surround yourself with friends who respect your choices</li>
+                        <li>Remember: Real friends won't pressure you</li>
+                    </ul>
+                    <p><strong>If peer pressure continues:</strong> Consider whether these are the right friends for you. It's okay to find new social circles that align with your values and goals.</p>
+                `
+            },
+            addiction: {
+                icon: '📚',
+                title: 'Understanding Addiction & Dependence',
+                content: `
+                    <h3>Signs of Nicotine Dependence</h3>
+                    <ul>
+                        <li>Cravings or strong urges to use</li>
+                        <li>Difficulty controlling when and how much you use</li>
+                        <li>Withdrawal symptoms (irritability, anxiety, difficulty concentrating)</li>
+                        <li>Using more to get the same effect (tolerance)</li>
+                        <li>Continuing despite negative consequences</li>
+                        <li>Thinking about nicotine frequently</li>
+                        <li>Using first thing in the morning</li>
+                    </ul>
+                    <h3>Signs of Marijuana Dependence</h3>
+                    <ul>
+                        <li>Using more frequently than intended</li>
+                        <li>Unsuccessful attempts to cut down</li>
+                        <li>Withdrawal symptoms (mood changes, sleep problems, decreased appetite)</li>
+                        <li>Building tolerance (need more to feel effects)</li>
+                        <li>Giving up activities you used to enjoy</li>
+                        <li>Using despite problems it causes</li>
+                        <li>Spending significant time obtaining or using</li>
+                    </ul>
+                    <h3>Important Facts</h3>
+                    <p><strong>Nicotine:</strong> Is highly addictive. Teen brains are more vulnerable to addiction than adult brains. Most adult smokers started as teens.</p>
+                    <p><strong>Marijuana:</strong> About 1 in 10 people who use marijuana will become dependent. For those who start as teens, it's about 1 in 6.</p>
+                    <p><strong>Good News:</strong> The younger you are when you quit, the easier it is. Your brain is still developing, which means it can also heal and adapt more quickly.</p>
+                `
+            },
+            facts: {
+                icon: '📚',
+                title: 'Key Facts About Nicotine & Marijuana',
+                content: `
+                    <h3>Nicotine/Vaping Facts</h3>
+                    <ul>
+                        <li><strong>Not Harmless:</strong> Vapes contain harmful chemicals, not just "water vapor"</li>
+                        <li><strong>Nicotine Content:</strong> One JUUL pod = 20 cigarettes worth of nicotine</li>
+                        <li><strong>Brain Development:</strong> Nicotine harms the developing teen brain (until age 25)</li>
+                        <li><strong>Popcorn Lung:</strong> Diacetyl in some vapes can cause serious lung disease</li>
+                        <li><strong>Gateway Effect:</strong> Vaping increases likelihood of smoking cigarettes</li>
+                        <li><strong>Marketing:</strong> Companies specifically target young people with flavors and designs</li>
+                    </ul>
+                    <h3>Marijuana Facts</h3>
+                    <ul>
+                        <li><strong>Today's Marijuana:</strong> Much stronger than marijuana from past decades</li>
+                        <li><strong>Impaired Driving:</strong> Marijuana slows reaction time and impairs judgment</li>
+                        <li><strong>Mental Health:</strong> Heavy use linked to anxiety, depression, and psychosis</li>
+                        <li><strong>Academic Impact:</strong> Regular use associated with lower grades and dropout rates</li>
+                        <li><strong>Memory & Learning:</strong> Affects memory formation and cognitive function</li>
+                        <li><strong>Lung Health:</strong> Smoking anything damages lungs; vaping marijuana can cause serious lung injury</li>
+                        <li><strong>Detection:</strong> Marijuana can stay in your system for weeks (important for drug tests)</li>
+                    </ul>
+                    <h3>Common Myths Debunked</h3>
+                    <p><strong>Myth:</strong> "It's natural, so it's safe." <strong>Reality:</strong> Poison ivy is natural too. Natural doesn't mean safe.</p>
+                    <p><strong>Myth:</strong> "Everyone's doing it." <strong>Reality:</strong> Most teens don't use nicotine or marijuana.</p>
+                    <p><strong>Myth:</strong> "I can quit anytime." <strong>Reality:</strong> Addiction makes quitting very difficult without support.</p>
+                `
+            },
+            faqs: {
+                icon: '❓',
+                title: 'Common Questions',
+                content: `
+                    <h3>Frequently Asked Questions</h3>
+                    
+                    <h4>Q: Is marijuana or nicotine worse for you?</h4>
+                    <p>A: Both are harmful in different ways. Nicotine is highly addictive and harms your developing brain and lungs. Marijuana affects memory, mental health, and driving ability. Neither is "safe."</p>
+                    
+                    <h4>Q: How long does marijuana stay in your system?</h4>
+                    <p>A: It depends on frequency of use. Occasional users: 3-7 days. Regular users: 10-30+ days. It's stored in fat cells, so it takes longer to leave your body than other substances.</p>
+                    
+                    <h4>Q: Can vaping affect my athletic performance?</h4>
+                    <p>A: Yes! Both nicotine and marijuana affect your lungs, reducing oxygen capacity. Nicotine also increases heart rate and blood pressure. Many athletes report improved performance after quitting.</p>
+                    
+                    <h4>Q: What if all my friends vape/smoke?</h4>
+                    <p>A: Real friends respect your choices. You might be surprised how many others want to quit but feel peer pressure too. Consider being the one who breaks the cycle.</p>
+                    
+                    <h4>Q: Are edibles safer than smoking marijuana?</h4>
+                    <p>A: Edibles avoid lung damage but can be more dangerous in other ways. Effects take 1-3 hours to kick in, so people often consume too much. The high is also more intense and longer-lasting.</p>
+                    
+                    <h4>Q: Will my parents find out about this program?</h4>
+                    <p>A: Your conversations are confidential. We encourage you to talk with your parents, but won't share details without your permission (except in cases of danger).</p>
+                    
+                    <h4>Q: What if I slip up and use again?</h4>
+                    <p>A: Setbacks are part of the process. Don't give up! Learn from what triggered you and try again. You can always call us back for support.</p>
+                `
+            },
+            resources: {
+                icon: '🔗',
+                title: 'Support Resources',
+                content: `
+                    <h3>National Resources</h3>
+                    <ul>
+                        <li><strong>Crisis Text Line:</strong> Text "HELLO" to 741741 - Free, 24/7 support</li>
+                        <li><strong>National Suicide Prevention Lifeline:</strong> 1-800-273-8255</li>
+                        <li><strong>SAMHSA Treatment Locator:</strong> 1-800-662-HELP (4357)</li>
+                        <li><strong>Teen Line:</strong> 1-800-852-8336 (6pm-10pm PT) or text "TEEN" to 839863</li>
+                        <li><strong>This Is Quitting (Truth Initiative):</strong> Text "DITCHVAPE" to 88709</li>
+                    </ul>
+                    
+                    <h3>Online Resources</h3>
+                    <ul>
+                        <li><strong>Teen.smokefree.gov:</strong> Quit resources specifically for teens</li>
+                        <li><strong>TheeTruth.com:</strong> Info about tobacco industry tactics</li>
+                        <li><strong>NIDA for Teens:</strong> Science-based drug information</li>
+                        <li><strong>7 Cups:</strong> Free online therapy and emotional support</li>
+                    </ul>
+                    
+                    <h3>Apps That Help</h3>
+                    <ul>
+                        <li><strong>QuitGuide:</strong> Free quit smoking/vaping tracker</li>
+                        <li><strong>Calm/Headspace:</strong> Meditation and stress management</li>
+                        <li><strong>Grounded:</strong> Track progress and money saved from quitting</li>
+                    </ul>
+                    
+                    <h3>Local Support</h3>
+                    <p>Ask your school counselor about local support groups, teen therapy options, and community resources. Many schools have free counseling services.</p>
+                    
+                    <p><strong>Remember:</strong> Asking for help is a sign of strength, not weakness. You don't have to do this alone!</p>
+                `
+            }
+        };
+
+        function showHelp(topic) {
+            const modal = document.getElementById('helpModal');
+            const content = helpContent[topic];
+            
+            if (content) {
+                document.getElementById('modalIcon').textContent = content.icon;
+                document.getElementById('modalTitle').textContent = content.title;
+                document.getElementById('modalBody').innerHTML = content.content;
+                modal.classList.add('active');
+            }
+        }
+
+        function closeHelp() {
+            document.getElementById('helpModal').classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('helpModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeHelp();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeHelp();
+            }
+        });
+
+        function toggleSection(sectionNum) {
+            const section = document.querySelector(`[data-section="${sectionNum}"]`);
+            const btn = section.querySelector('.complete-btn');
+            
+            if (completedSections.has(sectionNum)) {
+                completedSections.delete(sectionNum);
+                section.classList.remove('completed');
+                btn.textContent = '✓ Mark Complete';
+                btn.classList.remove('completed');
+            } else {
+                completedSections.add(sectionNum);
+                section.classList.add('completed');
+                btn.textContent = '✓ Completed';
+                btn.classList.add('completed');
+            }
+            
+            updateProgress();
+        }
+
+        function toggleCollapse(sectionNum) {
+            const section = document.querySelector(`[data-section="${sectionNum}"]`);
+            section.classList.toggle('collapsed');
+        }
+
+        // Timer functionality
+        let timerInterval;
+        let timerSeconds = 0;
+        let timerRunning = false;
+
+        function startTimer() {
+            if (!timerRunning) {
+                timerRunning = true;
+                timerInterval = setInterval(() => {
+                    timerSeconds++;
+                    updateTimerDisplay();
+                    updateCallLength();
+                }, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            timerRunning = false;
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            if (confirm('Reset the timer? This will clear the current duration.')) {
+                pauseTimer();
+                timerSeconds = 0;
+                updateTimerDisplay();
+                updateCallLength();
+            }
+        }
+
+        function updateTimerDisplay() {
+            const hours = Math.floor(timerSeconds / 3600);
+            const minutes = Math.floor((timerSeconds % 3600) / 60);
+            const seconds = timerSeconds % 60;
+            
+            const display = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            document.getElementById('timerDisplay').textContent = display;
+        }
+
+        function updateCallLength() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            const display = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            document.getElementById('callLength').value = display;
+        }
+
+        function updateProgress() {
+            const total = 7;
+            const completed = completedSections.size;
+            const percentage = Math.round((completed / total) * 100);
+            
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = `${completed} of ${total} sections completed (${percentage}%)`;
+        }
+
+        function resetForm() {
+            if (confirm('Are you sure you want to reset the entire form? This will clear all data.')) {
+                location.reload();
+            }
+        }
+
+        // Auto-save to localStorage
+        setInterval(() => {
+            const inputs = document.querySelectorAll('input, textarea, select');
+            const data = {};
+            inputs.forEach(input => {
+                if (input.type === 'radio' || input.type === 'checkbox') {
+                    if (input.checked) {
+                        data[input.name] = input.value;
+                    }
+                } else {
+                    data[input.id || input.name] = input.value;
+                }
+            });
+            localStorage.setItem('yvapeProtocolData', JSON.stringify(data));
+        }, 30000); // Save every 30 seconds
+
+        // Set current date/time on load
+        window.addEventListener('load', () => {
+            const now = new Date();
+            const date = now.toISOString().split('T')[0];
+            const time = now.toTimeString().slice(0, 5);
+            
+            document.getElementById('callDate').value = date;
+            document.getElementById('callTime').value = time;
+        });
+
+        // HubSpot Data Collection System
+        // Collect all form data for future HubSpot API integration
+        function collectHubSpotData() {
+            const hubspotData = {};
+            
+            // Get all inputs with data-hubspot attribute
+            const hubspotFields = document.querySelectorAll('[data-hubspot]');
+            
+            hubspotFields.forEach(field => {
+                const fieldName = field.getAttribute('data-hubspot');
+                
+                if (field.type === 'radio') {
+                    if (field.checked) {
+                        hubspotData[fieldName] = field.value;
+                    }
+                } else if (field.type === 'checkbox') {
+                    if (!hubspotData[fieldName]) {
+                        hubspotData[fieldName] = [];
+                    }
+                    if (field.checked) {
+                        hubspotData[fieldName].push(field.value);
+                    }
+                } else {
+                    hubspotData[fieldName] = field.value;
+                }
+            });
+            
+            // Add metadata
+            hubspotData.form_type = 'yvape_protocol';
+            hubspotData.completed_sections = Array.from(completedSections);
+            hubspotData.completion_percentage = Math.round((completedSections.size / 7) * 100);
+            hubspotData.timestamp = new Date().toISOString();
+            
+            return hubspotData;
+        }
+
+        // Event listeners for all form inputs
+        function attachEventListeners() {
+            const allInputs = document.querySelectorAll('input, textarea, select');
+            
+            allInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    // Save to localStorage
+                    const hubspotData = collectHubSpotData();
+                    localStorage.setItem('yvapeProtocolData', JSON.stringify(hubspotData));
+                    
+                    // Log for debugging (remove in production)
+                    console.log('Data updated:', this.name || this.id, this.value);
+                });
+            });
+        }
+
+        // Function to send data to HubSpot (placeholder for future implementation)
+        async function sendToHubSpot() {
+            const data = collectHubSpotData();
+            
+            console.log('Collected HubSpot Data:', data);
+            
+            // Future HubSpot API integration
+            /*
+            try {
+                const response = await fetch('YOUR_HUBSPOT_API_ENDPOINT', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        portalId: 'YOUR_PORTAL_ID',
+                        formGuid: 'YOUR_FORM_GUID',
+                        fields: data
+                    })
+                });
+                
+                if (response.ok) {
+                    console.log('Data sent to HubSpot successfully');
+                    return true;
+                } else {
+                    console.error('Failed to send data to HubSpot');
+                    return false;
+                }
+            } catch (error) {
+                console.error('Error sending data to HubSpot:', error);
+                return false;
+            }
+            */
+            
+            // For now, just return true
+            return true;
+        }
+
+        // Export data as JSON for manual upload
+        function exportData() {
+            const data = collectHubSpotData();
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `yvape_protocol_${data.client_name || 'unnamed'}_${Date.now()}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize event listeners on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            attachEventListeners();
+            
+            // Load saved data from localStorage if available
+            const savedData = localStorage.getItem('yvapeProtocolData');
+            if (savedData && confirm('Load previously saved data?')) {
+                try {
+                    const data = JSON.parse(savedData);
+                    // Populate fields with saved data
+                    Object.keys(data).forEach(key => {
+                        const field = document.querySelector(`[data-hubspot="${key}"]`) || document.getElementById(key);
+                        if (field && data[key]) {
+                            if (field.type === 'radio' || field.type === 'checkbox') {
+                                field.checked = true;
+                            } else {
+                                field.value = data[key];
+                            }
+                        }
+                    });
+                } catch (e) {
+                    console.error('Error loading saved data:', e);
+                }
+            }
+        });
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + S to save/export data
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                exportData();
+            }
+            
+            // Ctrl/Cmd + P to print
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                // Let default print behavior happen
+            }
+        });
+    </script>
+</body>
+</html>
