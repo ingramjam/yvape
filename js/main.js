@@ -28,63 +28,34 @@ document.addEventListener('click', (e) => {
 const formSteps = {
     'school-personnel': [
         {
-            title: 'School Information',
+            title: 'School Personnel Information',
             fields: [
-                { name: 'schoolName', label: 'School Name', type: 'text', required: true, placeholder: 'Search for your school...' },
-                { name: 'schoolDistrict', label: 'School District', type: 'text', required: true },
-                { name: 'schoolAddress', label: 'School Address', type: 'text', required: true },
-                { name: 'schoolCity', label: 'City', type: 'text', required: true },
-                { name: 'schoolZip', label: 'ZIP Code', type: 'text', required: true, pattern: '[0-9]{5}' }
+                { name: 'personnelFirstName', label: 'First Name', type: 'text', required: true, placeholder: 'First Name*' },
+                { name: 'personnelLastName', label: 'Last Name', type: 'text', required: true, placeholder: 'Last Name*' },
+                { name: 'personnelEmail', label: 'Email', type: 'email', required: true, placeholder: 'Email*' },
+                { name: 'personnelPhone', label: 'Phone Number', type: 'tel', required: true, placeholder: 'Phone Number*' },
+                { name: 'personnelPhoneExt', label: 'Phone Extension (optional)', type: 'text', required: false, placeholder: 'Phone Extension (optional)' }
             ]
         },
         {
-            title: 'Personnel Information',
+            title: 'Search for your school:',
             fields: [
-                { name: 'personnelFirstName', label: 'First Name', type: 'text', required: true },
-                { name: 'personnelLastName', label: 'Last Name', type: 'text', required: true },
-                { name: 'personnelTitle', label: 'Title/Position', type: 'text', required: true },
-                { name: 'personnelEmail', label: 'Email', type: 'email', required: true },
-                { name: 'personnelPhone', label: 'Phone Number', type: 'tel', required: true, pattern: '[0-9]{10}' }
+                { name: 'schoolName', label: 'School Name', type: 'text', required: true, placeholder: 'School Name*' }
             ]
         },
         {
-            title: 'Enrollment Purpose',
+            title: 'What you are here to do:',
             fields: [
                 { 
                     name: 'enrollmentPurpose', 
-                    label: 'What would you like to do?', 
+                    label: 'What you are here to do', 
                     type: 'radio', 
                     required: true,
                     options: [
-                        { value: 'enroll', label: 'Enroll students in YVAPE' },
-                        { value: 'information', label: 'Request more information about YVAPE' }
+                        { value: 'enroll', label: "I'm ready to enroll students in YVAPE." },
+                        { value: 'information', label: "I'd like to receive more information on YVAPE." }
                     ]
                 }
-            ]
-        },
-        {
-            title: 'Student Information (if enrolling)',
-            fields: [
-                { name: 'studentFirstName', label: 'Student First Name', type: 'text', required: false },
-                { name: 'studentLastName', label: 'Student Last Name', type: 'text', required: false },
-                { name: 'studentGrade', label: 'Grade Level', type: 'select', required: false, options: [
-                    { value: '', label: 'Select Grade' },
-                    { value: '6', label: '6th Grade' },
-                    { value: '7', label: '7th Grade' },
-                    { value: '8', label: '8th Grade' },
-                    { value: '9', label: '9th Grade' },
-                    { value: '10', label: '10th Grade' },
-                    { value: '11', label: '11th Grade' },
-                    { value: '12', label: '12th Grade' }
-                ]},
-                { name: 'studentAge', label: 'Student Age', type: 'number', required: false, min: 12, max: 19 },
-                { name: 'substanceFound', label: 'Substance Found', type: 'select', required: false, options: [
-                    { value: '', label: 'Select Substance' },
-                    { value: 'nicotine', label: 'Nicotine/Vape' },
-                    { value: 'marijuana', label: 'Marijuana' },
-                    { value: 'both', label: 'Both' }
-                ]},
-                { name: 'additionalNotes', label: 'Additional Notes', type: 'textarea', required: false }
             ]
         }
     ],
@@ -528,19 +499,8 @@ function updateProgress() {
 function submitForm() {
     console.log('Form submitted:', formData);
     
-    // Show success message
-    formContainer.innerHTML = `
-        <div style="text-align: center; padding: var(--spacing-xxl);">
-            <div style="width: 80px; height: 80px; margin: 0 auto var(--spacing-lg); border-radius: 50%; background-color: var(--success-color); display: flex; align-items: center; justify-content: center;">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-            </div>
-            <h2>Thank You!</h2>
-            <p style="font-size: 1.125rem; margin-bottom: var(--spacing-xl);">Your form has been submitted successfully. A YVAPE coach will contact you soon.</p>
-            <a href="index.html" class="btn btn-primary">Return to Home</a>
-        </div>
-    `;
+    // Redirect to thank you page
+    window.location.href = 'thank-you.html';
 }
 
 // ========================================
