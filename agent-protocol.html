@@ -1821,25 +1821,10 @@
 
         function resetForm() {
             if (confirm('Are you sure you want to reset the entire form? This will clear all data.')) {
+                localStorage.removeItem('yvapeProtocolData');
                 location.reload();
             }
         }
-
-        // Auto-save to localStorage
-        setInterval(() => {
-            const inputs = document.querySelectorAll('input, textarea, select');
-            const data = {};
-            inputs.forEach(input => {
-                if (input.type === 'radio' || input.type === 'checkbox') {
-                    if (input.checked) {
-                        data[input.name] = input.value;
-                    }
-                } else {
-                    data[input.id || input.name] = input.value;
-                }
-            });
-            localStorage.setItem('yvapeProtocolData', JSON.stringify(data));
-        }, 30000); // Save every 30 seconds
 
         // Set current date/time on load
         window.addEventListener('load', () => {
@@ -1849,6 +1834,9 @@
             
             document.getElementById('callDate').value = date;
             document.getElementById('callTime').value = time;
+            
+            // Clear any stored data on page load
+            localStorage.removeItem('yvapeProtocolData');
         });
 
         // HubSpot Data Collection System
