@@ -148,8 +148,7 @@
         }
 
         .section-card.collapsed {
-            max-height: 80px;
-            overflow: hidden;
+            overflow: visible;
             opacity: 0.6;
         }
 
@@ -159,6 +158,12 @@
 
         .section-card.collapsed .section-footer {
             display: none;
+        }
+        
+        .section-card.collapsed .section-header {
+            margin-bottom: 0;
+            padding-bottom: var(--spacing-md);
+            border-bottom: none;
         }
 
         .section-card.completed {
