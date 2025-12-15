@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Formulario de Inscripción Escolar YVAPE - Inscriba estudiantes en el Programa de Educación Alternativa para Jóvenes sobre Vapeo">
+    <title>Inscripción Escolar - YVAPE</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .form-step {
+            display: none;
+        }
+        .form-step.active {
+            display: block;
+        }
+        .tooltip-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 18px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: help;
+            margin-left: 5px;
+            position: relative;
+        }
+        .tooltip-icon:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-dark);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: normal;
+            white-space: normal;
+            width: 250px;
+            text-align: left;
+            z-index: 1000;
+            line-height: 1.4;
+        }
+        .checkbox-group-products {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .checkbox-group-products label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+        .form-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: var(--spacing-xl);
+        }
+        .confirmation-box {
+            background: #e8f5e9;
+            border: 2px solid var(--accent-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="../index.html" class="logo">
+                    <img src="../images/yvape_logo.png" alt="YVAPE Logo" class="logo-img">
+                </a>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Alternar menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="../index.html#how-it-works">Cómo Funciona</a></li>
+                    <li><a href="../index.html#benefits">Beneficios</a></li>
+                    <li><a href="../es/videos.html">Videos</a></li>
+                    <li><a href="../es/about.html">Acerca de</a></li>
+                    <li><a href="../es/resources.html">Recursos</a></li>
+                    <li><a href="../es/contact.html">Contacto</a></li>
+                    <li><a href="../school-enrollment.html" class="lang-toggle">EN</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Enrollment Form Section -->
+    <section class="enrollment-section" style="padding-top: 120px; padding-bottom: var(--spacing-xxl);">
+        <div class="container" style="max-width: 800px;">
+            
+            <!-- STEP 1: School Personnel Information -->
+            <div id="step1" class="form-step active">
+                <div class="form-header">
+                    <h1 style="text-align: center; margin-bottom: var(--spacing-md); color: var(--primary-color);">Comience aquí. Este formulario es para:</h1>
+                    <ul style="font-size: 1.1rem; color: var(--text-dark); margin-bottom: var(--spacing-xl); max-width: 600px; margin-left: auto; margin-right: auto;">
+                        <li>Escuelas listas para inscribir estudiantes en YVAPE.</li>
+                        <li>Escuelas interesadas en recibir más información sobre YVAPE.</li>
+                    </ul>
+                </div>
+
+                <form id="personnelForm" class="enrollment-form">
+                    <div class="form-section">
+                        <h2 class="section-title">Información del Personal Escolar</h2>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="personnelFirstName">Nombre *</label>
+                                <input type="text" id="personnelFirstName" name="personnel_first_name" required autocomplete="given-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="personnelLastName">Apellido *</label>
+                                <input type="text" id="personnelLastName" name="personnel_last_name" required autocomplete="family-name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="personnelEmail">Correo Electrónico *</label>
+                            <input type="email" id="personnelEmail" name="personnel_email" required autocomplete="email">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="personnelPhone">Número de Teléfono *</label>
+                                <input type="tel" id="personnelPhone" name="personnel_phone" required autocomplete="tel" pattern="[0-9]{10}" placeholder="1234567890">
+                            </div>
+                            <div class="form-group">
+                                <label for="personnelExtension">Extensión Telefónica (opcional)</label>
+                                <input type="text" id="personnelExtension" name="personnel_extension" autocomplete="tel-extension">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2 class="section-title">Busque su escuela por:</h2>
+                        
+                        <div class="form-group">
+                            <label for="schoolName">Nombre de la Escuela *</label>
+                            <input type="text" id="schoolName" name="school_name" required list="schools-list" placeholder="Comience a escribir para buscar escuelas...">
+                            <datalist id="schools-list"></datalist>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postalCode">Código Postal *</label>
+                            <input type="text" id="postalCode" name="postal_code" required pattern="[0-9]{5}" placeholder="12345">
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2 class="section-title">¿Qué está aquí para hacer?</h2>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="purpose" value="enroll" required>
+                                <span>Estoy listo para inscribir estudiantes en YVAPE.</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="purpose" value="info" required>
+                                <span>Me gustaría recibir más información sobre YVAPE.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                            Comenzar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 2: Thank You for Info Request -->
+            <div id="step2Info" class="form-step">
+                <div class="confirmation-box">
+                    <h2 style="color: var(--accent-color); margin-bottom: var(--spacing-md);">¡Gracias!</h2>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Enviaremos un paquete de bienvenida e información de capacitación virtual gratuita a la dirección de correo electrónico que ingresó.
+                    </p>
+                </div>
+            </div>
+
+            <!-- STEP 3: Consent Checkbox -->
+            <div id="step2Consent" class="form-step">
+                <div class="form-header">
+                    <h1 style="text-align: center; margin-bottom: var(--spacing-xl); color: var(--primary-color);">Inscribir a un Estudiante</h1>
+                    <p style="text-align: center; font-size: 1.1rem; color: var(--text-dark); margin-bottom: var(--spacing-xl);">
+                        Simplemente complete la información a continuación para cada estudiante que inscriba y envíe.
+                    </p>
+                </div>
+
+                <form id="consentForm" class="enrollment-form">
+                    <div class="form-section">
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="consentCheckbox" name="consent_obtained" required>
+                                <span>
+                                    He obtenido el consentimiento del estudiante y del padre/tutor (de estudiantes de 12 a 17 años) para participar en YVAPE y ser contactados por llamada telefónica, mensaje de texto y correo electrónico, y les he dado el 
+                                    <a href="https://yvape.org/static/media/resources/YVAPE_Passive_Consent_4-16-24.pdf" target="_blank">formulario de exclusión voluntaria</a>.
+                                    <span class="tooltip-icon" data-tooltip="El formulario de exclusión voluntaria solo necesita ser firmado y enviado por correo electrónico a yvape-support@health.ucsd.edu si el estudiante o el padre/tutor no desea participar en YVAPE.">i</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                            Siguiente
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 4: Student Information -->
+            <div id="step3Student" class="form-step">
+                <div class="form-header">
+                    <h1 style="text-align: center; margin-bottom: var(--spacing-xl); color: var(--primary-color);">Información del Estudiante</h1>
+                </div>
+
+                <form id="studentForm" class="enrollment-form">
+                    <div class="form-section">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="studentFirstName">Nombre *</label>
+                                <input type="text" id="studentFirstName" name="student_first_name" required autocomplete="given-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="studentLastName">Apellido *</label>
+                                <input type="text" id="studentLastName" name="student_last_name" required autocomplete="family-name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="studentPreferredName">Nombre Preferido</label>
+                            <input type="text" id="studentPreferredName" name="student_preferred_name" autocomplete="nickname">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="studentDOB">Fecha de Nacimiento *</label>
+                            <input type="date" id="studentDOB" name="student_dob" required max="">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="studentGrade">Nivel de Grado *</label>
+                            <select id="studentGrade" name="student_grade" required>
+                                <option value="">Seleccione el grado...</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="studentEmail">Correo Electrónico *</label>
+                            <input type="email" id="studentEmail" name="student_email" required autocomplete="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="studentPhone">Número de Teléfono *</label>
+                            <input type="tel" id="studentPhone" name="student_phone" required autocomplete="tel" pattern="[0-9]{10}" placeholder="1234567890">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="studentLanguage">Idioma *</label>
+                            <select id="studentLanguage" name="student_language" required>
+                                <option value="">Seleccione el idioma...</option>
+                                <option value="English">Inglés</option>
+                                <option value="Spanish">Español</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2 class="section-title">Productos de Tabaco y Marihuana*</h2>
+                        <label style="font-weight: 600; margin-bottom: 10px; display: block;">Producto(s) con el(los) que se encontró al estudiante:</label>
+                        <div class="checkbox-group-products">
+                            <label>
+                                <input type="checkbox" name="products" value="nicotine_vape">
+                                <span>Vapeo de nicotina</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="products" value="other_tobacco">
+                                <span>Otro tabaco (por ejemplo, cigarrillos, puros, etc.)</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="products" value="marijuana_vape">
+                                <span>Vapeo de marihuana</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="products" value="other_marijuana">
+                                <span>Otra marihuana (por ejemplo, porros, comestibles, etc.)</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="products" value="unknown">
+                                <span>Producto de tabaco/marihuana desconocido</span>
+                            </label>
+                        </div>
+                        <div id="productsError" class="error" style="display: none; color: #e91e63; margin-top: 8px;">Por favor seleccione al menos un producto</div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label for="referralReason">Razón de la referencia *</label>
+                            <textarea id="referralReason" name="referral_reason" rows="4" required placeholder="Ingrese la razón de esta referencia..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="referralDate">Fecha de Referencia *</label>
+                            <input type="date" id="referralDate" name="referral_date" required>
+                        </div>
+                    </div>
+
+                    <!-- Parent/Guardian Information (shown only if student is under 18) -->
+                    <div id="parentSection" class="form-section" style="display: none;">
+                        <h2 class="section-title">Información del Padre/Tutor Legal</h2>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="parentFirstName">Nombre *</label>
+                                <input type="text" id="parentFirstName" name="parent_first_name" autocomplete="given-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="parentLastName">Apellido *</label>
+                                <input type="text" id="parentLastName" name="parent_last_name" autocomplete="family-name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="parentEmail">Correo Electrónico *</label>
+                            <input type="email" id="parentEmail" name="parent_email" autocomplete="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="parentPhone">Número de Teléfono *</label>
+                            <input type="tel" id="parentPhone" name="parent_phone" autocomplete="tel" pattern="[0-9]{10}" placeholder="1234567890">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="parentLanguage">Idioma *</label>
+                            <select id="parentLanguage" name="parent_language">
+                                <option value="">Seleccione el idioma...</option>
+                                <option value="English">Inglés</option>
+                                <option value="Spanish">Español</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="button" id="enrollAnotherBtn" class="btn btn-secondary btn-lg" style="flex: 1;">
+                            Inscribir Otro Estudiante
+                        </button>
+                        <button type="submit" class="btn btn-primary btn-lg" style="flex: 1; background: var(--pink-color); border-color: var(--pink-color);">
+                            Enviar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 5: Confirmation -->
+            <div id="step4Confirmation" class="form-step">
+                <div class="confirmation-box">
+                    <h2 style="color: var(--accent-color); margin-bottom: var(--spacing-md);">Confirmación</h2>
+                    <div style="font-size: 1.05rem; line-height: 1.7; text-align: left; max-width: 600px; margin: 0 auto;">
+                        <p style="margin-bottom: var(--spacing-md);">
+                            <strong>El estudiante fue inscrito exitosamente en YVAPE.</strong> Recibirá un correo electrónico de confirmación de inscripción.
+                        </p>
+                        <p style="margin-bottom: var(--spacing-md);">
+                            El envío de este formulario certifica que ha recibido el consentimiento del estudiante y del padre/tutor para que el estudiante participe y sea contactado por YVAPE y les ha proporcionado el <a href="https://yvape.org/static/media/resources/YVAPE_Opt_Out_Form_4-16-24.pdf" target="_blank">formulario de exclusión voluntaria</a>. Si el estudiante o el padre/tutor desea retirarse de YVAPE, pídale que rechace los servicios haciendo que firme el formulario de exclusión voluntaria y lo envíe por correo electrónico a <a href="mailto:yvape-support@health.ucsd.edu">yvape-support@health.ucsd.edu</a>.
+                        </p>
+                        <p>
+                            Le enviaremos un correo electrónico cuando el estudiante complete el programa. Si el estudiante no ha completado el programa dentro de cuatro semanas, le enviaremos un correo electrónico en ese momento.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>YVAPE</h3>
+                    <p>Programa de Educación Alternativa para Jóvenes sobre Vapeo</p>
+                    <p>Programa de intervención gratuito para estudiantes de California</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="../index.html">Inicio</a></li>
+                        <li><a href="../es/about.html">Acerca de</a></li>
+                        <li><a href="../es/videos.html">Videos</a></li>
+                        <li><a href="../es/resources.html">Recursos</a></li>
+                        <li><a href="../es/contact.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <p>Teléfono: 1-888-525-0122</p>
+                    <p>Correo: info@yvape.org</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 YVAPE. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/schools-data.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/hubspot-config.js"></script>
+    <script src="../js/enrollment-flow.js"></script>
+</body>
+</html>
