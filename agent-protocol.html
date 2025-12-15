@@ -760,30 +760,47 @@
         </div>
 
         <!-- Call Information -->
-        <div class="call-info-grid">
-            <div class="call-info-field">
-                <label>Client Name</label>
-                <input type="text" id="clientName" name="client_name" data-hubspot="client_name" placeholder="Enter client name">
-            </div>
-            <div class="call-info-field">
-                <label>NID</label>
-                <input type="text" id="nid" name="nid" data-hubspot="nid" placeholder="ID number">
-            </div>
-            <div class="call-info-field">
-                <label>Date</label>
-                <input type="date" id="callDate" name="call_date" data-hubspot="call_date">
-            </div>
-            <div class="call-info-field">
-                <label>Time</label>
-                <input type="time" id="callTime" name="call_time" data-hubspot="call_time">
-            </div>
-            <div class="call-info-field">
-                <label>Counselor</label>
-                <input type="text" id="counselor" name="counselor_name" data-hubspot="counselor_name" placeholder="Your name">
-            </div>
-            <div class="call-info-field">
-                <label>Call Length</label>
-                <input type="text" id="callLength" name="call_duration" data-hubspot="call_duration" placeholder="00:00" readonly>
+        <div class="section-card" style="background: white; padding: var(--spacing-xl); margin-bottom: var(--spacing-lg);">
+            <h2 style="color: var(--text-dark); margin-bottom: var(--spacing-lg); font-size: 1.5rem;">YVAPE Pilot Protocol</h2>
+            
+            <div class="call-info-grid">
+                <div class="call-info-field">
+                    <label style="font-weight: 600; color: var(--text-dark); margin-bottom: var(--spacing-xs); display: block;">NID</label>
+                    <input type="text" id="nid" name="nid" data-hubspot="nid" placeholder="Helper/Text Placeholder" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--border-color); border-radius: var(--radius-md);">
+                </div>
+                <div class="call-info-field">
+                    <label style="font-weight: 600; color: var(--text-dark); margin-bottom: var(--spacing-xs); display: block;">Date</label>
+                    <input type="date" id="callDate" name="call_date" data-hubspot="call_date" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--border-color); border-radius: var(--radius-md);">
+                    <small style="color: var(--text-light); font-size: 0.85rem; display: block; margin-top: 4px;">Inform user the date format here</small>
+                </div>
+                <div class="call-info-field">
+                    <label style="font-weight: 600; color: var(--text-dark); margin-bottom: var(--spacing-xs); display: block;">Time</label>
+                    <div style="display: flex; gap: var(--spacing-xs);">
+                        <input type="time" id="callTime" name="call_time" data-hubspot="call_time" style="flex: 1; padding: var(--spacing-sm); border: 2px solid var(--border-color); border-radius: var(--radius-md);">
+                        <select id="timeAMPM" name="time_ampm" data-hubspot="time_ampm" style="padding: var(--spacing-sm); border: 2px solid var(--border-color); border-radius: var(--radius-md); background: white;">
+                            <option value="PM">PM</option>
+                            <option value="AM">AM</option>
+                        </select>
+                    </div>
+                    <small style="color: var(--text-light); font-size: 0.85rem; display: block; margin-top: 4px;">Helper/Text Placeholder</small>
+                </div>
+                <div class="call-info-field">
+                    <label style="font-weight: 600; color: var(--text-dark); margin-bottom: var(--spacing-xs); display: block;">Coach</label>
+                    <div style="position: relative;">
+                        <input type="text" id="coach" name="coach_name" data-hubspot="coach_name" placeholder="Coach" list="coach-list" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--border-color); border-radius: var(--radius-md);">
+                        <datalist id="coach-list">
+                            <option value="Kayla B">
+                            <option value="Coach 2">
+                            <option value="Coach 3">
+                        </datalist>
+                        <div id="coachTags" style="display: flex; flex-wrap: wrap; gap: var(--spacing-xs); margin-top: var(--spacing-xs);"></div>
+                    </div>
+                    <small style="color: var(--text-light); font-size: 0.85rem; display: block; margin-top: 4px;">Helper/Text Placeholder</small>
+                </div>
+                <div class="call-info-field">
+                    <label style="font-weight: 600; color: var(--text-dark); margin-bottom: var(--spacing-xs); display: block;">Call Length</label>
+                    <input type="text" id="callLength" name="call_duration" data-hubspot="call_duration" placeholder="00:00" readonly style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--border-color); border-radius: var(--radius-md); background: #f5f5f5;">
+                </div>
             </div>
         </div>
 
@@ -805,7 +822,7 @@
             <div class="section-header" onclick="toggleCollapse(1)">
                 <div class="section-number">1</div>
                 <div class="section-title">
-                    <h2>Introduction & Assent</h2>
+                    <h2>INTRODUCTION & ASSENT</h2>
                 </div>
                 <span class="collapse-indicator">▼</span>
             </div>
@@ -816,57 +833,13 @@
                 "I have a few questions, just so I can get to know you a bit and see if there's any way I can be helpful. However, what we discuss will be kept confidential. That means that anything we talk about stays private. An exception would be if there were a clear danger to you or someone else. Also, calls are recorded and may be monitored for quality assurance or used for training. <strong>Is that okay with you?</strong>"
             </div>
 
-            <div class="code-only">
-                <div class="code-only-label">Code Only</div>
-                <p class="question-prompt">Did client assent?</p>
-                <div class="radio-group">
-                    <label class="radio-option">
-                        <input type="radio" name="assent1" data-hubspot="s1_assent_confidentiality" value="yes"> Yes
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="assent1" data-hubspot="s1_assent_confidentiality" value="no"> No → End call
-                    </label>
-                </div>
-            </div>
-
-            <div class="script-text">
-                "Also, if your parent(s)/guardian want to know what we talked about in our call, I'll encourage them to just ask you about it. <strong>Is that ok?</strong>"
-            </div>
-
-            <div class="code-only">
-                <div class="code-only-label">Code Only</div>
-                <p class="question-prompt">Did client assent?</p>
-                <div class="radio-group">
-                    <label class="radio-option">
-                        <input type="radio" name="assent2" data-hubspot="s1_assent_parent_discussion" value="yes"> Yes
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="assent2" data-hubspot="s1_assent_parent_discussion" value="no"> No → End call
-                    </label>
-                </div>
-            </div>
-
-            <div class="goals-box">
-                <h3>🎯 Goals</h3>
-                <ul>
-                    <li>Establish rapport & affirm</li>
-                    <li>Support autonomy</li>
-                    <li>Provide information about the call</li>
-                </ul>
-            </div>
-
-            <p class="question-prompt">1. "What do you know about how this program works, or what to expect?"</p>
-            <textarea class="notes-field" name="s1_program_knowledge" data-hubspot="s1_program_knowledge" placeholder="Note: Affirm and reflect..."></textarea>
-
-            <div class="script-text important">
-                <strong>That's right! You already know that...</strong> (affirm and reflect anything the student knows)
-            </div>
-
-            <div class="script-text">
-                <strong>Review as needed:</strong><br>
-                "We will talk on the phone for a bit today. I'll get to learn about your experience and answer any questions you have about nicotine or marijuana. That's it!<br><br>
-                I'm not here to lecture you or make you do anything. Whatever you decide to do after this call is totally up to you. I'm just here to listen and support you.<br><br>
-                Any questions before we get started?"
+            <div class="radio-group" style="margin: var(--spacing-md) 0;">
+                <label class="radio-option">
+                    <input type="radio" name="assent1" data-hubspot="s1_assent" value="yes"> Yes
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="assent1" data-hubspot="s1_assent" value="no"> No... end call
+                </label>
             </div>
 
             </div><!-- end section-content -->
@@ -877,12 +850,12 @@
             </div>
         </div>
 
-        <!-- S2: Background -->
+        <!-- S2: Opening - Goals -->
         <div class="section-card collapsed" data-section="2">
             <div class="section-header" onclick="toggleCollapse(2)">
                 <div class="section-number">2</div>
                 <div class="section-title">
-                    <h2>Background</h2>
+                    <h2>OPENING - GOALS</h2>
                 </div>
                 <span class="collapse-indicator">▼</span>
             </div>
@@ -890,13 +863,25 @@
             <div class="section-content">
 
             <div class="goals-box">
-                <h3>🎯 Goals</h3>
-                <ul>
-                    <li>Build rapport - allow student to tell their story</li>
-                    <li>Explore pros & cons of vaping from the student's perspective</li>
-                    <li>Raise motivation to avoid vaping in the future</li>
-                </ul>
+                <p style="margin: 0; color: var(--text-dark); line-height: 1.6;">Establish rapport & affirm. Support autonomy. Provide information about the call.</p>
             </div>
+
+            <div style="background: #E3F2FD; padding: var(--spacing-lg); border-radius: var(--radius-md); border-left: 4px solid var(--primary-color); margin: var(--spacing-lg) 0;">
+                <h3 style="color: var(--primary-color); margin: 0 0 var(--spacing-md) 0; font-size: 1.1rem;">Form</h3>
+                <p style="margin: 0 0 var(--spacing-sm) 0; font-weight: 600; color: var(--text-dark);">What do you know about how this program works, or what to expect? (Affirm and reflect)</p>
+                <textarea class="notes-field" name="s2_program_knowledge" data-hubspot="s2_program_knowledge" placeholder="That's right! You already know that... (affirm and reflect anything the student knows)"></textarea>
+            </div>
+
+            <div class="script-text" style="margin: var(--spacing-lg) 0;">
+                <div style="background: var(--pink-color); color: white; padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius-sm); margin-bottom: var(--spacing-md); display: inline-block;">
+                    <strong>Review as needed</strong>
+                </div>
+                <p style="margin-top: var(--spacing-md);">
+                    We will talk on the phone for a bit today. I'll get to learn about your experie...
+                </p>
+            </div>
+
+            </div><!-- end section-content -->
 
             <p class="question-prompt">1. "How did you end up having to talk with us (what happened when you got caught)?"</p>
             <textarea class="notes-field" name="s2_how_caught" data-hubspot="s2_how_caught" placeholder="Note: Ask open questions to clarify. Reflect and summarize what the student said..."></textarea>
@@ -973,10 +958,95 @@
             </div>
         </div>
 
-        <!-- S3: Videos & Discussion -->
+        <!-- S3: Background - Goals -->
         <div class="section-card collapsed" data-section="3">
             <div class="section-header" onclick="toggleCollapse(3)">
                 <div class="section-number">3</div>
+                <div class="section-title">
+                    <h2>BACKGROUND - GOALS</h2>
+                </div>
+                <span class="collapse-indicator">▼</span>
+            </div>
+
+            <div class="section-content">
+
+            <div class="goals-box">
+                <p style="margin: 0; color: var(--text-dark); line-height: 1.6;">Build rapport - allow student to tell their story. Explore pros & cons of vaping from the student's perspective. Raise motivation to avoid vaping in the future.</p>
+            </div>
+
+            <p class="question-prompt" style="margin-top: var(--spacing-lg);">How did you end up having to talk with us (what happened when you got caught)?</p>
+            <textarea class="notes-field" name="s3_caught_story" data-hubspot="s3_caught_story" placeholder="Clarify substance(s) as needed. Ask open questions to clarify. Reflect and summarize what the student said."></textarea>
+
+            <div class="optional-directions">
+                <div class="optional-label">OPTIONAL DIRECTIONS</div>
+                <ul style="margin: var(--spacing-xs) 0 0 0; padding-left: var(--spacing-lg); color: var(--text-dark);">
+                    <li>What was that like for you?</li>
+                    <li>What kind of trouble has that caused for you?</li>
+                </ul>
+            </div>
+
+            <p class="question-prompt" style="margin-top: var(--spacing-lg);">Was that nicotine, marijuana, or both?</p>
+            <select name="substance_type" data-hubspot="substance_type" style="width: 100%; padding: var(--spacing-md); border: 2px solid var(--border-color); border-radius: var(--radius-md); font-size: 1rem; margin-bottom: var(--spacing-md); background: white;">
+                <option value="">Was that nicotine, marijuana, or both?</option>
+                <option value="nicotine">Nicotine</option>
+                <option value="marijuana">Marijuana</option>
+                <option value="both">Both</option>
+                <option value="other">Other</option>
+            </select>
+
+            <div style="background: #9C27B0; color: white; padding: var(--spacing-lg); border-radius: var(--radius-md); margin: var(--spacing-xl) 0;">
+                <h3 style="color: white; margin: 0 0 var(--spacing-md) 0; font-size: 1.3rem;">REFLECT AND SUMMARIZE</h3>
+                <p style="margin: 0; font-size: 1.05rem; line-height: 1.6;">Tell me about your nicotine/marijuana use.</p>
+            </div>
+
+            <textarea class="notes-field" name="s3_use_description" data-hubspot="s3_use_description" placeholder="DefaultValue Placeholder"></textarea>
+            <small style="color: var(--text-light); font-size: 0.9rem; display: block; margin-top: var(--spacing-xs);">Helper/Text Placeholder</small>
+
+            <div class="optional-directions">
+                <div class="optional-label">OPTIONAL DIRECTIONS</div>
+                <ul style="margin: var(--spacing-xs) 0 0 0; padding-left: var(--spacing-lg); color: var(--text-dark);">
+                    <li>Product type</li>
+                    <li>How often (regular vs irregular use vs experimental user)</li>
+                    <li>When's the last time you used nicotine/marijuana?</li>
+                    <li>What got you started in the first place?</li>
+                    <li>Anything you miss/don't miss about it?</li>
+                </ul>
+            </div>
+
+            <div style="background: #9C27B0; color: white; padding: var(--spacing-lg); border-radius: var(--radius-md); margin: var(--spacing-xl) 0;">
+                <h3 style="color: white; margin: 0 0 var(--spacing-md) 0; font-size: 1.3rem;">REFLECT AND SUMMARIZE</h3>
+                <p style="margin: 0; font-size: 1.05rem; line-height: 1.6;">What is something you like about nicotine/marijuana (or reasons you might use)? If non-user: Why do you think other people use nicotine/marijuana?</p>
+            </div>
+
+            <textarea class="notes-field" name="s3_pros" data-hubspot="s3_pros" placeholder="DefaultValue Placeholder"></textarea>
+            <small style="color: var(--text-light); font-size: 0.9rem; display: block; margin-top: var(--spacing-xs); font-style: italic;">AFFIRM</small>
+
+            <div style="margin: var(--spacing-lg) 0;">
+                <button class="help-btn green" onclick="showHelp('stress')">💡 Stress Management Tips</button>
+            </div>
+
+            </div><!-- end section-content -->
+
+            <div class="section-footer">
+                <button class="collapse-btn" onclick="toggleCollapse(3)">Collapse Section</button>
+                <button class="complete-btn" onclick="toggleSection(3)">✓ Mark Complete</button>
+            </div>
+        </div>
+
+        <!-- Placeholder for remaining sections (to be updated) -->
+        <div class="section-card" style="border-left-color: var(--accent-color); background: #f9f9f9;">
+            <div style="padding: var(--spacing-xl); text-align: center;">
+                <p style="color: var(--text-light); font-size: 1.1rem; margin: 0;">
+                    📝 Additional sections to be structured according to pilot protocol format...
+                </p>
+            </div>
+        </div>
+
+        <!-- S4-7: Keep existing sections for now -->
+        <!-- S4: Videos & Discussion -->
+        <div class="section-card collapsed" data-section="4">
+            <div class="section-header" onclick="toggleCollapse(4)">
+                <div class="section-number">4</div>
                 <div class="section-title">
                     <h2>Videos & Discussion</h2>
                 </div>
@@ -1828,6 +1898,60 @@
                 location.reload();
             }
         }
+
+        // Coach tag functionality
+        let selectedCoaches = [];
+
+        function addCoachTag() {
+            const coachInput = document.getElementById('coach');
+            const coachName = coachInput.value.trim();
+            
+            if (coachName && !selectedCoaches.includes(coachName)) {
+                selectedCoaches.push(coachName);
+                updateCoachTags();
+                coachInput.value = '';
+            }
+        }
+
+        function removeCoachTag(coachName) {
+            selectedCoaches = selectedCoaches.filter(c => c !== coachName);
+            updateCoachTags();
+        }
+
+        function updateCoachTags() {
+            const tagsContainer = document.getElementById('coachTags');
+            tagsContainer.innerHTML = '';
+            
+            selectedCoaches.forEach(coach => {
+                const tag = document.createElement('div');
+                tag.style.cssText = 'background: var(--primary-color); color: white; padding: 4px 10px; border-radius: 16px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem;';
+                tag.innerHTML = `
+                    ${coach}
+                    <button onclick="removeCoachTag('${coach}')" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem; line-height: 1; padding: 0;">×</button>
+                `;
+                tagsContainer.appendChild(tag);
+            });
+        }
+
+        // Add event listener for coach input
+        document.addEventListener('DOMContentLoaded', function() {
+            const coachInput = document.getElementById('coach');
+            if (coachInput) {
+                coachInput.addEventListener('change', addCoachTag);
+                coachInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        addCoachTag();
+                    }
+                });
+            }
+            
+            // Set today's date as default
+            const dateInput = document.getElementById('callDate');
+            if (dateInput && !dateInput.value) {
+                dateInput.valueAsDate = new Date();
+            }
+        });
 
         // Set current date/time on load
         window.addEventListener('load', () => {
