@@ -50,10 +50,37 @@
         </div>
     </section>
 
-    <section class="videos-library">
+    <!-- Video Player Section -->
+    <section id="videoPlayerSection" class="video-player-section" style="display: none;">
+        <div class="container">
+            <button id="backToVideos" class="btn btn-secondary" style="margin-bottom: var(--spacing-lg);">
+                ← Back to All Videos
+            </button>
+            <div class="video-player-wrapper">
+                <div class="video-player-container">
+                    <iframe id="videoPlayer" 
+                            width="100%" 
+                            height="100%" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-player-info">
+                    <h2 id="currentVideoTitle"></h2>
+                    <p id="currentVideoDescription"></p>
+                    <a href="#discussionQuestions" class="btn btn-primary" style="margin-top: var(--spacing-md);">
+                        View Discussion Questions →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="videos-library" id="videosLibrary">
         <div class="container">
             <div class="videos-grid-full">
-                <div class="video-card-full" id="top-tips">
+                <div class="video-card-full" data-video-id="dQw4w9WgXcQ" data-title="Top 6 Tips to Quit Nicotine Vapes" data-description="Practical strategies and advice to help you quit vaping nicotine successfully.">
                     <div class="video-thumbnail-full">
                         <div class="play-icon">▶</div>
                     </div>
@@ -63,7 +90,7 @@
                     </div>
                 </div>
 
-                <div class="video-card-full" id="vaping-marijuana">
+                <div class="video-card-full" data-video-id="dQw4w9WgXcQ" data-title="Vaping Marijuana" data-description="Understanding the risks and effects of vaping marijuana.">
                     <div class="video-thumbnail-full">
                         <div class="play-icon">▶</div>
                     </div>
@@ -73,7 +100,7 @@
                     </div>
                 </div>
 
-                <div class="video-card-full" id="personal-responsibility">
+                <div class="video-card-full" data-video-id="dQw4w9WgXcQ" data-title="Personal Responsibility" data-description="Learn about making responsible choices and taking ownership of your decisions.">
                     <div class="video-thumbnail-full">
                         <div class="play-icon">▶</div>
                     </div>
@@ -83,7 +110,7 @@
                     </div>
                 </div>
 
-                <div class="video-card-full" id="dealing-stress">
+                <div class="video-card-full" data-video-id="dQw4w9WgXcQ" data-title="Dealing with Stress" data-description="Healthy ways to manage stress without relying on substances.">
                     <div class="video-thumbnail-full">
                         <div class="play-icon">▶</div>
                     </div>
@@ -93,7 +120,7 @@
                     </div>
                 </div>
 
-                <div class="video-card-full">
+                <div class="video-card-full" data-video-id="dQw4w9WgXcQ" data-title="Marijuana and Mental Health" data-description="How marijuana use affects your mental health and wellbeing.">
                     <div class="video-thumbnail-full">
                         <div class="play-icon">▶</div>
                     </div>
@@ -103,7 +130,7 @@
                     </div>
                 </div>
 
-                <div class="video-card-full">
+                <div class="video-card-full" data-video-id="dQw4w9WgXcQ" data-title="Nicotine and Mental Health" data-description="Understanding the connection between nicotine use and mental health.">
                     <div class="video-thumbnail-full">
                         <div class="play-icon">▶</div>
                     </div>
@@ -113,7 +140,7 @@
                     </div>
                 </div>
 
-                <div class="video-card-full">
+                <div class="video-card-full" data-video-id="dQw4w9WgXcQ" data-title="Understanding Motivation" data-description="Discover what motivates you and how to harness that power for positive change.">
                     <div class="video-thumbnail-full">
                         <div class="play-icon">▶</div>
                     </div>
@@ -123,7 +150,7 @@
                     </div>
                 </div>
 
-                <div class="video-card-full">
+                <div class="video-card-full" data-video-id="dQw4w9WgXcQ" data-title="Health Effects of Vaping" data-description="Learn about the short and long-term health effects of vaping.">
                     <div class="video-thumbnail-full">
                         <div class="play-icon">▶</div>
                     </div>
@@ -133,7 +160,7 @@
                     </div>
                 </div>
 
-                <div class="video-card-full">
+                <div class="video-card-full" data-video-id="dQw4w9WgXcQ" data-title="Marketing Manipulation" data-description="How vaping companies target and manipulate young people through marketing.">
                     <div class="video-thumbnail-full">
                         <div class="play-icon">▶</div>
                     </div>
@@ -143,7 +170,7 @@
                     </div>
                 </div>
 
-                <div class="video-card-full">
+                <div class="video-card-full" data-video-id="dQw4w9WgXcQ" data-title="Asking for Help Quitting" data-description="It's okay to ask for help. Learn about resources available to support you.">
                     <div class="video-thumbnail-full">
                         <div class="play-icon">▶</div>
                     </div>
@@ -153,13 +180,138 @@
                     </div>
                 </div>
 
-                <div class="video-card-full">
+                <div class="video-card-full" data-video-id="dQw4w9WgXcQ" data-title="Vaping Marijuana: Your Brain & Lungs" data-description="The science behind how marijuana vaping affects your brain and respiratory system.">
                     <div class="video-thumbnail-full">
                         <div class="play-icon">▶</div>
                     </div>
                     <div class="video-info">
                         <h3>Vaping Marijuana: Your Brain & Lungs</h3>
                         <p>The science behind how marijuana vaping affects your brain and respiratory system.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discussion Questions Section -->
+    <section id="discussionQuestions" style="padding: var(--spacing-xxl) 0; background: var(--bg-light);">
+        <div class="container">
+            <div style="max-width: 900px; margin: 0 auto;">
+                <h2 style="text-align: center; margin-bottom: var(--spacing-md);">Discuss the Videos</h2>
+                
+                <div style="background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); color: white; padding: var(--spacing-xl); border-radius: var(--radius-lg); margin-bottom: var(--spacing-xl);">
+                    <h3 style="color: white; margin-bottom: var(--spacing-md);">📝 Instructions (for students):</h3>
+                    <p style="color: white; line-height: 1.8;">
+                        Take a few minutes to pick 4-5 questions that are most relevant to you, although feel free to discuss additional questions. Answer the questions for yourself before discussing with your parent or guardian.
+                    </p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, var(--pink-color), var(--secondary-color)); color: white; padding: var(--spacing-xl); border-radius: var(--radius-lg); margin-bottom: var(--spacing-xl);">
+                    <h3 style="color: white; margin-bottom: var(--spacing-md);">👨‍👩‍👧‍👦 Instructions (for parent):</h3>
+                    <p style="color: white; line-height: 1.8;">
+                        Take a few minutes to look over these questions. Your child will pick 4-5 questions most relevant to them to discuss with you, although feel free to discuss additional questions.
+                    </p>
+                </div>
+
+                <div style="background: white; padding: var(--spacing-xl); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                    <h3 style="text-align: center; color: var(--primary-color); margin-bottom: var(--spacing-xl); text-transform: uppercase; letter-spacing: 1px;">
+                        Choose 4-5 Questions to Discuss
+                    </h3>
+
+                    <div style="display: grid; gap: var(--spacing-lg);">
+                        <div class="discussion-question">
+                            <div style="display: flex; gap: var(--spacing-md); align-items: start;">
+                                <span style="color: var(--primary-color); font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">1.</span>
+                                <p style="color: var(--text-dark); line-height: 1.8;">
+                                    What do you like about using nicotine and/or marijuana? What do you dislike about using nicotine and/or marijuana?
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="discussion-question">
+                            <div style="display: flex; gap: var(--spacing-md); align-items: start;">
+                                <span style="color: var(--primary-color); font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">2.</span>
+                                <p style="color: var(--text-dark); line-height: 1.8;">
+                                    What do you know about how vaping companies, like Elf Bar, Juul, and Vuse, market their products to teens?
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="discussion-question">
+                            <div style="display: flex; gap: var(--spacing-md); align-items: start;">
+                                <span style="color: var(--primary-color); font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">3.</span>
+                                <p style="color: var(--text-dark); line-height: 1.8;">
+                                    Have any of your friends who use nicotine and/or marijuana had any health problems? Have you? If so, what? How did it affect you?
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="discussion-question">
+                            <div style="display: flex; gap: var(--spacing-md); align-items: start;">
+                                <span style="color: var(--primary-color); font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">4.</span>
+                                <p style="color: var(--text-dark); line-height: 1.8;">
+                                    What do you think the risks of using nicotine and marijuana are? How do you think using nicotine and marijuana affects long-term health?
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="discussion-question">
+                            <div style="display: flex; gap: var(--spacing-md); align-items: start;">
+                                <span style="color: var(--primary-color); font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">5.</span>
+                                <p style="color: var(--text-dark); line-height: 1.8;">
+                                    What do your friends think about using nicotine compared to marijuana? What do you think?
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="discussion-question">
+                            <div style="display: flex; gap: var(--spacing-md); align-items: start;">
+                                <span style="color: var(--primary-color); font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">6.</span>
+                                <p style="color: var(--text-dark); line-height: 1.8;">
+                                    Think about a time when you were happiest. What was going on then? What do you think you would have to do to feel like that again?
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="discussion-question">
+                            <div style="display: flex; gap: var(--spacing-md); align-items: start;">
+                                <span style="color: var(--primary-color); font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">7.</span>
+                                <p style="color: var(--text-dark); line-height: 1.8;">
+                                    What are some things that have caused you stress recently? What are a few ways you cope with stress? What might you do differently if you experience that stressor again?
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="discussion-question">
+                            <div style="display: flex; gap: var(--spacing-md); align-items: start;">
+                                <span style="color: var(--primary-color); font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">8.</span>
+                                <p style="color: var(--text-dark); line-height: 1.8;">
+                                    How do you think your life would change if you stopped using nicotine and/or marijuana? What changes might you notice in the next few weeks and what changes might you notice in the next few months?
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="discussion-question">
+                            <div style="display: flex; gap: var(--spacing-md); align-items: start;">
+                                <span style="color: var(--primary-color); font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">9.</span>
+                                <p style="color: var(--text-dark); line-height: 1.8;">
+                                    How do you think your nicotine and/or marijuana use has affected others?
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="discussion-question">
+                            <div style="display: flex; gap: var(--spacing-md); align-items: start;">
+                                <span style="color: var(--primary-color); font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">10.</span>
+                                <p style="color: var(--text-dark); line-height: 1.8;">
+                                    What are some goals you'd like achieve in the next month? The next year?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
                     </div>
                 </div>
             </div>
