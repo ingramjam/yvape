@@ -148,9 +148,17 @@
         }
 
         .section-card.collapsed {
-            max-height: 100px;
+            max-height: 80px;
             overflow: hidden;
             opacity: 0.6;
+        }
+
+        .section-card.collapsed .section-content {
+            display: none;
+        }
+
+        .section-card.collapsed .section-footer {
+            display: none;
         }
 
         .section-card.completed {
@@ -785,7 +793,7 @@
         </div>
 
         <!-- S1: Introduction & Assent -->
-        <div class="section-card" data-section="1">
+        <div class="section-card collapsed" data-section="1">
             <div class="section-header" onclick="toggleCollapse(1)">
                 <div class="section-number">1</div>
                 <div class="section-title">
@@ -862,7 +870,7 @@
         </div>
 
         <!-- S2: Background -->
-        <div class="section-card" data-section="2">
+        <div class="section-card collapsed" data-section="2">
             <div class="section-header" onclick="toggleCollapse(2)">
                 <div class="section-number">2</div>
                 <div class="section-title">
@@ -958,7 +966,7 @@
         </div>
 
         <!-- S3: Videos & Discussion -->
-        <div class="section-card" data-section="3">
+        <div class="section-card collapsed" data-section="3">
             <div class="section-header" onclick="toggleCollapse(3)">
                 <div class="section-number">3</div>
                 <div class="section-title">
@@ -1073,7 +1081,7 @@
         </div>
 
         <!-- S4: Importance/Confidence -->
-        <div class="section-card" data-section="4">
+        <div class="section-card collapsed" data-section="4">
             <div class="section-header" onclick="toggleCollapse(4)">
                 <div class="section-number">4</div>
                 <div class="section-title">
@@ -1162,7 +1170,7 @@
         </div>
 
         <!-- S5: Goal Setting -->
-        <div class="section-card" data-section="5">
+        <div class="section-card collapsed" data-section="5">
             <div class="section-header" onclick="toggleCollapse(5)">
                 <div class="section-number">5</div>
                 <div class="section-title">
@@ -1264,7 +1272,7 @@
         </div>
 
         <!-- S6: Substance Use Questions -->
-        <div class="section-card" data-section="6">
+        <div class="section-card collapsed" data-section="6">
             <div class="section-header" onclick="toggleCollapse(6)">
                 <div class="section-number">6</div>
                 <div class="section-title">
@@ -1292,7 +1300,7 @@
         </div>
 
         <!-- S7: Demographics & Final Thoughts -->
-        <div class="section-card" data-section="7">
+        <div class="section-card collapsed" data-section="7">
             <div class="section-header" onclick="toggleCollapse(7)">
                 <div class="section-number">7</div>
                 <div class="section-title">
