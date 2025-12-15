@@ -53,7 +53,8 @@
                     
                     <div class="form-group">
                         <label for="schoolName">School Name *</label>
-                        <input type="text" id="schoolName" name="school_name" required autocomplete="organization">
+                        <input type="text" id="schoolName" name="school_name" required autocomplete="organization" list="schools-list" placeholder="Start typing to search schools...">
+                        <datalist id="schools-list"></datalist>
                     </div>
 
                     <div class="form-row">
@@ -234,7 +235,34 @@
         </div>
     </footer>
 
+    <script src="js/schools-data.js"></script>
     <script src="js/main.js"></script>
     <script src="js/hubspot-config.js"></script>
+    <script>
+        // Populate schools datalist
+        if (typeof californiaSchools !== 'undefined') {
+            const datalist = document.getElementById('schools-list');
+            californiaSchools.forEach(school => {
+                const option = document.createElement('option');
+                option.value = school.name;
+                option.textContent = `${school.name} - ${school.district}`;
+                datalist.appendChild(option);
+            });
+            
+            // Auto-fill district, city, zip when school is selected
+            document.getElementById('schoolName').addEventListener('change', (e) => {
+                const selectedSchool = californiaSchools.find(s => s.name === e.target.value);
+                if (selectedSchool) {
+                    const districtField = document.getElementById('schoolDistrict');
+                    const cityField = document.getElementById('schoolCity');
+                    const zipField = document.getElementById('schoolZip');
+                    
+                    if (districtField) districtField.value = selectedSchool.district;
+                    if (cityField) cityField.value = selectedSchool.city;
+                    if (zipField) zipField.value = selectedSchool.zip;
+                }
+            });
+        }
+    </script>
 </body>
 </html>

@@ -899,6 +899,20 @@ ul {
     position: relative;
 }
 
+.video-thumbnail img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.video-thumbnail .play-icon {
+    z-index: 2;
+}
+
 .play-icon {
     width: 64px;
     height: 64px;
