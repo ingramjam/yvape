@@ -766,12 +766,11 @@
             <div class="call-info-grid">
                 <div class="call-info-field">
                     <label style="font-weight: 600; color: var(--text-dark); margin-bottom: var(--spacing-xs); display: block;">NID</label>
-                    <input type="text" id="nid" name="nid" data-hubspot="nid" placeholder="Helper/Text Placeholder" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--border-color); border-radius: var(--radius-md);">
+                    <input type="text" id="nid" name="nid" data-hubspot="nid" placeholder="Enter student ID" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--border-color); border-radius: var(--radius-md);">
                 </div>
                 <div class="call-info-field">
                     <label style="font-weight: 600; color: var(--text-dark); margin-bottom: var(--spacing-xs); display: block;">Date</label>
                     <input type="date" id="callDate" name="call_date" data-hubspot="call_date" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--border-color); border-radius: var(--radius-md);">
-                    <small style="color: var(--text-light); font-size: 0.85rem; display: block; margin-top: 4px;">Inform user the date format here</small>
                 </div>
                 <div class="call-info-field">
                     <label style="font-weight: 600; color: var(--text-dark); margin-bottom: var(--spacing-xs); display: block;">Time</label>
@@ -782,12 +781,11 @@
                             <option value="AM">AM</option>
                         </select>
                     </div>
-                    <small style="color: var(--text-light); font-size: 0.85rem; display: block; margin-top: 4px;">Helper/Text Placeholder</small>
                 </div>
                 <div class="call-info-field">
                     <label style="font-weight: 600; color: var(--text-dark); margin-bottom: var(--spacing-xs); display: block;">Coach</label>
                     <div style="position: relative;">
-                        <input type="text" id="coach" name="coach_name" data-hubspot="coach_name" placeholder="Coach" list="coach-list" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--border-color); border-radius: var(--radius-md);">
+                        <input type="text" id="coach" name="coach_name" data-hubspot="coach_name" placeholder="Select or type coach name" list="coach-list" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--border-color); border-radius: var(--radius-md);">
                         <datalist id="coach-list">
                             <option value="Kayla B">
                             <option value="Coach 2">
@@ -795,7 +793,6 @@
                         </datalist>
                         <div id="coachTags" style="display: flex; flex-wrap: wrap; gap: var(--spacing-xs); margin-top: var(--spacing-xs);"></div>
                     </div>
-                    <small style="color: var(--text-light); font-size: 0.85rem; display: block; margin-top: 4px;">Helper/Text Placeholder</small>
                 </div>
                 <div class="call-info-field">
                     <label style="font-weight: 600; color: var(--text-dark); margin-bottom: var(--spacing-xs); display: block;">Call Length</label>
@@ -869,7 +866,7 @@
             <div style="background: #E3F2FD; padding: var(--spacing-lg); border-radius: var(--radius-md); border-left: 4px solid var(--primary-color); margin: var(--spacing-lg) 0;">
                 <h3 style="color: var(--primary-color); margin: 0 0 var(--spacing-md) 0; font-size: 1.1rem;">Form</h3>
                 <p style="margin: 0 0 var(--spacing-sm) 0; font-weight: 600; color: var(--text-dark);">What do you know about how this program works, or what to expect? (Affirm and reflect)</p>
-                <textarea class="notes-field" name="s2_program_knowledge" data-hubspot="s2_program_knowledge" placeholder="That's right! You already know that... (affirm and reflect anything the student knows)"></textarea>
+                <textarea class="notes-field" name="s2_program_knowledge" data-hubspot="s2_program_knowledge" placeholder="Enter student's response... Affirm what they already know"></textarea>
             </div>
 
             <div class="script-text" style="margin: var(--spacing-lg) 0;">
@@ -895,17 +892,17 @@
 
             <p class="question-prompt">4. "What is something you like about nicotine/marijuana (or reasons you might use)?"<br>
             <small style="font-weight: 400; color: var(--text-light);">If non-user: "Why do you think other people use nicotine/marijuana?"</small></p>
-            <textarea class="notes-field" name="s2_pros" data-hubspot="s2_pros" placeholder="List reasons... Affirm their responses..."></textarea>
+            <textarea class="notes-field" name="s2_pros" data-hubspot="s2_pros" placeholder="List reasons they mention and affirm their responses"></textarea>
 
             <div style="margin: var(--spacing-md) 0;">
                 <button class="help-btn green" onclick="showHelp('stress')">� Stress Management Tips</button>
             </div>
 
             <p class="question-prompt">8. "What would you say are some of the downsides (or not so good things)? ...What else?"</p>
-            <textarea class="notes-field" name="s2_cons" data-hubspot="s2_cons" placeholder="List downsides... Reflect and summarize. Spend time on this. Can remind students of troubles it caused them..."></textarea>
+            <textarea class="notes-field" name="s2_cons" data-hubspot="s2_cons" placeholder="List downsides mentioned - reflect and summarize their concerns"></textarea>
 
             <p class="question-prompt">10. "What do you know/ what have you heard about nicotine/marijuana dependence (addiction)?"</p>
-            <textarea class="notes-field" name="s2_addiction_knowledge" data-hubspot="s2_addiction_knowledge" placeholder="Example: Someone feeling like they need it, or feeling like they aren't able to stop..."></textarea>
+            <textarea class="notes-field" name="s2_addiction_knowledge" data-hubspot="s2_addiction_knowledge" placeholder="Note their current knowledge about addiction and dependence"></textarea>
 
             <p class="question-prompt">11. "Would it be okay if I shared more information about nicotine/marijuana dependence?"</p>
             <div style="margin: var(--spacing-md) 0;">
@@ -914,7 +911,7 @@
             <p style="font-style: italic; color: var(--text-light);">Educate on symptoms of addiction and withdrawal not previously addressed.</p>
 
             <p class="question-prompt">12. "Which of these, if any, have you noticed in yourself or others?"</p>
-            <textarea class="notes-field" name="s2_addiction_signs" data-hubspot="s2_addiction_signs" placeholder="Document responses..."></textarea>
+            <textarea class="notes-field" name="s2_addiction_signs" data-hubspot="s2_addiction_signs" placeholder="Document any symptoms they recognize"></textarea>
 
             </div><!-- end section-content -->
 
@@ -941,7 +938,7 @@
             </div>
 
             <p class="question-prompt" style="margin-top: var(--spacing-lg);">How did you end up having to talk with us (what happened when you got caught)?</p>
-            <textarea class="notes-field" name="s3_caught_story" data-hubspot="s3_caught_story" placeholder="Clarify substance(s) as needed. Ask open questions to clarify. Reflect and summarize what the student said."></textarea>
+            <textarea class="notes-field" name="s3_caught_story" data-hubspot="s3_caught_story" placeholder="Note student's response... Ask clarifying questions and reflect what they said"></textarea>
 
             <div class="optional-directions">
                 <div class="optional-label">OPTIONAL DIRECTIONS</div>
@@ -965,8 +962,7 @@
                 <p style="margin: 0; font-size: 1.05rem; line-height: 1.6;">Tell me about your nicotine/marijuana use.</p>
             </div>
 
-            <textarea class="notes-field" name="s3_use_description" data-hubspot="s3_use_description" placeholder="DefaultValue Placeholder"></textarea>
-            <small style="color: var(--text-light); font-size: 0.9rem; display: block; margin-top: var(--spacing-xs);">Helper/Text Placeholder</small>
+            <textarea class="notes-field" name="s3_use_description" data-hubspot="s3_use_description" placeholder="Document their response... Product type, frequency, when they last used, what got them started"></textarea>
 
             <div class="optional-directions">
                 <div class="optional-label">OPTIONAL DIRECTIONS</div>
@@ -984,8 +980,7 @@
                 <p style="margin: 0; font-size: 1.05rem; line-height: 1.6;">What is something you like about nicotine/marijuana (or reasons you might use)? If non-user: Why do you think other people use nicotine/marijuana?</p>
             </div>
 
-            <textarea class="notes-field" name="s3_pros" data-hubspot="s3_pros" placeholder="DefaultValue Placeholder"></textarea>
-            <small style="color: var(--text-light); font-size: 0.9rem; display: block; margin-top: var(--spacing-xs); font-style: italic;">AFFIRM</small>
+            <textarea class="notes-field" name="s3_pros" data-hubspot="s3_pros" placeholder="List their responses... Remember to affirm their answers"></textarea>
 
             <div style="margin: var(--spacing-lg) 0;">
                 <button class="help-btn green" onclick="showHelp('stress')">💡 Stress Management Tips</button>
@@ -1094,14 +1089,14 @@
             </div>
 
             <p class="question-prompt">4. "What's something that you learned (or thought was interesting)?"</p>
-            <textarea class="notes-field" placeholder="Reflect and summarize..."></textarea>
+            <textarea class="notes-field" placeholder="Note key points from their response and reflect back"></textarea>
 
             <div style="margin: var(--spacing-lg) 0;">
                 <a href="videos.html#discussionQuestions" class="resource-link" target="_blank">💬 View Discussion Questions</a>
             </div>
 
             <p class="question-prompt">5. Review at least 2 of the Student/Parent Discussion Questions with client.</p>
-            <textarea class="notes-field" placeholder="Document discussion..."></textarea>
+            <textarea class="notes-field" placeholder="Note details of the discussion"></textarea>
 
             <p class="question-prompt">6. "Now that we've talked about the videos, what else would you like to know about nicotine/marijuana?"</p>
             <textarea class="notes-field" placeholder="Answer questions. Link to fact sheets if needed..."></textarea>
@@ -1151,7 +1146,7 @@
             </div>
 
             <p class="question-prompt">1. "When it comes to nicotine/marijuana, how do you see it fitting in your life now?"</p>
-            <textarea class="notes-field" placeholder="Document response..."></textarea>
+            <textarea class="notes-field" placeholder="Record their response"></textarea>
 
             <div class="code-only">
                 <div class="code-only-label">Code Only</div>
@@ -1483,10 +1478,10 @@
                     <input type="checkbox" name="improve" value="more-info"> More information
                 </label>
             </div>
-            <input type="text" class="notes-field" style="min-height: auto;" placeholder="Other (specify)...">
+            <input type="text" class="notes-field" style="min-height: auto;" placeholder="Specify other improvements">
 
             <p class="question-prompt">11. "Is there anything else you'd like to add about your experience in YVAPE?"</p>
-            <textarea class="notes-field" placeholder="Additional feedback..."></textarea>
+            <textarea class="notes-field" placeholder="Note any additional feedback they provide"></textarea>
 
             <p class="question-prompt">12. Did the client complete the initial call?</p>
             <div class="radio-group">
@@ -1506,7 +1501,7 @@
             </div>
 
             <p class="question-prompt">5. "Do you have any (other) questions?"</p>
-            <textarea class="notes-field" placeholder="Answer questions..."></textarea>
+            <textarea class="notes-field" placeholder="Provide answers to their questions"></textarea>
 
             <div class="script-text">
                 "Feel free to call back if you have any (more) questions. <strong>1-888-525-0122</strong>"
