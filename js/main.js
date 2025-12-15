@@ -157,350 +157,43 @@ const formSteps = {
 // ========================================
 // Form State Management
 // ========================================
-let currentUserType = null;
-let currentStep = 0;
-let formData = {};
-
-const userTypeSelector = document.getElementById('userTypeSelector');
-const formContainer = document.getElementById('formContainer');
 const enrollmentForm = document.getElementById('enrollmentForm');
-const progressFill = document.getElementById('progressFill');
-const progressSteps = document.getElementById('progressSteps');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-const submitBtn = document.getElementById('submitBtn');
 
-// ========================================
-// User Type Selection
-// ========================================
-if (userTypeSelector) {
-    const userTypeCards = userTypeSelector.querySelectorAll('.user-type-card');
-    
-    userTypeCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const userType = card.dataset.type;
-            initializeForm(userType);
+// Populate California schools datalist
+if (typeof californiaSchools !== 'undefined') {
+    const datalist = document.getElementById('schools-list');
+    if (datalist) {
+        californiaSchools.forEach(school => {
+            const option = document.createElement('option');
+            option.value = school.name;
+            option.textContent = `${school.name} - ${school.district}`;
+            datalist.appendChild(option);
         });
-    });
-}
-
-// ========================================
-// Form Initialization
-// ========================================
-function initializeForm(userType) {
-    currentUserType = userType;
-    currentStep = 0;
-    formData = { userType: userType };
-    
-    userTypeSelector.style.display = 'none';
-    formContainer.style.display = 'block';
-    
-    renderProgressSteps();
-    renderFormStep();
-    updateProgress();
-}
-
-function renderProgressSteps() {
-    const steps = formSteps[currentUserType];
-    progressSteps.innerHTML = '';
-    
-    steps.forEach((step, index) => {
-        const stepEl = document.createElement('div');
-        stepEl.className = 'progress-step';
-        stepEl.textContent = step.title;
-        if (index === 0) stepEl.classList.add('active');
-        progressSteps.appendChild(stepEl);
-    });
-}
-
-function renderFormStep() {
-    const steps = formSteps[currentUserType];
-    const step = steps[currentStep];
-    
-    enrollmentForm.innerHTML = '';
-    
-    const stepTitle = document.createElement('h3');
-    stepTitle.textContent = step.title;
-    stepTitle.style.marginBottom = 'var(--spacing-lg)';
-    enrollmentForm.appendChild(stepTitle);
-    
-    const stepDiv = document.createElement('div');
-    stepDiv.className = 'form-step active';
-    
-    step.fields.forEach(field => {
-        const formGroup = createFormField(field);
-        stepDiv.appendChild(formGroup);
-    });
-    
-    enrollmentForm.appendChild(stepDiv);
-}
-
-function createFormField(field) {
-    const formGroup = document.createElement('div');
-    formGroup.className = 'form-group';
-    
-    const label = document.createElement('label');
-    label.htmlFor = field.name;
-    label.textContent = field.label;
-    if (field.required) label.innerHTML += ' <span style="color: var(--error-color);">*</span>';
-    formGroup.appendChild(label);
-    
-    let input;
-    
-    switch (field.type) {
-        case 'textarea':
-            input = document.createElement('textarea');
-            input.id = field.name;
-            input.name = field.name;
-            input.placeholder = field.placeholder || '';
-            break;
-            
-        case 'select':
-            input = document.createElement('select');
-            input.id = field.name;
-            input.name = field.name;
-            field.options.forEach(option => {
-                const opt = document.createElement('option');
-                opt.value = option.value;
-                opt.textContent = option.label;
-                input.appendChild(opt);
-            });
-            break;
-            
-        case 'radio':
-            const radioGroup = document.createElement('div');
-            radioGroup.style.display = 'flex';
-            radioGroup.style.flexDirection = 'column';
-            radioGroup.style.gap = 'var(--spacing-sm)';
-            
-            field.options.forEach(option => {
-                const radioLabel = document.createElement('label');
-                radioLabel.style.display = 'flex';
-                radioLabel.style.alignItems = 'center';
-                radioLabel.style.cursor = 'pointer';
-                
-                const radioInput = document.createElement('input');
-                radioInput.type = 'radio';
-                radioInput.name = field.name;
-                radioInput.value = option.value;
-                radioInput.style.marginRight = 'var(--spacing-xs)';
-                
-                radioLabel.appendChild(radioInput);
-                radioLabel.appendChild(document.createTextNode(option.label));
-                radioGroup.appendChild(radioLabel);
-            });
-            
-            formGroup.appendChild(radioGroup);
-            return formGroup;
-            
-        case 'checkbox':
-            const checkboxLabel = document.createElement('label');
-            checkboxLabel.style.display = 'flex';
-            checkboxLabel.style.alignItems = 'center';
-            checkboxLabel.style.cursor = 'pointer';
-            
-            input = document.createElement('input');
-            input.type = 'checkbox';
-            input.id = field.name;
-            input.name = field.name;
-            input.style.marginRight = 'var(--spacing-sm)';
-            input.style.width = 'auto';
-            
-            checkboxLabel.appendChild(input);
-            checkboxLabel.appendChild(document.createTextNode(field.label));
-            formGroup.innerHTML = '';
-            formGroup.appendChild(checkboxLabel);
-            
-            const error = document.createElement('div');
-            error.className = 'error';
-            error.textContent = 'This field is required';
-            formGroup.appendChild(error);
-            
-            return formGroup;
-            
-        default:
-            input = document.createElement('input');
-            input.type = field.type;
-            input.id = field.name;
-            input.name = field.name;
-            input.placeholder = field.placeholder || '';
-            if (field.pattern) input.pattern = field.pattern;
-            if (field.min) input.min = field.min;
-            if (field.max) input.max = field.max;
-            
-            // Add datalist for school name field
-            if (field.name === 'schoolName' && typeof californiaSchools !== 'undefined') {
-                const datalist = document.createElement('datalist');
-                datalist.id = 'schools-list';
-                
-                californiaSchools.forEach(school => {
-                    const option = document.createElement('option');
-                    option.value = school.name;
-                    option.textContent = `${school.name} - ${school.district}`;
-                    datalist.appendChild(option);
-                });
-                
-                input.setAttribute('list', 'schools-list');
-                formGroup.appendChild(datalist);
-                
-                // Auto-fill district, city, zip when school is selected
-                input.addEventListener('change', (e) => {
-                    const selectedSchool = californiaSchools.find(s => s.name === e.target.value);
-                    if (selectedSchool) {
-                        const districtField = document.getElementById('schoolDistrict');
-                        const cityField = document.getElementById('schoolCity');
-                        const zipField = document.getElementById('schoolZip');
-                        
-                        if (districtField) districtField.value = selectedSchool.district;
-                        if (cityField) cityField.value = selectedSchool.city;
-                        if (zipField) zipField.value = selectedSchool.zip;
-                    }
-                });
-            }
     }
-    
-    if (field.required && field.type !== 'checkbox') {
-        input.required = true;
-    }
-    
-    // Restore saved value if exists
-    if (formData[field.name]) {
-        input.value = formData[field.name];
-    }
-    
-    formGroup.appendChild(input);
-    
-    const error = document.createElement('div');
-    error.className = 'error';
-    error.textContent = 'This field is required';
-    formGroup.appendChild(error);
-    
-    return formGroup;
 }
 
 // ========================================
-// Form Navigation
+// Form Submission
 // ========================================
-if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-        if (currentStep > 0) {
-            saveCurrentStepData();
-            currentStep--;
-            renderFormStep();
-            updateProgress();
-        }
-    });
-}
-
-if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-        if (validateCurrentStep()) {
-            saveCurrentStepData();
-            const steps = formSteps[currentUserType];
-            
-            if (currentStep < steps.length - 1) {
-                currentStep++;
-                renderFormStep();
-                updateProgress();
-            }
-        }
-    });
-}
-
-if (submitBtn) {
-    submitBtn.addEventListener('click', (e) => {
+if (enrollmentForm) {
+    enrollmentForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        if (validateCurrentStep()) {
-            saveCurrentStepData();
-            submitForm();
-        }
-    });
-}
-
-function saveCurrentStepData() {
-    const inputs = enrollmentForm.querySelectorAll('input, select, textarea');
-    inputs.forEach(input => {
-        if (input.type === 'checkbox') {
-            formData[input.name] = input.checked;
-        } else if (input.type === 'radio') {
-            if (input.checked) {
-                formData[input.name] = input.value;
-            }
-        } else {
-            formData[input.name] = input.value;
-        }
-    });
-}
-
-function validateCurrentStep() {
-    let isValid = true;
-    const inputs = enrollmentForm.querySelectorAll('input[required], select[required], textarea[required]');
-    
-    inputs.forEach(input => {
-        const formGroup = input.closest('.form-group');
         
-        if (input.type === 'checkbox') {
-            if (!input.checked) {
-                formGroup.classList.add('has-error');
-                isValid = false;
-            } else {
-                formGroup.classList.remove('has-error');
-            }
-        } else if (input.type === 'radio') {
-            const radioGroup = input.closest('.form-group');
-            const checkedRadio = radioGroup.querySelector('input[type="radio"]:checked');
-            if (!checkedRadio) {
-                radioGroup.classList.add('has-error');
-                isValid = false;
-            } else {
-                radioGroup.classList.remove('has-error');
-            }
-        } else {
-            if (!input.value.trim()) {
-                formGroup.classList.add('has-error');
-                isValid = false;
-            } else {
-                formGroup.classList.remove('has-error');
-            }
+        // Basic validation
+        if (!enrollmentForm.checkValidity()) {
+            enrollmentForm.reportValidity();
+            return;
         }
+        
+        // Get form data
+        const formData = new FormData(enrollmentForm);
+        const data = Object.fromEntries(formData);
+        
+        console.log('Form submitted:', data);
+        
+        // Redirect to thank you page
+        window.location.href = 'thank-you.html';
     });
-    
-    return isValid;
-}
-
-function updateProgress() {
-    const steps = formSteps[currentUserType];
-    const progress = ((currentStep + 1) / steps.length) * 100;
-    progressFill.style.width = `${progress}%`;
-    
-    // Update progress step indicators
-    const stepElements = progressSteps.querySelectorAll('.progress-step');
-    stepElements.forEach((el, index) => {
-        el.classList.remove('active', 'completed');
-        if (index < currentStep) {
-            el.classList.add('completed');
-        } else if (index === currentStep) {
-            el.classList.add('active');
-        }
-    });
-    
-    // Update button visibility
-    prevBtn.style.display = currentStep > 0 ? 'block' : 'none';
-    
-    if (currentStep === steps.length - 1) {
-        nextBtn.style.display = 'none';
-        submitBtn.style.display = 'block';
-    } else {
-        nextBtn.style.display = 'block';
-        submitBtn.style.display = 'none';
-    }
-}
-
-function submitForm() {
-    console.log('Form submitted:', formData);
-    
-    // Redirect to thank you page
-    window.location.href = 'thank-you.html';
 }
 
 // ========================================
