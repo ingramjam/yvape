@@ -810,3 +810,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// ========================================
+// Button Click Tracking
+// ========================================
+function trackButtonClick(element) {
+    const category = element.getAttribute('data-tracking-category');
+    const action = element.getAttribute('data-tracking-action');
+    const label = element.getAttribute('data-tracking-label');
+    
+    // Log to console for debugging
+    console.log('Button Clicked:', { category, action, label });
+    
+    // Send to HubSpot Analytics (if available)
+    if (typeof _hsq !== 'undefined') {
+        _hsq.push(['trackEvent', {
+            id: category,
+            value: label
+        }]);
+    }
+    
+    // Send to Google Analytics (if available)
+    if (typeof gtag !== 'undefined') {
+        gtag('event', action, {
+            'event_category': category,
+            'event_label': label
+        });
+    }
+    
+    // Send to Google Analytics Universal (if available)
+    if (typeof ga !== 'undefined') {
+        ga('send', 'event', category, action, label);
+    }
+    
+    // Return true to allow the link to proceed
+    return true;
+}

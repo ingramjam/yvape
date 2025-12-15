@@ -57,12 +57,24 @@
                 <div class="quick-action-card pink-gradient">
                     <h3>Student E-Referral</h3>
                     <p>Enrollment of students by school staff into Kick It California's tobacco cessation services.</p>
-                    <a href="https://kickitca.org/student-referral-form" target="_blank" class="btn btn-primary">Refer Today</a>
+                    <a href="https://kickitca.org/student-referral-form" 
+                       target="_blank" 
+                       class="btn btn-primary"
+                       data-tracking-category="Referral"
+                       data-tracking-action="Click"
+                       data-tracking-label="Student E-Referral - Refer Today Button"
+                       onclick="trackButtonClick(this)">Refer Today</a>
                 </div>
                 <div class="quick-action-card blue-gradient">
                     <h3>Enroll Online</h3>
                     <p>Kick It California's tobacco cessation services to get help for yourself or help for someone else.</p>
-                    <a href="https://www.kickitca.org/form/intake/self/1" target="_blank" class="btn btn-primary">Quit Now</a>
+                    <a href="https://www.kickitca.org/form/intake/self/1" 
+                       target="_blank" 
+                       class="btn btn-primary"
+                       data-tracking-category="Enrollment"
+                       data-tracking-action="Click"
+                       data-tracking-label="Enroll Online - Quit Now Button"
+                       onclick="trackButtonClick(this)">Quit Now</a>
                 </div>
             </div>
 
