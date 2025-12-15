@@ -30,17 +30,17 @@ const formSteps = {
         {
             title: 'School Personnel Information',
             fields: [
-                { name: 'personnelFirstName', label: 'First Name', type: 'text', required: true, placeholder: 'First Name*' },
-                { name: 'personnelLastName', label: 'Last Name', type: 'text', required: true, placeholder: 'Last Name*' },
-                { name: 'personnelEmail', label: 'Email', type: 'email', required: true, placeholder: 'Email*' },
-                { name: 'personnelPhone', label: 'Phone Number', type: 'tel', required: true, placeholder: 'Phone Number*' },
-                { name: 'personnelPhoneExt', label: 'Phone Extension (optional)', type: 'text', required: false, placeholder: 'Phone Extension (optional)' }
+                { name: 'personnelFirstName', label: 'First Name', type: 'text', required: true, placeholder: 'First Name*', autocomplete: 'given-name' },
+                { name: 'personnelLastName', label: 'Last Name', type: 'text', required: true, placeholder: 'Last Name*', autocomplete: 'family-name' },
+                { name: 'personnelEmail', label: 'Email', type: 'email', required: true, placeholder: 'Email*', autocomplete: 'email' },
+                { name: 'personnelPhone', label: 'Phone Number', type: 'tel', required: true, placeholder: 'Phone Number*', autocomplete: 'tel' },
+                { name: 'personnelPhoneExt', label: 'Phone Extension (optional)', type: 'text', required: false, placeholder: 'Phone Extension (optional)', autocomplete: 'tel-extension' }
             ]
         },
         {
             title: 'Search for your school:',
             fields: [
-                { name: 'schoolName', label: 'School Name', type: 'text', required: true, placeholder: 'School Name*' }
+                { name: 'schoolName', label: 'School Name', type: 'text', required: true, placeholder: 'School Name*', autocomplete: 'organization' }
             ]
         },
         {
@@ -63,20 +63,20 @@ const formSteps = {
         {
             title: 'Parent/Guardian Information',
             fields: [
-                { name: 'parentFirstName', label: 'First Name', type: 'text', required: true },
-                { name: 'parentLastName', label: 'Last Name', type: 'text', required: true },
-                { name: 'parentEmail', label: 'Email', type: 'email', required: true },
-                { name: 'parentPhone', label: 'Phone Number', type: 'tel', required: true, pattern: '[0-9]{10}' },
-                { name: 'relationshipToStudent', label: 'Relationship to Student', type: 'text', required: true }
+                { name: 'parentFirstName', label: 'First Name', type: 'text', required: true, autocomplete: 'given-name' },
+                { name: 'parentLastName', label: 'Last Name', type: 'text', required: true, autocomplete: 'family-name' },
+                { name: 'parentEmail', label: 'Email', type: 'email', required: true, autocomplete: 'email' },
+                { name: 'parentPhone', label: 'Phone Number', type: 'tel', required: true, pattern: '[0-9]{10}', autocomplete: 'tel' },
+                { name: 'relationshipToStudent', label: 'Relationship to Student', type: 'text', required: true, autocomplete: 'off' }
             ]
         },
         {
             title: 'Student Information',
             fields: [
-                { name: 'studentFirstName', label: 'Student First Name', type: 'text', required: true },
-                { name: 'studentLastName', label: 'Student Last Name', type: 'text', required: true },
-                { name: 'studentAge', label: 'Student Age', type: 'number', required: true, min: 12, max: 19 },
-                { name: 'schoolName', label: 'School Name', type: 'text', required: true }
+                { name: 'studentFirstName', label: 'Student First Name', type: 'text', required: true, autocomplete: 'off' },
+                { name: 'studentLastName', label: 'Student Last Name', type: 'text', required: true, autocomplete: 'off' },
+                { name: 'studentAge', label: 'Student Age', type: 'number', required: true, min: 12, max: 19, autocomplete: 'off' },
+                { name: 'schoolName', label: 'School Name', type: 'text', required: true, autocomplete: 'organization' }
             ]
         },
         {
@@ -101,17 +101,17 @@ const formSteps = {
         {
             title: 'Student Information',
             fields: [
-                { name: 'studentFirstName', label: 'First Name', type: 'text', required: true },
-                { name: 'studentLastName', label: 'Last Name', type: 'text', required: true },
-                { name: 'studentEmail', label: 'Email (optional)', type: 'email', required: false },
-                { name: 'studentPhone', label: 'Phone Number', type: 'tel', required: true, pattern: '[0-9]{10}' },
-                { name: 'studentAge', label: 'Age', type: 'number', required: true, min: 12, max: 19 }
+                { name: 'studentFirstName', label: 'First Name', type: 'text', required: true, autocomplete: 'given-name' },
+                { name: 'studentLastName', label: 'Last Name', type: 'text', required: true, autocomplete: 'family-name' },
+                { name: 'studentEmail', label: 'Email (optional)', type: 'email', required: false, autocomplete: 'email' },
+                { name: 'studentPhone', label: 'Phone Number', type: 'tel', required: true, pattern: '[0-9]{10}', autocomplete: 'tel' },
+                { name: 'studentAge', label: 'Age', type: 'number', required: true, min: 12, max: 19, autocomplete: 'off' }
             ]
         },
         {
             title: 'School Information',
             fields: [
-                { name: 'schoolName', label: 'School Name', type: 'text', required: true },
+                { name: 'schoolName', label: 'School Name', type: 'text', required: true, autocomplete: 'organization' },
                 { name: 'grade', label: 'Grade Level', type: 'select', required: true, options: [
                     { value: '', label: 'Select Grade' },
                     { value: '6', label: '6th Grade' },
@@ -327,6 +327,7 @@ function createFormField(field) {
             if (field.pattern) input.pattern = field.pattern;
             if (field.min) input.min = field.min;
             if (field.max) input.max = field.max;
+            if (field.autocomplete) input.autocomplete = field.autocomplete;
             
             // Add datalist for school name field
             if (field.name === 'schoolName' && typeof californiaSchools !== 'undefined') {
@@ -499,8 +500,127 @@ function updateProgress() {
 function submitForm() {
     console.log('Form submitted:', formData);
     
+    // Send data to HubSpot
+    submitToHubSpot(formData);
+    
     // Redirect to thank you page
     window.location.href = 'thank-you.html';
+}
+
+// ========================================
+// HubSpot Integration
+// ========================================
+// Configuration can be set in js/hubspot-config.js or directly here
+let HUBSPOT_CONFIG = {
+    portalId: 'YOUR_PORTAL_ID',
+    formGuid: 'YOUR_FORM_GUID',
+    debug: true,
+    fieldMappings: {}
+};
+
+// Load external config if available
+if (typeof window.HUBSPOT_CONFIG !== 'undefined') {
+    HUBSPOT_CONFIG = { ...HUBSPOT_CONFIG, ...window.HUBSPOT_CONFIG };
+}
+
+async function submitToHubSpot(data) {
+    // If HubSpot credentials are not configured, skip submission
+    if (HUBSPOT_CONFIG.portalId === 'YOUR_PORTAL_ID' || HUBSPOT_CONFIG.formGuid === 'YOUR_FORM_GUID') {
+        if (HUBSPOT_CONFIG.debug) {
+            console.log('⚠️ HubSpot integration not configured. Form data:', data);
+            console.log('To configure HubSpot:');
+            console.log('1. Open js/hubspot-config.js');
+            console.log('2. Replace YOUR_PORTAL_ID with your HubSpot Portal ID');
+            console.log('3. Replace YOUR_FORM_GUID with your HubSpot Form GUID');
+        }
+        return;
+    }
+    
+    try {
+        const hubspotUrl = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_CONFIG.portalId}/${HUBSPOT_CONFIG.formGuid}`;
+        
+        // Map form fields to HubSpot properties using field mappings if provided
+        const fields = Object.keys(data).map(key => {
+            const mappedName = HUBSPOT_CONFIG.fieldMappings[key] || key;
+            return {
+                name: mappedName,
+                value: String(data[key])
+            };
+        });
+        
+        const hubspotData = {
+            fields: fields,
+            context: {
+                pageUri: window.location.href,
+                pageName: document.title,
+                hutk: getCookie('hubspotutk') // HubSpot tracking cookie
+            },
+            legalConsentOptions: {
+                consent: {
+                    consentToProcess: true,
+                    text: "I agree to allow YVAPE to store and process my personal data.",
+                    communications: [
+                        {
+                            value: true,
+                            subscriptionTypeId: 999,
+                            text: "I agree to receive marketing communications from YVAPE."
+                        }
+                    ]
+                }
+            }
+        };
+        
+        if (HUBSPOT_CONFIG.debug) {
+            console.log('📤 Submitting to HubSpot:', hubspotData);
+        }
+        
+        const response = await fetch(hubspotUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(hubspotData)
+        });
+        
+        if (response.ok) {
+            const result = await response.json();
+            if (HUBSPOT_CONFIG.debug) {
+                console.log('✅ Successfully submitted to HubSpot:', result);
+            }
+            
+            // Fire custom event for tracking
+            if (typeof window.dataLayer !== 'undefined') {
+                window.dataLayer.push({
+                    event: 'formSubmission',
+                    formType: data.userType,
+                    formName: 'YVAPE Enrollment'
+                });
+            }
+        } else {
+            const errorText = await response.text();
+            console.error('❌ HubSpot submission failed:', errorText);
+            
+            // Still allow form to redirect even if HubSpot fails
+            if (HUBSPOT_CONFIG.debug) {
+                console.log('Continuing to thank you page despite HubSpot error');
+            }
+        }
+    } catch (error) {
+        console.error('❌ Error submitting to HubSpot:', error);
+        
+        // Still allow form to redirect even if HubSpot fails
+        if (HUBSPOT_CONFIG.debug) {
+            console.log('Continuing to thank you page despite error');
+        }
+    }
+}
+
+// Helper function to get cookies
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
 }
 
 // ========================================
