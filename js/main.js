@@ -781,8 +781,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const title = card.getAttribute('data-title');
             const description = card.getAttribute('data-description');
 
-            // Update video player
-            videoPlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            // Update video player with Wistia embed
+            videoPlayer.src = `https://fast.wistia.net/embed/iframe/${videoId}?videoFoam=true`;
             currentVideoTitle.textContent = title;
             currentVideoDescription.textContent = description;
 
