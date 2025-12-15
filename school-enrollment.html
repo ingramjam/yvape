@@ -9,6 +9,81 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .form-step {
+            display: none;
+        }
+        .form-step.active {
+            display: block;
+        }
+        .tooltip-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 18px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: help;
+            margin-left: 5px;
+            position: relative;
+        }
+        .tooltip-icon:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-dark);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: normal;
+            white-space: normal;
+            width: 250px;
+            text-align: left;
+            z-index: 1000;
+            line-height: 1.4;
+        }
+        .checkbox-group-products {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .checkbox-group-products label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+        .form-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: var(--spacing-xl);
+        }
+        .confirmation-box {
+            background: #e8f5e9;
+            border: 2px solid var(--accent-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -39,168 +114,294 @@
     <!-- Enrollment Form Section -->
     <section class="enrollment-section" style="padding-top: 120px; padding-bottom: var(--spacing-xxl);">
         <div class="container" style="max-width: 800px;">
-            <div class="form-header">
-                <h1 style="text-align: center; margin-bottom: var(--spacing-md); color: var(--primary-color);">School Enrollment Form</h1>
-                <p style="text-align: center; font-size: 1.1rem; color: var(--text-light); margin-bottom: var(--spacing-xxl);">
-                    Complete this form to enroll a student in the YVAPE program. All fields are required unless marked optional.
-                </p>
-            </div>
-
-            <form id="enrollmentForm" class="enrollment-form">
-                <!-- School Information -->
-                <div class="form-section">
-                    <h2 class="section-title">School Information</h2>
-                    
-                    <div class="form-group">
-                        <label for="schoolName">School Name *</label>
-                        <input type="text" id="schoolName" name="school_name" required autocomplete="organization" list="schools-list" placeholder="Start typing to search schools...">
-                        <datalist id="schools-list"></datalist>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="schoolDistrict">School District *</label>
-                            <input type="text" id="schoolDistrict" name="school_district" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="schoolCity">City *</label>
-                            <input type="text" id="schoolCity" name="school_city" required autocomplete="address-level2">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="contactName">School Contact Name *</label>
-                            <input type="text" id="contactName" name="contact_name" required autocomplete="name">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="contactTitle">Title/Position *</label>
-                            <input type="text" id="contactTitle" name="contact_title" required autocomplete="organization-title">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="contactEmail">Contact Email *</label>
-                            <input type="email" id="contactEmail" name="contact_email" required autocomplete="email">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="contactPhone">Contact Phone *</label>
-                            <input type="tel" id="contactPhone" name="contact_phone" required autocomplete="tel">
-                        </div>
-                    </div>
+            
+            <!-- STEP 1: School Personnel Information -->
+            <div id="step1" class="form-step active">
+                <div class="form-header">
+                    <h1 style="text-align: center; margin-bottom: var(--spacing-md); color: var(--primary-color);">Start here. This form is for:</h1>
+                    <ul style="font-size: 1.1rem; color: var(--text-dark); margin-bottom: var(--spacing-xl); max-width: 600px; margin-left: auto; margin-right: auto;">
+                        <li>Schools ready to enroll students in YVAPE.</li>
+                        <li>Schools interested in receiving more information on YVAPE.</li>
+                    </ul>
                 </div>
 
-                <!-- Student Information -->
-                <div class="form-section">
-                    <h2 class="section-title">Student Information</h2>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="studentFirstName">Student First Name *</label>
-                            <input type="text" id="studentFirstName" name="student_first_name" required autocomplete="given-name">
+                <form id="personnelForm" class="enrollment-form">
+                    <div class="form-section">
+                        <h2 class="section-title">School Personnel Information</h2>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="personnelFirstName">First Name *</label>
+                                <input type="text" id="personnelFirstName" name="personnel_first_name" required autocomplete="given-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="personnelLastName">Last Name *</label>
+                                <input type="text" id="personnelLastName" name="personnel_last_name" required autocomplete="family-name">
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="studentLastName">Student Last Name *</label>
-                            <input type="text" id="studentLastName" name="student_last_name" required autocomplete="family-name">
+                            <label for="personnelEmail">Email *</label>
+                            <input type="email" id="personnelEmail" name="personnel_email" required autocomplete="email">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="personnelPhone">Phone Number *</label>
+                                <input type="tel" id="personnelPhone" name="personnel_phone" required autocomplete="tel" pattern="[0-9]{10}" placeholder="1234567890">
+                            </div>
+                            <div class="form-group">
+                                <label for="personnelExtension">Phone Extension (optional)</label>
+                                <input type="text" id="personnelExtension" name="personnel_extension" autocomplete="tel-extension">
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-row">
+                    <div class="form-section">
+                        <h2 class="section-title">Search for your school by:</h2>
+                        
                         <div class="form-group">
-                            <label for="studentEmail">Student Email *</label>
-                            <input type="email" id="studentEmail" name="student_email" required autocomplete="email">
+                            <label for="schoolName">School Name *</label>
+                            <input type="text" id="schoolName" name="school_name" required list="schools-list" placeholder="Start typing to search schools...">
+                            <datalist id="schools-list"></datalist>
                         </div>
 
                         <div class="form-group">
-                            <label for="studentPhone">Student Phone (Optional)</label>
-                            <input type="tel" id="studentPhone" name="student_phone" autocomplete="tel">
+                            <label for="postalCode">Postal Code *</label>
+                            <input type="text" id="postalCode" name="postal_code" required pattern="[0-9]{5}" placeholder="12345">
                         </div>
                     </div>
 
-                    <div class="form-row">
+                    <div class="form-section">
+                        <h2 class="section-title">What are you here to do:</h2>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="purpose" value="enroll" required>
+                                <span>I'm ready to enroll students to YVAPE.</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="purpose" value="info" required>
+                                <span>I'd like to receive more information on YVAPE.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                            Start
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 2: Thank You for Info Request -->
+            <div id="step2Info" class="form-step">
+                <div class="confirmation-box">
+                    <h2 style="color: var(--accent-color); margin-bottom: var(--spacing-md);">Thank you!</h2>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        We will send a Welcome Packet and free virtual training information to the email address you entered.
+                    </p>
+                </div>
+            </div>
+
+            <!-- STEP 3: Consent Checkbox -->
+            <div id="step2Consent" class="form-step">
+                <div class="form-header">
+                    <h1 style="text-align: center; margin-bottom: var(--spacing-xl); color: var(--primary-color);">Enroll a Student</h1>
+                    <p style="text-align: center; font-size: 1.1rem; color: var(--text-dark); margin-bottom: var(--spacing-xl);">
+                        Simply complete the information below for each student you enroll and submit.
+                    </p>
+                </div>
+
+                <form id="consentForm" class="enrollment-form">
+                    <div class="form-section">
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="consentCheckbox" name="consent_obtained" required>
+                                <span>
+                                    I have obtained consent from the student and parent/guardian (of students 12-17 years old) to participate in YVAPE and be contacted via phone call, text, and email and have given them the 
+                                    <a href="https://yvape.org/static/media/resources/YVAPE_Passive_Consent_4-16-24.pdf" target="_blank">opt out form</a>.
+                                    <span class="tooltip-icon" data-tooltip="The opt out form only needs to be signed and emailed to yvape-support@health.ucsd.edu if the student or parent/guardian does not want to participate in YVAPE.">i</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                            Next
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 4: Student Information -->
+            <div id="step3Student" class="form-step">
+                <div class="form-header">
+                    <h1 style="text-align: center; margin-bottom: var(--spacing-xl); color: var(--primary-color);">Student Information</h1>
+                </div>
+
+                <form id="studentForm" class="enrollment-form">
+                    <div class="form-section">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="studentFirstName">First Name *</label>
+                                <input type="text" id="studentFirstName" name="student_first_name" required autocomplete="given-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="studentLastName">Last Name *</label>
+                                <input type="text" id="studentLastName" name="student_last_name" required autocomplete="family-name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="studentPreferredName">Preferred Name</label>
+                            <input type="text" id="studentPreferredName" name="student_preferred_name" autocomplete="nickname">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="studentDOB">Date of Birth *</label>
+                            <input type="date" id="studentDOB" name="student_dob" required max="">
+                        </div>
+
                         <div class="form-group">
                             <label for="studentGrade">Grade Level *</label>
                             <select id="studentGrade" name="student_grade" required>
                                 <option value="">Select grade...</option>
-                                <option value="6">6th Grade</option>
-                                <option value="7">7th Grade</option>
-                                <option value="8">8th Grade</option>
-                                <option value="9">9th Grade</option>
-                                <option value="10">10th Grade</option>
-                                <option value="11">11th Grade</option>
-                                <option value="12">12th Grade</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="studentAge">Student Age *</label>
-                            <input type="number" id="studentAge" name="student_age" min="10" max="19" required>
+                            <label for="studentEmail">Email *</label>
+                            <input type="email" id="studentEmail" name="student_email" required autocomplete="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="studentPhone">Phone Number *</label>
+                            <input type="tel" id="studentPhone" name="student_phone" required autocomplete="tel" pattern="[0-9]{10}" placeholder="1234567890">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="studentLanguage">Language *</label>
+                            <select id="studentLanguage" name="student_language" required>
+                                <option value="">Select language...</option>
+                                <option value="English">English</option>
+                                <option value="Spanish">Spanish</option>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="incidentDate">Date of Incident *</label>
-                        <input type="date" id="incidentDate" name="incident_date" required>
+                    <div class="form-section">
+                        <h2 class="section-title">Tobacco and Marijuana Products*</h2>
+                        <label style="font-weight: 600; margin-bottom: 10px; display: block;">Product(s) student caught with:</label>
+                        <div class="checkbox-group-products">
+                            <label>
+                                <input type="checkbox" name="products" value="nicotine_vape">
+                                <span>Nicotine vape</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="products" value="other_tobacco">
+                                <span>Other tobacco (e.g., cigarettes, cigars, etc.)</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="products" value="marijuana_vape">
+                                <span>Marijuana vape</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="products" value="other_marijuana">
+                                <span>Other marijuana (e.g., joints, edibles, etc.)</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="products" value="unknown">
+                                <span>Unknown tobacco/marijuana product</span>
+                            </label>
+                        </div>
+                        <div id="productsError" class="error" style="display: none; color: #e91e63; margin-top: 8px;">Please select at least one product</div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="substanceType">Substance Type *</label>
-                        <select id="substanceType" name="substance_type" required>
-                            <option value="">Select substance...</option>
-                            <option value="nicotine">Nicotine/E-cigarette/Vape</option>
-                            <option value="marijuana">Marijuana/Cannabis</option>
-                            <option value="both">Both Nicotine and Marijuana</option>
-                            <option value="other">Other</option>
-                        </select>
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label for="referralReason">Reason for the referral *</label>
+                            <textarea id="referralReason" name="referral_reason" rows="4" required placeholder="Enter the reason for this referral..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="referralDate">Referral Date *</label>
+                            <input type="date" id="referralDate" name="referral_date" required>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="additionalNotes">Additional Notes (Optional)</label>
-                        <textarea id="additionalNotes" name="additional_notes" rows="4" placeholder="Any additional information about the incident or special circumstances..."></textarea>
+                    <!-- Parent/Guardian Information (shown only if student is under 18) -->
+                    <div id="parentSection" class="form-section" style="display: none;">
+                        <h2 class="section-title">Parent/Legal Guardian Information</h2>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="parentFirstName">First Name *</label>
+                                <input type="text" id="parentFirstName" name="parent_first_name" autocomplete="given-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="parentLastName">Last Name *</label>
+                                <input type="text" id="parentLastName" name="parent_last_name" autocomplete="family-name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="parentEmail">Email *</label>
+                            <input type="email" id="parentEmail" name="parent_email" autocomplete="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="parentPhone">Phone Number *</label>
+                            <input type="tel" id="parentPhone" name="parent_phone" autocomplete="tel" pattern="[0-9]{10}" placeholder="1234567890">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="parentLanguage">Language *</label>
+                            <select id="parentLanguage" name="parent_language">
+                                <option value="">Select language...</option>
+                                <option value="English">English</option>
+                                <option value="Spanish">Spanish</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="button" id="enrollAnotherBtn" class="btn btn-secondary btn-lg" style="flex: 1;">
+                            Enroll Another Student
+                        </button>
+                        <button type="submit" class="btn btn-primary btn-lg" style="flex: 1; background: var(--pink-color); border-color: var(--pink-color);">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 5: Confirmation -->
+            <div id="step4Confirmation" class="form-step">
+                <div class="confirmation-box">
+                    <h2 style="color: var(--accent-color); margin-bottom: var(--spacing-md);">Confirmation</h2>
+                    <div style="font-size: 1.05rem; line-height: 1.7; text-align: left; max-width: 600px; margin: 0 auto;">
+                        <p style="margin-bottom: var(--spacing-md);">
+                            <strong>The student was successfully enrolled in YVAPE.</strong> You will receive an enrollment confirmation email.
+                        </p>
+                        <p style="margin-bottom: var(--spacing-md);">
+                            Submission of this form attests that you have received consent from the student and parent/guardian for the student to participate in and be contacted by YVAPE and provided them with the <a href="https://yvape.org/static/media/resources/YVAPE_Opt_Out_Form_4-16-24.pdf" target="_blank">opt out form</a>. If the student or parent/guardian wants to withdraw from YVAPE, please have them decline services by having them sign the opt out form and email it to <a href="mailto:yvape-support@health.ucsd.edu">yvape-support@health.ucsd.edu</a>.
+                        </p>
+                        <p>
+                            We will email you when the student completes the program. If the student has not completed the program within four weeks, we will email you at that time.
+                        </p>
                     </div>
                 </div>
+            </div>
 
-                <!-- Program Agreement -->
-                <div class="form-section">
-                    <h2 class="section-title">Program Agreement</h2>
-                    
-                    <div class="checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="schoolAgreement" name="school_agreement" required>
-                            <span>I confirm that the school has contacted the parent/guardian and informed them about this referral to YVAPE *</span>
-                        </label>
-                    </div>
-
-                    <div class="checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="dataConsent" name="data_consent" required>
-                            <span>I consent to sharing student information with YVAPE for program enrollment purposes *</span>
-                        </label>
-                    </div>
-
-                    <div class="checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="followUpConsent" name="followup_consent">
-                            <span>I agree to receive follow-up communication regarding the student's progress (Optional)</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Submit Button -->
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; background: var(--pink-color); border-color: var(--pink-color);">
-                        Submit Enrollment
-                    </button>
-                </div>
-
-                <!-- Form Status Message -->
-                <div id="formMessage" class="form-message" style="display: none;"></div>
-            </form>
         </div>
     </section>
 
@@ -217,8 +418,8 @@
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="videos.html">Videos</a></li>
                         <li><a href="about.html">About</a></li>
+                        <li><a href="videos.html">Videos</a></li>
                         <li><a href="resources.html">Resources</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
@@ -238,31 +439,6 @@
     <script src="js/schools-data.js"></script>
     <script src="js/main.js"></script>
     <script src="js/hubspot-config.js"></script>
-    <script>
-        // Populate schools datalist
-        if (typeof californiaSchools !== 'undefined') {
-            const datalist = document.getElementById('schools-list');
-            californiaSchools.forEach(school => {
-                const option = document.createElement('option');
-                option.value = school.name;
-                option.textContent = `${school.name} - ${school.district}`;
-                datalist.appendChild(option);
-            });
-            
-            // Auto-fill district, city, zip when school is selected
-            document.getElementById('schoolName').addEventListener('change', (e) => {
-                const selectedSchool = californiaSchools.find(s => s.name === e.target.value);
-                if (selectedSchool) {
-                    const districtField = document.getElementById('schoolDistrict');
-                    const cityField = document.getElementById('schoolCity');
-                    const zipField = document.getElementById('schoolZip');
-                    
-                    if (districtField) districtField.value = selectedSchool.district;
-                    if (cityField) cityField.value = selectedSchool.city;
-                    if (zipField) zipField.value = selectedSchool.zip;
-                }
-            });
-        }
-    </script>
+    <script src="js/enrollment-flow.js"></script>
 </body>
 </html>
