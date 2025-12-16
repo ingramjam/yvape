@@ -45,55 +45,129 @@
         </div>
     </section>
 
-    <section class="videos-library">
+    <section id="videoPlayerSection" class="video-player-section" style="display: none;">
+        <div class="container">
+            <button id="backToVideos" class="btn btn-secondary" style="margin-bottom: var(--spacing-lg);">
+                ← Volver a Todos los Videos
+            </button>
+            <div class="video-player-wrapper">
+                <div class="video-player-container">
+                    <iframe id="videoPlayer" 
+                            width="100%" 
+                            height="100%" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-player-info">
+                    <h2 id="currentVideoTitle"></h2>
+                    <p id="currentVideoDescription"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="videos-library" id="videosLibrary">
         <div class="container">
             <div class="videos-grid-full">
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <iframe src="https://www.youtube.com/embed/w_OCLNRoAyE" frameborder="0" allowfullscreen></iframe>
+                <div class="video-card-full" data-video-id="la37ylz0sf" data-title="La Manipulación del Marketing" data-description="Aprende cómo las compañías de tabaco y vapeo tratan de atraer a los jóvenes.">
+                    <div class="video-thumbnail-full">
+                        <img src="https://embed-ssl.wistia.com/deliveries/7af1f382873e45037c8c96a33038efbff4f24a03.jpg?image_crop_resized=960x540" alt="La Manipulación del Marketing">
+                        <div class="play-icon">▶</div>
                     </div>
-                    <h3>YVAPE Promo Español</h3>
-                    <p>Video promocional sobre el programa YVAPE en español</p>
+                    <div class="video-info">
+                        <h3>La Manipulación del Marketing</h3>
+                        <p>Aprende cómo las compañías de tabaco y vapeo tratan de atraer a los jóvenes.</p>
+                    </div>
                 </div>
 
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <iframe src="https://www.youtube.com/embed/gCMM32kVQSE" frameborder="0" allowfullscreen></iframe>
+                <div class="video-card-full" data-video-id="3tqxuh3zci" data-title="Los Efectos del Vapeo en la Salud" data-description="Entiende cómo el vapeo afecta tu cuerpo y tu salud a largo plazo.">
+                    <div class="video-thumbnail-full">
+                        <img src="https://embed-ssl.wistia.com/deliveries/20526c7b6fb0af868d7db86ef99350bfc727ccfc.jpg?image_crop_resized=960x540" alt="Los Efectos del Vapeo en la Salud">
+                        <div class="play-icon">▶</div>
                     </div>
-                    <h3>Programa YVAPE - Escuela Media Central Unified</h3>
-                    <p>Descripción del programa YVAPE implementado en escuelas</p>
+                    <div class="video-info">
+                        <h3>Los Efectos del Vapeo en la Salud</h3>
+                        <p>Entiende cómo el vapeo afecta tu cuerpo y tu salud a largo plazo.</p>
+                    </div>
                 </div>
 
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <iframe src="https://www.youtube.com/embed/eMpQDhRK0d4" frameborder="0" allowfullscreen></iframe>
+                <div class="video-card-full" data-video-id="5q1knia9xg" data-title="Vapeo de Marihuana" data-description="Información sobre los riesgos del vapeo de marihuana.">
+                    <div class="video-thumbnail-full">
+                        <img src="https://embed-ssl.wistia.com/deliveries/1fcfb04f68abbc0b6cb3eb83330aeddc52b87bf3.jpg?image_crop_resized=960x540" alt="Vapeo de Marihuana">
+                        <div class="play-icon">▶</div>
                     </div>
-                    <h3>Entrenador de YVAPE - Gaby</h3>
-                    <p>Conoce a los entrenadores de YVAPE que apoyan a los estudiantes</p>
+                    <div class="video-info">
+                        <h3>Vapeo de Marihuana</h3>
+                        <p>Información sobre los riesgos del vapeo de marihuana.</p>
+                    </div>
                 </div>
 
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <iframe src="https://www.youtube.com/embed/G2-yGC1jpTk" frameborder="0" allowfullscreen></iframe>
+                <div class="video-card-full" data-video-id="8mjfw1xt0n" data-title="Vapeo de Marihuana: Tu Cerebro y Pulmones" data-description="Los efectos específicos de la marihuana en tu cerebro y sistema respiratorio.">
+                    <div class="video-thumbnail-full">
+                        <img src="https://embed-ssl.wistia.com/deliveries/dc8533c83e16b7824ea9433cbf1cc21a45a70dd2.jpg?image_crop_resized=960x540" alt="Vapeo de Marihuana: Tu Cerebro y Pulmones">
+                        <div class="play-icon">▶</div>
                     </div>
-                    <h3>Los Hechos sobre el Vapeo</h3>
-                    <p>Información importante sobre los riesgos del vapeo para jóvenes</p>
+                    <div class="video-info">
+                        <h3>Vapeo de Marihuana: Tu Cerebro y Pulmones</h3>
+                        <p>Los efectos específicos de la marihuana en tu cerebro y sistema respiratorio.</p>
+                    </div>
                 </div>
 
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <iframe src="https://www.youtube.com/embed/zKGW-kCdUMM" frameborder="0" allowfullscreen></iframe>
+                <div class="video-card-full" data-video-id="18nfi79wv7" data-title="Sobrellevando el Estrés" data-description="Formas saludables de manejar el estrés sin depender de sustancias.">
+                    <div class="video-thumbnail-full">
+                        <img src="https://embed-ssl.wistia.com/deliveries/4b395b4672f2c41c2e6d914f5e91d80e7e6a1511.jpg?image_crop_resized=960x540" alt="Sobrellevando el Estrés">
+                        <div class="play-icon">▶</div>
                     </div>
-                    <h3>Peligros del Vapeo</h3>
-                    <p>Comprenda los efectos en la salud del vapeo y los cigarrillos electrónicos</p>
+                    <div class="video-info">
+                        <h3>Sobrellevando el Estrés</h3>
+                        <p>Formas saludables de manejar el estrés sin depender de sustancias.</p>
+                    </div>
                 </div>
 
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+                <div class="video-card-full" data-video-id="1dx68iwa6w" data-title="Cómo Comprender la Motivación" data-description="Descubre qué te motiva y cómo usarlo para alcanzar tus metas.">
+                    <div class="video-thumbnail-full">
+                        <img src="https://embed-ssl.wistia.com/deliveries/21127603e9546b21425f233ac8b8c8c468325823.jpg?image_crop_resized=960x540" alt="Cómo Comprender la Motivación">
+                        <div class="play-icon">▶</div>
                     </div>
-                    <h3>Historias de Estudiantes</h3>
-                    <p>Escucha a estudiantes que han superado la adicción al vapeo</p>
+                    <div class="video-info">
+                        <h3>Cómo Comprender la Motivación</h3>
+                        <p>Descubre qué te motiva y cómo usarlo para alcanzar tus metas.</p>
+                    </div>
+                </div>
+
+                <div class="video-card-full" data-video-id="dqsy7erjcf" data-title="La Responsabilidad Personal" data-description="Aprende a tomar decisiones responsables y hacerte cargo de tus acciones.">
+                    <div class="video-thumbnail-full">
+                        <img src="https://embed-ssl.wistia.com/deliveries/320ead791c2404a86b591dda53a0821b9a30525c.jpg?image_crop_resized=960x540" alt="La Responsabilidad Personal">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>La Responsabilidad Personal</h3>
+                        <p>Aprende a tomar decisiones responsables y hacerte cargo de tus acciones.</p>
+                    </div>
+                </div>
+
+                <div class="video-card-full" data-video-id="qm9bs701ox" data-title="Cómo Pedir Ayuda" data-description="Reconoce cuándo necesitas ayuda y aprende cómo pedirla.">
+                    <div class="video-thumbnail-full">
+                        <img src="https://embed-ssl.wistia.com/deliveries/da812753c468cbe220db7a7d4a7c0da5353fa300.jpg?image_crop_resized=960x540" alt="Cómo Pedir Ayuda">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Cómo Pedir Ayuda</h3>
+                        <p>Reconoce cuándo necesitas ayuda y aprende cómo pedirla.</p>
+                    </div>
+                </div>
+
+                <div class="video-card-full" data-video-id="jbsmes6j0o" data-title="La Nicotina y Salud Mental" data-description="La conexión entre el uso de nicotina y tu salud mental.">
+                    <div class="video-thumbnail-full">
+                        <img src="https://embed-ssl.wistia.com/deliveries/a8aa02e535faeb69e6a46212d3b7f4bb1cc4e3fa.jpg?image_crop_resized=960x540" alt="La Nicotina y Salud Mental">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>La Nicotina y Salud Mental</h3>
+                        <p>La conexión entre el uso de nicotina y tu salud mental.</p>
+                    </div>
                 </div>
             </div>
         </div>
