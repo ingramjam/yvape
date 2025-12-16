@@ -48,7 +48,7 @@
                 <h1 class="hero-title">Programa Educativo Alternativo sobre el Vapeo Juvenil</h1>
                 <p class="hero-subtitle">YVAPE es un programa de intervención educativo <strong>GRATUITO</strong> que sirve como alternativa a la suspensión, brindando apoyo de coaching por teléfono y video a los estudiantes que han sido encontrados con nicotina o marihuana en la escuela.</p>
                 <div class="hero-cta">
-                    <a href="#enrollment-form" class="btn btn-lg" style="background: var(--pink-color); color: white; border-color: var(--pink-color);">Comenzar Inscripción</a>
+                    <a href="school-enrollment.html" class="btn btn-lg" style="background: var(--pink-color); color: white; border-color: var(--pink-color);">Comenzar Inscripción</a>
                     <a href="#how-it-works" class="btn btn-secondary btn-lg">Más Información</a>
                 </div>
                 <p class="hero-note">Disponible para escuelas públicas de California con estudiantes de 12 años o más</p>
@@ -56,62 +56,134 @@
         </div>
     </section>
 
-    <section id="enrollment-form" class="enrollment-section">
+    <section id="how-it-works" class="how-it-works-section">
         <div class="container">
             <div class="section-header text-center">
-                <h2>Comience Aquí</h2>
-                <p class="subtitle">Seleccione su rol para comenzar el proceso de inscripción</p>
+                <h2>Cómo Funciona YVAPE</h2>
+                <p class="subtitle">Un proceso simple y de apoyo diseñado para ayudar a los estudiantes</p>
             </div>
 
-            <div class="user-type-selector" id="userTypeSelector">
-                <div class="user-type-grid">
-                    <button class="user-type-card" data-type="school-personnel">
-                        <div class="icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                            </svg>
-                        </div>
-                        <h3>Personal Escolar</h3>
-                        <p>Inscribir estudiantes o solicitar más información</p>
-                    </button>
-                    <button class="user-type-card" data-type="parent">
-                        <div class="icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                            </svg>
-                        </div>
-                        <h3>Padre/Tutor</h3>
-                        <p>Proporcionar consentimiento para su hijo</p>
-                    </button>
-                    <button class="user-type-card" data-type="student">
-                        <div class="icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
-                        </div>
-                        <h3>Estudiante</h3>
-                        <p>Completar su programa YVAPE</p>
-                    </button>
+            <div class="how-it-works-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="school">Personal Escolar</button>
+                    <button class="tab-btn" data-tab="parent">Padre/Tutor</button>
+                    <button class="tab-btn" data-tab="student">Estudiante</button>
                 </div>
-            </div>
 
-            <div class="form-container" id="formContainer" style="display: none;">
-                <div class="form-progress">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
+                <div class="tab-content">
+                    <div class="tab-panel active" id="school-tab">
+                        <h3>Para que un Estudiante sea Elegible:</h3>
+                        <ul class="checklist">
+                            <li>El estudiante debe asistir a una escuela pública de California</li>
+                            <li>El estudiante debe tener 12 años o más</li>
+                            <li>El estudiante fue encontrado con nicotina o marihuana en la escuela</li>
+                            <li>El personal escolar envía la información de inscripción</li>
+                            <li>El padre/tutor proporciona consentimiento verbal (si es menor de 18 años)</li>
+                            <li>El estudiante proporciona consentimiento verbal para participar</li>
+                        </ul>
+                        <a href="school-enrollment.html" class="btn btn-primary">Inscribir un Estudiante</a>
                     </div>
-                    <div class="progress-steps" id="progressSteps"></div>
+
+                    <div class="tab-panel" id="parent-tab">
+                        <h3>Proporcione Consentimiento Verbal si su Hijo es Menor de 18 Años:</h3>
+                        <ul class="checklist">
+                            <li>Un coach de YVAPE le llamará para explicar el programa</li>
+                            <li>Tendrá la oportunidad de hacer preguntas</li>
+                            <li>Proporcione consentimiento verbal para que su hijo participe</li>
+                            <li>Luego se contactará a su hijo para comenzar el programa</li>
+                            <li>Todas las conversaciones son confidenciales y de apoyo</li>
+                        </ul>
+                        <a href="school-enrollment.html" class="btn btn-primary">Comenzar Proceso</a>
+                    </div>
+
+                    <div class="tab-panel" id="student-tab">
+                        <h3>Proporcione Consentimiento Verbal para Participar:</h3>
+                        <ul class="checklist">
+                            <li>Un coach de YVAPE se comunicará con usted</li>
+                            <li>Aprenda sobre el programa y qué esperar</li>
+                            <li>Proporcione su consentimiento para participar</li>
+                            <li>Vea videos educativos a su propio ritmo</li>
+                            <li>Programe sesiones de coaching que funcionen para usted</li>
+                            <li>Complete el programa y reciba un certificado</li>
+                        </ul>
+                        <p class="note">*Aunque YVAPE no es un programa de cesación, los estudiantes que deseen ayuda para dejar el tabaco pueden inscribirse en <a href="https://kickitca.org/quit-vaping" target="_blank">los servicios de cesación del tabaco de Kick It California</a>.</p>
+                        <a href="videos.html" class="btn btn-primary">Ver Videos</a>
+                    </div>
                 </div>
-                <form id="enrollmentForm" class="enrollment-form"></form>
-                <div class="form-navigation">
-                    <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">Anterior</button>
-                    <button type="button" class="btn btn-primary" id="nextBtn">Siguiente</button>
-                    <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">Enviar</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Lo Que Dicen los Estudiantes</h2>
+                <p class="subtitle">Comentarios reales de estudiantes que completaron YVAPE</p>
+            </div>
+
+            <div class="testimonial-slider">
+                <button class="slider-btn prev" id="prevTestimonial" aria-label="Testimonio anterior">‹</button>
+                <div class="testimonial-track" id="testimonialTrack">
+                    <div class="testimonial-card">
+                        <div class="quote-icon">❝</div>
+                        <p>"La mayoría de los estudiantes que completaron YVAPE dijeron que hablar con los coaches fue útil y aprendieron algo de los videos."</p>
+                        <div class="student-info">
+                            <p class="student-name">— Estudiante de YVAPE</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="quote-icon">❝</div>
+                        <p>"Nuestros estudiantes nos han dado comentarios positivos sobre su programa. En algunos casos, estudiantes que no han sido atrapados vapeando en realidad nos han preguntado si podían participar en el programa porque han escuchado cosas buenas sobre él, ¡y son muy conscientes de que necesitan ayuda!"</p>
+                        <div class="student-info">
+                            <p class="student-name">— Administrador Escolar</p>
+                        </div>
+                    </div>
                 </div>
+                <button class="slider-btn next" id="nextTestimonial" aria-label="Siguiente testimonio">›</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="videos-preview-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Ver los Videos</h2>
+                <p class="subtitle">Contenido educativo creado específicamente para YVAPE basado en investigación y opiniones de estudiantes</p>
+            </div>
+
+            <div class="videos-grid">
+                <a href="videos.html#top-tips" class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://embed-ssl.wistia.com/deliveries/d820f3beef37fc07588404b48a9a09df.jpg?image_crop_resized=960x540" alt="6 Consejos Principales para Dejar los Vaporizadores de Nicotina" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md);">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <h4>6 Consejos Principales para Dejar los Vaporizadores de Nicotina</h4>
+                </a>
+                <a href="videos.html#vaping-marijuana" class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://embed-ssl.wistia.com/deliveries/478f3057e46e0085e4f6a758045a1cd23747a1fe.jpg?image_crop_resized=960x540" alt="Vapear Marihuana" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md);">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <h4>Vapear Marihuana</h4>
+                </a>
+                <a href="videos.html#personal-responsibility" class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://embed-ssl.wistia.com/deliveries/72ea12f2a72ef61fa996d301eb882630ed0bb2d2.jpg?image_crop_resized=960x540" alt="Responsabilidad Personal" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md);">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <h4>Responsabilidad Personal</h4>
+                </a>
+                <a href="videos.html#dealing-stress" class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://embed-ssl.wistia.com/deliveries/fd7f68f6128a6f6d9192138517a12c6a9b271602.jpg?image_crop_resized=960x540" alt="Manejo del Estrés" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md);">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <h4>Manejo del Estrés</h4>
+                </a>
+            </div>
+
+            <div class="text-center">
+                <a href="videos.html" class="btn btn-primary btn-lg">Ver Todos los Videos</a>
             </div>
         </div>
     </section>
@@ -132,7 +204,7 @@
                         </svg>
                     </div>
                     <h3>Educación</h3>
-                    <p>Los estudiantes aprenden sobre nicotina, marihuana, salud, estrés, motivación y responsabilidad.</p>
+                    <p>Los estudiantes aprenden sobre nicotina, marihuana, salud, estrés, motivación y responsabilidad a través de videos atractivos y coaching.</p>
                 </div>
 
                 <div class="benefit-card">
@@ -143,7 +215,7 @@
                         </svg>
                     </div>
                     <h3>Horario Flexible</h3>
-                    <p>Los estudiantes pueden programar sus citas por teléfono o video para un momento que les funcione.</p>
+                    <p>Los estudiantes pueden programar sus citas por teléfono o video para un momento que les funcione, facilitando el ajuste a su horario.</p>
                 </div>
 
                 <div class="benefit-card">
@@ -156,7 +228,7 @@
                         </svg>
                     </div>
                     <h3>Informes</h3>
-                    <p>Se proporcionan informes agregados confidenciales a las escuelas cada semestre.</p>
+                    <p>Se proporcionan informes agregados confidenciales a las escuelas cada semestre, ayudando a rastrear la efectividad del programa.</p>
                 </div>
 
                 <div class="benefit-card featured">
@@ -167,7 +239,7 @@
                         </svg>
                     </div>
                     <h3>100% Gratis</h3>
-                    <p>YVAPE es un servicio gratuito para escuelas públicas de California con estudiantes de 12 años o más.</p>
+                    <p>YVAPE es un servicio gratuito para escuelas públicas de California con estudiantes de 12 años o más. Sin costo para las escuelas o familias.</p>
                 </div>
             </div>
         </div>
@@ -183,7 +255,7 @@
                 <div class="footer-column">
                     <h4>Enlaces Rápidos</h4>
                     <ul>
-                        <li><a href="about.html">Nosotros</a></li>
+                        <li><a href="about.html">Acerca de Nosotros</a></li>
                         <li><a href="resources.html">Recursos</a></li>
                         <li><a href="contact.html">Contacto</a></li>
                         <li><a href="../files/yvape-opt-out-es.pdf" target="_blank">Formulario de Exclusión</a></li>
@@ -213,6 +285,7 @@
         </div>
     </footer>
 
+    <script src="../js/hubspot-config.js"></script>
     <script src="../js/schools-data.js"></script>
     <script src="../js/main.js"></script>
 </body>
