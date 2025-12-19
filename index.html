@@ -159,51 +159,17 @@
             </div>
 
             <div class="benefits-grid">
-                <div class="benefit-card">
+                {% for item in module.benefits %}
+                <div class="benefit-card{% if item.is_featured %} featured{% endif %}">
                     <div class="benefit-icon">
                         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                            {{ item.icon_svg|safe }}
                         </svg>
                     </div>
-                    <h3>Education</h3>
-                    <p>Students learn about nicotine, marijuana, health, stress, motivation and responsibility through engaging videos and coaching.</p>
+                    <h3>{{ item.benefit_title }}</h3>
+                    <p>{{ item.benefit_description }}</p>
                 </div>
-
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
-                    </div>
-                    <h3>Flexible Scheduling</h3>
-                    <p>Students can schedule their voice or video appointments for a time that works for them, making it easy to fit into their schedule.</p>
-                </div>
-
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                        </svg>
-                    </div>
-                    <h3>Reports</h3>
-                    <p>Confidential aggregate reports are provided to schools each semester, helping track program effectiveness.</p>
-                </div>
-
-                <div class="benefit-card featured">
-                    <div class="benefit-icon">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="1" x2="12" y2="23"></line>
-                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                        </svg>
-                    </div>
-                    <h3>100% Free</h3>
-                    <p>YVAPE is a free service for California public schools with students 12 years and older. No cost to schools or families.</p>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -217,34 +183,15 @@
             </div>
 
             <div class="videos-grid">
-                <a href="videos.html#top-tips" class="video-card">
+                {% for item in module.video_previews %}
+                <a href="{{ item.video_link }}" class="video-card">
                     <div class="video-thumbnail">
-                        <img src="https://embed-ssl.wistia.com/deliveries/d820f3beef37fc07588404b48a9a09df.jpg?image_crop_resized=960x540" alt="Top 6 Tips to Quit Nicotine Vapes" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md);">
+                        <img src="{{ item.thumbnail_url }}" alt="{{ item.video_title }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md);">
                         <div class="play-icon">▶</div>
                     </div>
-                    <h4>Top 6 Tips to Quit Nicotine Vapes</h4>
+                    <h4>{{ item.video_title }}</h4>
                 </a>
-                <a href="videos.html#vaping-marijuana" class="video-card">
-                    <div class="video-thumbnail">
-                        <img src="https://embed-ssl.wistia.com/deliveries/478f3057e46e0085e4f6a758045a1cd23747a1fe.jpg?image_crop_resized=960x540" alt="Vaping Marijuana" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md);">
-                        <div class="play-icon">▶</div>
-                    </div>
-                    <h4>Vaping Marijuana</h4>
-                </a>
-                <a href="videos.html#personal-responsibility" class="video-card">
-                    <div class="video-thumbnail">
-                        <img src="https://embed-ssl.wistia.com/deliveries/72ea12f2a72ef61fa996d301eb882630ed0bb2d2.jpg?image_crop_resized=960x540" alt="Personal Responsibility" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md);">
-                        <div class="play-icon">▶</div>
-                    </div>
-                    <h4>Personal Responsibility</h4>
-                </a>
-                <a href="videos.html#dealing-stress" class="video-card">
-                    <div class="video-thumbnail">
-                        <img src="https://embed-ssl.wistia.com/deliveries/fd7f68f6128a6f6d9192138517a12c6a9b271602.jpg?image_crop_resized=960x540" alt="Dealing with Stress" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md);">
-                        <div class="play-icon">▶</div>
-                    </div>
-                    <h4>Dealing with Stress</h4>
-                </a>
+                {% endfor %}
             </div>
 
             <div class="text-center">
@@ -258,7 +205,9 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-column">
-                    <img src="images/yvape_logo.png" alt="YVAPE Logo" class="footer-logo">
+                    <a href="index.html">
+                        <img src="images/yvape_logo.png" alt="YVAPE Logo" class="footer-logo">
+                    </a>
                     <p>Youth Vaping Alternative Program Education</p>
                 </div>
 

@@ -78,95 +78,18 @@
                 <h2>Recursos YVAPE</h2>
                 <p class="subtitle-text">Consulte los recursos a continuación para obtener más información sobre el uso de nicotina y marihuana.</p>
             <div class="resources-grid">
-                <div class="resource-card">
+                {% for item in module.yvape_resources %}
+                <div class="resource-card{% if item.use_pink_accent %} pink-accent{% endif %}">
                     <div class="resource-icon">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
+                            {{ item.icon_svg|safe }}
                         </svg>
                     </div>
-                    <h3>Guía del Programa YVAPE</h3>
-                    <p>Descripción completa del programa y cómo funciona</p>
-                    <a href="https://yvape.org/static/media/pdf/YVAPE-Program-Guide-ES.pdf" target="_blank" class="btn btn-secondary">Descargar PDF</a>
+                    <h3>{{ item.resource_title }}</h3>
+                    <p>{{ item.resource_description }}</p>
+                    <a href="{{ item.resource_url }}" target="_blank" class="btn btn-secondary">{{ item.button_text }}</a>
                 </div>
-
-                <div class="resource-card">
-                    <div class="resource-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
-                    </div>
-                    <h3>Hoja Informativa sobre el Vapeo</h3>
-                    <p>Datos y estadísticas sobre el vapeo juvenil</p>
-                    <a href="https://yvape.org/static/media/pdf/Vaping-Facts-ES.pdf" target="_blank" class="btn btn-secondary">Descargar PDF</a>
-                </div>
-
-                <div class="resource-card pink-accent">
-                    <div class="resource-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
-                    </div>
-                    <h3>Guía para Padres</h3>
-                    <p>Cómo hablar con su hijo sobre el vapeo</p>
-                    <a href="https://yvape.org/static/media/pdf/Parent-Guide-ES.pdf" target="_blank" class="btn btn-secondary">Descargar PDF</a>
-                </div>
-
-                <div class="resource-card">
-                    <div class="resource-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
-                    </div>
-                    <h3>Kit de Herramientas para Escuelas</h3>
-                    <p>Recursos para administradores escolares</p>
-                    <a href="https://yvape.org/static/media/pdf/School-Toolkit-ES.pdf" target="_blank" class="btn btn-secondary">Descargar PDF</a>
-                </div>
-
-                <div class="resource-card">
-                    <div class="resource-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
-                    </div>
-                    <h3>Riesgos para la Salud</h3>
-                    <p>Información médica sobre los efectos del vapeo</p>
-                    <a href="https://yvape.org/static/media/pdf/Health-Risks-ES.pdf" target="_blank" class="btn btn-secondary">Descargar PDF</a>
-                </div>
-
-                <div class="resource-card">
-                    <div class="resource-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
-                    </div>
-                    <h3>Formularios de Inscripción</h3>
-                    <p>Documentos necesarios para inscribir a estudiantes</p>
-                    <a href="https://yvape.org/static/media/pdf/Enrollment-Forms-ES.pdf" target="_blank" class="btn btn-secondary">Descargar PDF</a>
-                </div>
+                {% endfor %}
             </div>
 
             <div class="external-resources-section">
