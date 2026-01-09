@@ -2,7 +2,18 @@
 
 A comprehensive full-stack application for managing the YVAPE (Youth Vaping Prevention and Education) program with separate portals for administrators and students.
 
-## 🎯 Features
+## � Quick Demo
+
+Want to see it in action? Run the demo setup:
+
+```bash
+./setup-demo.sh
+npm run dev
+```
+
+Then check out **[DEMO_GUIDE.md](./DEMO_GUIDE.md)** for demo scenarios and login credentials!
+
+## �🎯 Features
 
 ### Admin Portal
 - **Dashboard**: Overview of all enrolled students and program statistics
