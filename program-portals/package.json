@@ -1,0 +1,45 @@
+{
+  "name": "yvape-program-portals",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "db:seed": "tsx prisma/seed.ts"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "next": "^14.2.24",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@prisma/client": "^6.2.1",
+    "next-auth": "^4.24.11",
+    "@auth/prisma-adapter": "^2.7.4",
+    "resend": "^4.0.0",
+    "@react-email/components": "^0.0.27",
+    "react-email": "^3.0.2",
+    "zod": "^3.24.1",
+    "date-fns": "^3.6.0",
+    "lucide-react": "^0.263.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "@types/node": "^22.10.5",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "prisma": "^6.2.1",
+    "postcss": "^8.4.51",
+    "tailwindcss": "^3.4.17",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.24"
+  }
+}

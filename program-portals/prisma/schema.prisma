@@ -1,0 +1,227 @@
+// This is your Prisma schema file for YVAPE Program Portals
+// Learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// NextAuth.js required models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// User model for both admin and students
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  role          UserRole  @default(STUDENT)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts   Account[]
+  sessions   Session[]
+  student    Student?
+  adminSchools School[] @relation("SchoolAdmins")
+}
+
+enum UserRole {
+  ADMIN
+  STUDENT
+  SUPER_ADMIN
+}
+
+// School/Organization model
+model School {
+  id        String   @id @default(cuid())
+  name      String
+  address   String?
+  city      String?
+  state     String?
+  zipCode   String?
+  phone     String?
+  email     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  students  Student[]
+  admins    User[]    @relation("SchoolAdmins")
+}
+
+// Student model
+model Student {
+  id          String    @id @default(cuid())
+  userId      String    @unique
+  schoolId    String
+  firstName   String
+  lastName    String
+  email       String    @unique
+  phone       String?
+  dateOfBirth DateTime?
+  grade       String?
+  language    String    @default("en")
+  parentEmail String?
+  parentPhone String?
+  enrolledAt  DateTime  @default(now())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  school             School              @relation(fields: [schoolId], references: [id])
+  programProgress    ProgramProgress[]
+  activityLogs       ActivityLog[]
+  surveyResponses    SurveyResponse[]
+  videoProgress      VideoProgress[]
+}
+
+// Program steps/modules
+model ProgramStep {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  orderIndex  Int
+  isRequired  Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  progress ProgramProgress[]
+}
+
+// Student progress tracking
+model ProgramProgress {
+  id            String          @id @default(cuid())
+  studentId     String
+  stepId        String
+  status        ProgressStatus  @default(NOT_STARTED)
+  startedAt     DateTime?
+  completedAt   DateTime?
+  notes         String?         @db.Text
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  student Student      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  step    ProgramStep  @relation(fields: [stepId], references: [id])
+
+  @@unique([studentId, stepId])
+}
+
+enum ProgressStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  SKIPPED
+}
+
+// Activity logging for reporting
+model ActivityLog {
+  id          String       @id @default(cuid())
+  studentId   String
+  activityType ActivityType
+  description String       @db.Text
+  metadata    Json?
+  createdAt   DateTime     @default(now())
+
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+}
+
+enum ActivityType {
+  LOGIN
+  VIDEO_WATCHED
+  SURVEY_COMPLETED
+  STEP_COMPLETED
+  APPOINTMENT_SCHEDULED
+  DOCUMENT_VIEWED
+}
+
+// Survey responses
+model SurveyResponse {
+  id         String   @id @default(cuid())
+  studentId  String
+  surveyName String
+  responses  Json
+  createdAt  DateTime @default(now())
+
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+}
+
+// Video progress tracking
+model VideoProgress {
+  id             String   @id @default(cuid())
+  studentId      String
+  videoUrl       String
+  videoTitle     String
+  watchedSeconds Int      @default(0)
+  totalSeconds   Int
+  completed      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, videoUrl])
+}
+
+// Email tracking
+model EmailLog {
+  id          String      @id @default(cuid())
+  recipientEmail String
+  emailType   EmailType
+  subject     String
+  sentAt      DateTime    @default(now())
+  status      EmailStatus @default(SENT)
+  metadata    Json?
+}
+
+enum EmailType {
+  ADMIN_CONFIRMATION
+  STUDENT_WELCOME
+  PARENT_WELCOME
+  PROGRESS_UPDATE
+  REMINDER
+  MAGIC_LINK
+}
+
+enum EmailStatus {
+  SENT
+  DELIVERED
+  FAILED
+  BOUNCED
+}
