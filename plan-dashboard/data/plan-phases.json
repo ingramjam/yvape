@@ -1,0 +1,471 @@
+{
+  "project": {
+    "title": "YVAPE Platform Build-Out",
+    "description": "Complete student experience platform with enrollment, coaching, reporting, and program completion recognition",
+    "status": "Planning",
+    "targetLaunch": "December 2026",
+    "teamSize": 3,
+    "currentDate": "March 12, 2026"
+  },
+  "phases": [
+    {
+      "id": 1,
+      "name": "Student Portal MVP",
+      "duration": "April - May 2026",
+      "status": "not-started",
+      "owner": "Dev Lead + HubSpot Specialist + Communications",
+      "description": "Build /magic student landing page, video tracking, and complete enrollment form",
+      "tasks": [
+        {
+          "id": "1.1",
+          "name": "Complete/Refine Enrollment Form",
+          "description": "Add missing fields, validate multi-step process, test form completion",
+          "owner": "HubSpot Specialist",
+          "duration": "2-3 weeks",
+          "status": "not-started",
+          "approved": false,
+          "links": {
+            "form": "https://131650.hs-sites-na2.com/school-enrollment",
+            "docs": "HUBSPOT_INTEGRATION.md"
+          }
+        },
+        {
+          "id": "1.2",
+          "name": "Build Student Landing Page (/magic)",
+          "description": "Create HubSpot landing page with magic link validation, student identity verification, displays videos and next appointment",
+          "owner": "Dev Lead",
+          "duration": "3-4 weeks",
+          "status": "not-started",
+          "approved": false,
+          "links": {
+            "targetUrl": "https://131650.hs-sites-na2.com/magic",
+            "docs": "Magic link authentication strategy"
+          }
+        },
+        {
+          "id": "1.3",
+          "name": "Video Tracking System",
+          "description": "Add event logging when students watch videos, update Vision database, display progress on /magic",
+          "owner": "Dev Lead",
+          "duration": "2-3 weeks",
+          "status": "not-started",
+          "approved": false,
+          "dependencies": ["1.2"],
+          "links": {
+            "videosPage": "https://131650.hs-sites-na2.com/videos"
+          }
+        },
+        {
+          "id": "1.4",
+          "name": "Student Onboarding Workflow",
+          "description": "HubSpot automation: enrollment → HubSpot contact → Vision sync → magic link delivery",
+          "owner": "HubSpot Specialist",
+          "duration": "2-3 weeks",
+          "status": "not-started",
+          "approved": false,
+          "dependencies": ["1.1"],
+          "links": {
+            "workflowDocs": "HubSpot Workflow API docs"
+          }
+        },
+        {
+          "id": "1.5",
+          "name": "Creative Strategy & Planning",
+          "description": "Define student communication voice/tone, email templates, dashboard messaging, visual style guide",
+          "owner": "Communications/Creative",
+          "duration": "Ongoing (4 weeks initial)",
+          "status": "not-started",
+          "approved": false,
+          "links": {}
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Appointment Scheduler & Amazon Connect",
+      "duration": "May - July 2026",
+      "status": "not-started",
+      "owner": "Dev Lead + HubSpot Specialist",
+      "description": "Build appointment scheduler widget, integrate Amazon Connect for voice/video calls",
+      "tasks": [
+        {
+          "id": "2.1",
+          "name": "Build Appointment Scheduler Widget",
+          "description": "Calendar UI on /magic, student selects date/time, phone or video, language preference, saves to Vision",
+          "owner": "Dev Lead",
+          "duration": "3-4 weeks",
+          "status": "not-started",
+          "approved": false,
+          "dependencies": ["1.2"],
+          "links": {
+            "docs": "Calendar widget & scheduling API"
+          }
+        },
+        {
+          "id": "2.2",
+          "name": "Amazon Connect Integration",
+          "description": "Set up contact flows, call routing by language, inbound/outbound triggering, recording, data sync",
+          "owner": "Dev Lead",
+          "duration": "3-4 weeks",
+          "status": "not-started",
+          "approved": false,
+          "links": {
+            "docs": "https://docs.aws.amazon.com/connect/latest/adminguide/",
+            "instance": "Amazon Connect Console"
+          }
+        },
+        {
+          "id": "2.3",
+          "name": "Appointment-to-Call Workflow",
+          "description": "Appointment scheduled → Amazon Connect triggers reminder call/text → agent connects in student's language",
+          "owner": "HubSpot Specialist + Dev Lead",
+          "duration": "2-3 weeks",
+          "status": "not-started",
+          "approved": false,
+          "dependencies": ["2.1", "2.2"],
+          "links": {
+            "workflowDocs": "HubSpot + Amazon Connect integration"
+          }
+        },
+        {
+          "id": "2.4",
+          "name": "Build Student Completion Certificates (Cert #1)",
+          "description": "Auto-generate PDF certificate when student completes all videos + final coaching session. Personalizable with name, date, achievement.",
+          "owner": "Dev Lead + Design/Creative",
+          "duration": "2-3 weeks",
+          "status": "not-started",
+          "approved": false,
+          "dependencies": ["1.2", "2.1"],
+          "links": {
+            "templateEngine": "PDF generation library (e.g., pdfkit, jsPDF)"
+          }
+        },
+        {
+          "id": "2.5",
+          "name": "Build School/Admin Completion Certificate (Cert #2)",
+          "description": "Auto-generate monthly aggregate certificate for school principal with completion stats and summary.",
+          "owner": "Dev Lead + Design/Creative",
+          "duration": "2-3 weeks",
+          "status": "not-started",
+          "approved": false,
+          "dependencies": ["1.4"],
+          "links": {
+            "templateEngine": "PDF generation library"
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Admin Dashboard & School Reporting",
+      "duration": "June - August 2026",
+      "status": "not-started",
+      "owner": "HubSpot Specialist",
+      "description": "School admin portal with student progress, reporting, data exports",
+      "tasks": [
+        {
+          "id": "3.1",
+          "name": "Build School Admin Dashboard",
+          "description": "HubSpot dashboard showing enrolled students, video progress %, coaching completion, aggregate metrics, export to PDF/CSV",
+          "owner": "HubSpot Specialist",
+          "duration": "3-4 weeks",
+          "status": "not-started",
+          "approved": false,
+          "dependencies": ["1.4", "2.1"],
+          "links": {
+            "dashboardDocs": "HubSpot Custom Module & Reporting"
+          }
+        },
+        {
+          "id": "3.2",
+          "name": "Admin Email Automation",
+          "description": "Monthly progress reports to school principals, enrollment confirmations, escalation alerts (no-shows, high-risk patterns)",
+          "owner": "HubSpot Specialist",
+          "duration": "2-3 weeks",
+          "status": "not-started",
+          "approved": false,
+          "dependencies": ["3.1"],
+          "links": {
+            "workflowDocs": "HubSpot Email Workflows"
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Parent/Student Communications",
+      "duration": "July - September 2026",
+      "status": "not-started",
+      "owner": "Communications/Creative",
+      "description": "Email sequences, templates, and messaging strategy",
+      "tasks": [
+        {
+          "id": "4.1",
+          "name": "Student Welcome Email Series",
+          "description": "Enrollment confirmation, /magic link, first video rec, appointment scheduler walkthrough, call success tips",
+          "owner": "Communications/Creative",
+          "duration": "2-3 weeks",
+          "status": "not-started",
+          "approved": false,
+          "links": {
+            "templates": "HubSpot Email Template Library"
+          }
+        },
+        {
+          "id": "4.2",
+          "name": "Parent Welcome & Milestone Emails",
+          "description": "Program overview, milestone triggers (first call, videos half-done), completion certificate, optional parent coaching",
+          "owner": "Communications/Creative",
+          "duration": "2-3 weeks",
+          "status": "not-started",
+          "approved": false,
+          "links": {
+            "templates": "HubSpot Email Template Library"
+          }
+        },
+        {
+          "id": "4.3",
+          "name": "All Creative Assets (Design & Copy)",
+          "description": "Email template designs, dashboard copy, /magic page messaging, certificate designs, student-facing collateral",
+          "owner": "Communications/Creative + Design",
+          "duration": "3-4 weeks",
+          "status": "not-started",
+          "approved": false,
+          "links": {}
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Vision → HubSpot Migration",
+      "duration": "August - October 2026",
+      "status": "not-started",
+      "owner": "Dev Lead",
+      "description": "Migrate student data from Vision to HubSpot, maintain bi-directional sync",
+      "tasks": [
+        {
+          "id": "5.1",
+          "name": "Audit Vision Data Schema",
+          "description": "Inventory all student records, fields, relationships, existing integrations, data quality gaps",
+          "owner": "Dev Lead",
+          "duration": "1-2 weeks",
+          "status": "not-started",
+          "approved": false,
+          "links": {
+            "vision": "Vision system access"
+          }
+        },
+        {
+          "id": "5.2",
+          "name": "Map Vision → HubSpot Fields",
+          "description": "Create detailed mapping of Vision schema to HubSpot contacts, custom properties, deal pipeline, custom objects",
+          "owner": "Dev Lead",
+          "duration": "1-2 weeks",
+          "status": "not-started",
+          "approved": false,
+          "dependencies": ["5.1"],
+          "links": {
+            "hubspotDocs": "HubSpot Custom Properties API"
+          }
+        },
+        {
+          "id": "5.3",
+          "name": "Build Bi-directional Sync (Vision ↔ HubSpot)",
+          "description": "Use serverless functions for real-time sync. Student data Vision→HubSpot, appointments HubSpot→Vision, video progress both directions",
+          "owner": "Dev Lead",
+          "duration": "2-3 weeks",
+          "status": "not-started",
+          "approved": false,
+          "dependencies": ["5.2"],
+          "links": {
+            "visionAPI": "Vision API docs",
+            "hubspotAPI": "HubSpot API docs",
+            "serverless": "Serverless framework docs"
+          }
+        },
+        {
+          "id": "5.4",
+          "name": "Bulk Migrate Historical Data to HubSpot",
+          "description": "Import completed student records, de-duplicate, validate integrity, test reporting",
+          "owner": "Dev Lead",
+          "duration": "2-3 weeks",
+          "status": "not-started",
+          "approved": false,
+          "dependencies": ["5.3"],
+          "links": {
+            "importDocs": "HubSpot Bulk Import API"
+          }
+        },
+        {
+          "id": "5.5",
+          "name": "Cutover & Deprecate Vision",
+          "description": "Stop writing to Vision, make HubSpot primary, keep Vision as read-only archive for 6 months",
+          "owner": "Dev Lead",
+          "duration": "1 week",
+          "status": "not-started",
+          "approved": false,
+          "dependencies": ["5.4"],
+          "links": {}
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Refinement & Go-Live",
+      "duration": "September - December 2026",
+      "status": "not-started",
+      "owner": "All team members",
+      "description": "Testing, training, soft launch, and public launch",
+      "tasks": [
+        {
+          "id": "6.1",
+          "name": "End-to-End Testing",
+          "description": "Test complete journeys: enrollment → /magic → videos → appointment → call → reporting. Test as students, admins, coaches, parents.",
+          "owner": "All",
+          "duration": "3-4 weeks",
+          "status": "not-started",
+          "approved": false,
+          "dependencies": ["2.3", "3.1", "4.2", "5.4"],
+          "links": {
+            "testPlan": "QA Testing Checklist"
+          }
+        },
+        {
+          "id": "6.2",
+          "name": "Internal Coach & Support Team Training",
+          "description": "Document Amazon Connect processes, HubSpot reporting, create runbooks for common issues",
+          "owner": "Communications + Dev Lead",
+          "duration": "2-3 weeks",
+          "status": "not-started",
+          "approved": false,
+          "dependencies": ["2.2", "3.1"],
+          "links": {
+            "docs": "Training documentation template"
+          }
+        },
+        {
+          "id": "6.3",
+          "name": "Soft Launch (Pilot Schools)",
+          "description": "Roll out to 2-3 schools, monitor bugs, collect UX feedback from students, refine /magic page",
+          "owner": "Communications + Dev Lead",
+          "duration": "3-4 weeks",
+          "status": "not-started",
+          "approved": false,
+          "dependencies": ["6.1", "6.2"],
+          "links": {
+            "feedbackForm": "Pilot feedback collection form"
+          }
+        },
+        {
+          "id": "6.4",
+          "name": "Public Launch & Marketing Push",
+          "description": "Announce /magic portal to all schools, create tutorial videos, monitor support tickets, iterate",
+          "owner": "Communications + Dev Lead",
+          "duration": "2-3 weeks",
+          "status": "not-started",
+          "approved": false,
+          "dependencies": ["6.3"],
+          "links": {
+            "marketing": "Marketing collateral template"
+          }
+        }
+      ]
+    }
+  ],
+  "teamRoles": [
+    {
+      "role": "Dev Lead",
+      "responsibilities": ["Serverless functions & APIs", "/magic portal frontend", "Video tracking", "Amazon Connect integration", "Certificate generation", "Vision → HubSpot sync", "Data migration"],
+      "skills": ["JavaScript/Node.js", "AWS", "APIs", "Database integration"]
+    },
+    {
+      "role": "HubSpot Specialist",
+      "responsibilities": ["Enrollment form completion", "Workflows & automation", "Admin dashboard", "Custom properties & objects", "Email automation", "Reporting setup"],
+      "skills": ["HubSpot platform", "Workflows", "Custom properties", "Portal setup"]
+    },
+    {
+      "role": "Communications/Creative",
+      "responsibilities": ["Creative strategy", "Email content & design", "Certificate design", "Student messaging", "Training documentation", "Pilot support"],
+      "skills": ["Copywriting", "Design", "Communication", "Project coordination"]
+    }
+  ],
+  "risks": [
+    {
+      "id": "risk-1",
+      "title": "Privacy/FERPA Compliance",
+      "description": "Must audit Vision for FERPA compliance before migrating student data to HubSpot",
+      "severity": "high",
+      "mitigation": "Complete compliance audit in Phase 5.1 before data migration"
+    },
+    {
+      "id": "risk-2",
+      "title": "Coaching Model Undefined",
+      "description": "Unknown if Amazon Connect will use human coaches or AI agents; affects workflow design",
+      "severity": "high",
+      "mitigation": "Confirm coaching staffing model before Phase 2 design"
+    },
+    {
+      "id": "risk-3",
+      "title": "Funder Reporting Requirements",
+      "description": "Unknown KPIs required by CDPH, Orange County, CDE for compliance",
+      "severity": "medium",
+      "mitigation": "Get reporting spec from funders before Phase 3 dashboard build"
+    },
+    {
+      "id": "risk-4",
+      "title": "Amazon Connect Integration Complexity",
+      "description": "Language routing, call recording, data sync complexity may require expert support",
+      "severity": "medium",
+      "mitigation": "Book AWS consultant for Phase 2 design & architecture review"
+    },
+    {
+      "id": "risk-5",
+      "title": "Vision Data Quality",
+      "description": "Historical student data in Vision may have gaps or inconsistencies",
+      "severity": "medium",
+      "mitigation": "Thorough audit in Phase 5.1; establish data quality SLA before migration"
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "1.2",
+      "to": "1.3",
+      "description": "Video tracking depends on /magic page being built"
+    },
+    {
+      "from": "1.1",
+      "to": "1.4",
+      "description": "Onboarding workflow depends on completed enrollment form"
+    },
+    {
+      "from": "1.2",
+      "to": "2.1",
+      "description": "Appointment scheduler embedded on /magic page"
+    },
+    {
+      "from": "2.1",
+      "to": "2.3",
+      "description": "Call workflow requires scheduler data"
+    },
+    {
+      "from": "2.2",
+      "to": "2.3",
+      "description": "Amazon Connect must be configured before workflows"
+    },
+    {
+      "from": "1.4",
+      "to": "3.1",
+      "description": "Dashboard needs onboarding data to display"
+    },
+    {
+      "from": "2.1",
+      "to": "3.1",
+      "description": "Dashboard tracks appointment-related metrics"
+    },
+    {
+      "from": "5.4",
+      "to": "6.1",
+      "description": "Migration must complete before end-to-end testing"
+    }
+  ]
+}

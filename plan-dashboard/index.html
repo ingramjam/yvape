@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YVAPE Platform Build-Out: Interactive Project Plan & Research</title>
+    <link rel="stylesheet" href="./css/dashboard.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- HEADER -->
+      <header>
+        <h1>🎯 YVAPE Platform Build-Out</h1>
+        <p>Interactive Project Plan & California Youth Substance Use Research</p>
+        <div class="header-meta">
+          <div class="meta-item">
+            <strong>Timeline:</strong> April - December 2026
+          </div>
+          <div class="meta-item">
+            <strong>Team:</strong> 3 people
+          </div>
+          <div class="meta-item">
+            <strong>Phases:</strong> 6
+          </div>
+          <div class="meta-item">
+            <strong>Tasks:</strong> 23
+          </div>
+        </div>
+      </header>
+
+      <!-- TAB NAVIGATION -->
+      <div class="tabs">
+        <button class="tab-button active" onclick="this.parentElement.querySelectorAll('.tab-button')[0].click()">
+          📋 Project Plan
+        </button>
+        <button class="tab-button" onclick="this.parentElement.querySelectorAll('.tab-button')[1].click()">
+          📊 Research & Facts
+        </button>
+      </div>
+
+      <!-- TAB 1: PROJECT PLAN -->
+      <div id="plan-content" class="tab-content active">
+        <div class="controls">
+          <button class="btn-primary" onclick="exportProgress()">
+            📥 Export Progress
+          </button>
+          <button class="btn-secondary" onclick="printDashboard()">
+            🖨️ Print Plan
+          </button>
+          <button class="btn-secondary" onclick="resetProgress()">
+            🔄 Reset Progress
+          </button>
+        </div>
+
+        <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #667eea;">
+          <h3 style="color: #667eea; margin-bottom: 10px;">💡 How to Use This Dashboard</h3>
+          <ul style="color: #555; line-height: 1.8; margin-left: 20px;">
+            <li>
+              <strong>Click phases</strong> to expand/collapse detailed task breakdown
+            </li>
+            <li>
+              <strong>Check off tasks</strong> as your team completes them (progress auto-saves)
+            </li>
+            <li>
+              <strong>View task details:</strong> owner, duration, dependencies, and resource links
+            </li>
+            <li>
+              <strong>Switch to "Research & Facts" tab</strong> to view California youth substance use data
+            </li>
+            <li>
+              <strong>Export progress</strong> to share with your team or stakeholders
+            </li>
+          </ul>
+        </div>
+
+        <!-- Phases will be inserted here by JavaScript -->
+      </div>
+
+      <!-- TAB 2: RESEARCH & FACTS -->
+      <div id="research-content" class="tab-content">
+        <!-- Research data will be inserted here by JavaScript -->
+      </div>
+    </div>
+
+    <script src="./js/dashboard.js"></script>
+  </body>
+</html>
